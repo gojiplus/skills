@@ -1,0 +1,4 @@
+interface:
+  display_name: "Design an Analysis Before Running It"
+  short_description: "Estimand, identification, pre-analysis plan, and standard errors with real coverage"
+  default_prompt: "Use $design-analysis to design this analysis before any regression runs: state the estimand and its identifying assumption, pre-specify the placebos and the estimator with its standard error, and freeze the plan."

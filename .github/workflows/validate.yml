@@ -1,0 +1,21 @@
+name: validate
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.13'
+      - name: Validate every SKILL.md
+        run: python3 scripts/validate.py
+      - name: Test the validator
+        run: cd scripts && python3 -m unittest discover -p 'test_*.py'
+      - name: Build the upload zips
+        run: make dist

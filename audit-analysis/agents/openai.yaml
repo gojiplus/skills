@@ -1,0 +1,4 @@
+interface:
+  display_name: "Audit Empirical Analysis"
+  short_description: "Econometric, statistical, and paper-claim audits"
+  default_prompt: "Use $audit-analysis to audit this empirical analysis from raw data through manuscript claims."

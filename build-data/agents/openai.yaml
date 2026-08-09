@@ -1,0 +1,4 @@
+interface:
+  display_name: "Build an Analysis-Ready Dataset"
+  short_description: "Data dictionary, recode ledger, and a verified join contract"
+  default_prompt: "Use $build-data to turn this raw data into an analysis-ready file: recover the data dictionary, define the recodes, and declare the join contract."

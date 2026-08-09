@@ -1,0 +1,31 @@
+name: release
+
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.13'
+      - name: Build one zip per skill
+        run: make dist
+      - name: Attach the zips to the release
+        uses: softprops/action-gh-release@v3
+        with:
+          files: dist/*.zip
+          body: |
+            One zip per skill, ready to upload.
+
+            - claude.ai — Settings, then Skills, then upload the zip
+            - ChatGPT — Skills, then Create, then upload from your computer
+
+            For live sync instead of uploads, connect the MCP endpoint described
+            in the README.
