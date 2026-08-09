@@ -203,6 +203,37 @@ meaning, and the joined table has a different universe than either input.
 
 Read [linking.md](references/linking.md) for the full diagnostic set.
 
+## A column that is a model output is not a measured column
+
+Hand-coded scales, LLM labels, predicted probabilities, machine-learned scores, and probabilistic
+links are all **measurements produced by an instrument**, and the instrument has a version. Three
+obligations before such a column enters an analysis:
+
+1. **Write the construct, the measure, and the gap between them** in the dictionary — what you
+   claim to be measuring, the operation that produces the number, and what each captures that the
+   other does not.
+2. **Report reliability and validity, not accuracy alone.** For multi-item scales: McDonald's ω
+   rather than Cronbach's α on its own, because α assumes tau-equivalence and rises mechanically
+   with item count. For coded categories: Krippendorff's α, reported per category — an overall
+   0.80 carried by a common category while the rare one sits at 0.35 is the usual shape, and the
+   rare category is usually what the paper is about. For validity, include at least one
+   **discriminant** check: a correlation you expected to be near zero and that was.
+3. **Record the instrument in the provenance field** — model version, prompt, temperature, seed,
+   parser. A model upgrade is a change of instrument and requires re-validation, not a free
+   improvement.
+
+**Where a variable is produced by a model, record the split contract too**: which rows trained the
+model, which rows calibrate it, which rows are analysed — and an assertion that the three are
+disjoint and were drawn after the model was frozen. Overlap between the training rows and the
+analysis rows is a silent way to manufacture a finding, and it does not show up in any diagnostic
+downstream.
+
+Do not put raw LLM labels straight into a regression. At 80–90% accuracy they still produce
+substantial bias and invalid intervals, because the errors are not random with respect to the
+covariates. Read [measurement.md](references/measurement.md) for the reliability and validity
+battery, the CheckList-style behavioural tests, and the gold-standard-subsample procedure that
+makes downstream inference valid.
+
 ## Store it in a format that carries its own types
 
 A CSV is a text file with a convention attached by whoever reads it next. It does not carry

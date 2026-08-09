@@ -99,14 +99,25 @@ sampling was clustered. In a completely randomised individual-level experiment, 
 all. If you cannot say which of the two justifications applies, you have not finished stage 1.
 
 **Never accept a package default silently.** Write `vcov` on every estimation call, even when it
-matches the default. This is not pedantry — in one repository audited while writing this skill,
-**128 `feols()` calls contained 2 with an explicit `vcov`**. `fixest` defaults to clustering on
-the first fixed effect when fixed effects are present and to iid when they are not, so every
-paired No-FE / FE table in that repo put an **iid** column next to a **cluster-robust** column and
-presented the two as a comparison. Fifteen table notes described both as "heteroskedasticity-
-robust standard errors." Neither was. No line of code was wrong; the estimator came from a default
-and the note was written from memory. Corollary: **the SE clause in a table note is generated from
-the fitted object, never typed.**
+matches the default. Not pedantry — a measured case, from a repository audited while writing this
+skill:
+
+- **128 `feols()` calls; 2 with an explicit `vcov`.**
+- Under **fixest 0.12.1**, the version its `renv.lock` pins, `feols(y ~ d | district)` with no
+  `vcov` returns the **cluster-robust** SE and prints `Standard-errors: Clustered (district)`,
+  while `feols(y ~ d)` returns iid. So every paired No-FE / FE table put an iid column beside a
+  cluster-robust column and presented the two as a comparison.
+- Fifteen table notes described both columns as "heteroskedasticity-robust standard errors."
+  Neither column was that.
+- **Under fixest 0.14.2 the default changed to iid even with fixed effects present.** Verified on
+  the same data: 0.036110 clustered under 0.12.1, 0.031540 iid under 0.14.2, from identical code.
+
+No line of code was wrong. The estimator came from a default, the note was written from memory,
+and the default then moved underneath the code — so the same script now produces different
+standard errors depending on which `fixest` is installed, with `renv` as the only thing holding
+the old behaviour in place. Writing `vcov` explicitly is what makes a script mean the same thing
+next year. Corollary: **the SE clause in a table note is generated from the fitted object, never
+typed.**
 
 **The default estimator** is `estimatr::lm_robust(..., clusters = , se_type = "CR2")`. CR2 with
 Bell–McCaffrey/Satterthwaite degrees of freedom is `estimatr`'s default and has materially better

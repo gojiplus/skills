@@ -93,9 +93,13 @@ make index   # regenerate index.json after adding or editing a skill
 make dist    # build the upload zips
 ```
 
-Adding a skill is a directory with a `SKILL.md`, then `make index` and a commit —
-the symlinks mean local agents pick it up with no further step, and the MCP
-endpoint picks it up on push.
+Run `make hooks` once after cloning: it points `core.hooksPath` at `.githooks`,
+whose pre-commit hook regenerates `index.json`. Otherwise every skill edit is two
+steps and CI fails on the commits where you forget the second.
+
+Adding a skill is then just a directory with a `SKILL.md`. The symlinks mean
+local agents pick it up with no further step, and the MCP endpoint picks it up on
+push — the server reads GitHub at request time, so there is nothing to redeploy.
 
 `make check` enforces what claude.ai enforces on upload and Claude Code does not:
 `name` at most 64 characters of lowercase letters, numbers and hyphens with no

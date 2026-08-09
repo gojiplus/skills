@@ -22,16 +22,29 @@ on every observable grouping, including the ones nobody clusters on.
 **2. Write `vcov` explicitly, always.** Even when it matches the default.
 
 ```r
-# fixest: with fixed effects present the default is se = "cluster" on the FIRST fixed effect,
-# and without them it is iid. Two different estimators, silently, in one table.
 feols(y ~ d | district^samiti, data = df, vcov = ~district)     # say it
 feols(y ~ d,                   data = df, vcov = "hetero")      # say it here too
 ```
 
-In one repository audited while writing this skill: **128 `feols()` calls, 2 with an explicit
-`vcov`**. Every paired No-FE / FE table therefore placed an iid column next to a cluster-robust
-column, and fifteen table notes called both "heteroskedasticity-robust." Nothing was miscoded.
-The rule exists because defaults are invisible and notes are written from memory.
+`fixest`'s default is the cautionary case, because it **changed between versions and the change is
+silent**. Measured on one dataset, same code, same formula:
+
+| call | fixest 0.12.1 | fixest 0.14.2 |
+|---|---|---|
+| `feols(y ~ treat)` | 0.042046 (iid) | 0.042046 (iid) |
+| `feols(y ~ treat \| district)` | **0.036110** — prints `Clustered (district)` | **0.031540** — prints `IID` |
+| `feols(..., vcov = ~district)` | 0.036110 | 0.036110 |
+
+In the repository audited for this skill — pinned to 0.12.1 — **128 `feols()` calls contained 2
+with an explicit `vcov`**, so every paired No-FE / FE table placed an iid column beside a
+cluster-robust one, and fifteen notes called both "heteroskedasticity-robust." Nothing was
+miscoded. And an `renv::update()` would now change every one of those FE standard errors without
+touching a line of code.
+
+Two rules follow. Write `vcov` explicitly so the script means the same thing next year. And read
+the SE label off the printed object rather than off your memory of the documentation — the
+documentation for the version you have installed may not describe the version the analysis ran
+under.
 
 **Generate the note from the object, never type it.** `scripts/se_ladder.R` exports `se_note()`
 for this; source it in `00_utils.R` and pass its output to `aer_etable(notes = )`:
@@ -215,10 +228,78 @@ chosen after seeing the data is a corrected number that is still wrong.
 
 Anything you estimated and then used as data carries uncertainty the second stage does not know
 about: matching or balancing weights, propensity scores, fitted fixed effects, imputed covariates,
-machine-learned scores, an index whose weights came from this sample's covariance matrix.
+machine-learned or LLM-generated scores, an index whose weights came from this sample's covariance
+matrix, a linked record whose match was probabilistic.
 
-Either propagate the uncertainty — bootstrap the whole pipeline including the first stage, or use
-a joint M-estimation variance — or state the conditional estimand explicitly ("conditional on the
-estimated weights"). Reporting a second-stage analytic standard error as if the first stage were
-known is the most common way a paper's intervals come out too narrow, and it is invisible in the
-output.
+The variance has **two independent components** — the target-sample variance, of order `1/n_u`,
+and the variance of the first stage that produced the regressor, of order `1/n_c` — and HC1 or CR2
+on the second stage captures only the first. The second-stage robust standard error is not a
+conservative approximation here; it is the wrong quantity, and it is too small.
+
+**The fix is a two-sample bootstrap**: resample the calibration/estimation sample and the analysis
+sample **independently**, re-run *both* stages inside every replicate, and take percentile
+intervals.
+
+```r
+boot_two_sample <- function(C, U, n_boot = 1000) {
+    vapply(seq_len(n_boot), function(b) {
+        ic <- sample(nrow(C), replace = TRUE)      # independent draws
+        iu <- sample(nrow(U), replace = TRUE)
+        cal <- lm(x ~ xhat + z, data = C[ic, ])    # stage 1, re-fit
+        Ub  <- U[iu, ]; Ub$xt <- predict(cal, newdata = Ub)
+        coef(lm(y ~ d + xt + z, data = Ub))[["d"]] # stage 2, re-fit
+    }, numeric(1)) |> quantile(c(.025, .975))
+}
+```
+
+Re-fitting stage 1 inside the loop is the whole point; resampling only `U` reproduces the too-small
+interval with extra steps.
+
+For a **linear** second stage this regression-calibration route is enough, and the residual error
+it leaves is Berkson-type — mean-independent of the *observed* regressor — so it does not
+attenuate; it costs precision. For a **nonlinear** second stage (logit, Poisson, any GLM) Jensen's
+inequality breaks the argument and you need a purpose-built method: prediction-powered inference,
+design-based supervised learning, joint estimation. The linear/nonlinear boundary is the thing to
+check first.
+
+The exogeneity condition this buys identification under is `E[ε | x̂, z] = 0` — **stronger** than
+`E[ε | x, z] = 0` and not implied by it. It fails whenever the features that produced `x̂` affect
+`y` directly. Pre-specifiable diagnostic: regress `y` on `(x, z, x̂ − x)` on the calibration sample
+and test `γ = 0` on the residual term. State its limit in the plan — it has power against linear
+violations, and none against nonlinear ones or against a calibration/target transport failure.
+
+Where the generated variable came from an LLM, see `build-data`'s measurement reference: the
+answer there is a controlled-probability gold-standard subsample plus design-based supervised
+learning, not a bigger bootstrap.
+
+## Label every interval with how it was built
+
+Different rungs and different methods produce intervals that are not the same kind of object, and
+a table that mixes them without saying so invites the reader to compare widths that are not
+comparable. Put the construction in the note, per estimator:
+
+> Oracle and naive use Wald intervals. Regression calibration and moment EIV use two-sample
+> percentile bootstrap intervals (B = 300). The latent-variable model reports 95% posterior
+> credible intervals. PPI uses a sum-of-variances interval.
+
+## Coverage is the evidence standard for a method claim
+
+If a stage of the analysis involves choosing among estimators, the argument is not "this one is
+more principled." It is a simulation under a known truth, reported in a fixed schema:
+
+| method | bias | SD | RMSE | MC-SE | Cov95 | CI length |
+
+with an **oracle** row first (the unattainable ceiling) and a **naive** row last (what doing
+nothing gets you), and the count of replicates that actually completed — a method that silently
+failed on a third of the draws must not look like one that did not.
+
+Read the coverage column before the RMSE column. In a published run of exactly this design, the
+naive estimator produced respectable-looking intervals — SD 0.054, length 0.165 — with **95%
+coverage of 0.240**. A tight interval around a biased centre is the failure mode, and only the
+coverage column shows it. Over-coverage is a failure too, just a less punished one: a method
+reporting 1.000 coverage with 2.5× the length is not conservative, it is uninformative.
+
+And no method dominates. Under homoskedasticity the ranking can reverse, and a latent-variable
+model that must *estimate* the nuisance variance structure can be beaten by a simpler estimator
+that does not, because precision weighting amplifies errors in the variance model. Report both
+rather than assuming the more sophisticated method wins.

@@ -1,0 +1,12 @@
+#!/bin/sh
+# Keep index.json in step with the skills being committed.
+#
+# Without this, every skill edit is two steps — edit, then remember `make index`
+# — and CI fails on the commits where you forget. Which is most of them.
+#
+# It indexes the working tree, not the staged subset: if you stage half your
+# changes, index.json describes all of them. Committing a skill edit you have
+# not staged is the rarer mistake than shipping a stale index.
+set -e
+python3 scripts/build_index.py >/dev/null
+git add index.json

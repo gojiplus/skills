@@ -2,12 +2,13 @@
 SKILLS := $(shell ls -d */ 2>/dev/null | tr -d '/' | grep -vxE 'scripts|dist|server')
 REPO := $(shell pwd)
 
-.PHONY: check test index dist clean link help
+.PHONY: check test index hooks dist clean link help
 
 help:
 	@echo "check  validate every SKILL.md, and confirm index.json is current"
 	@echo "test   run the validator's own tests"
 	@echo "index  regenerate index.json (the catalog the MCP server serves)"
+	@echo "hooks  install the pre-commit hook that keeps index.json current"
 	@echo "dist   build dist/<skill>.zip for upload to claude.ai and ChatGPT"
 	@echo "link   per-skill symlinks, only if a directory symlink is not followed"
 	@echo "clean  remove dist/"
@@ -18,6 +19,10 @@ check:
 
 index:
 	@python3 scripts/build_index.py
+
+hooks:
+	@git config core.hooksPath .githooks
+	@echo "pre-commit hook installed: index.json now regenerates on commit"
 
 test:
 	@cd scripts && python3 -m unittest discover -p 'test_*.py'
