@@ -116,19 +116,26 @@ Nothing above is a proof that your interval covers. Check it:
 ```r
 library(DeclareDesign)
 design <-
-    declare_model(N = 1200, cluster = add_level(60), u = rnorm(N),
-                  potential_outcomes(Y ~ 0.2 * Z + u)) +
+    declare_model(cluster    = add_level(N = 60, u_c = rnorm(N, sd = 0.5)),
+                  individual = add_level(N = 20, u_i = rnorm(N))) +
+    declare_model(potential_outcomes(Y ~ 0.2 * Z + u_c + u_i)) +
     declare_inquiry(ATE = mean(Y_Z_1 - Y_Z_0)) +
     declare_assignment(Z = cluster_ra(clusters = cluster)) +
     declare_measurement(Y = reveal_outcomes(Y ~ Z)) +
     declare_estimator(Y ~ Z, clusters = cluster, se_type = "CR2", inquiry = "ATE")
 
-diagnose_design(design, sims = 500)   # returns bias, RMSE, power, and coverage
+diagnose_design(design, sims = 200)
+#>       bias    rmse  power  coverage
+#> 6.19e-05   0.157  0.325     0.925
 ```
 
-`coverage` in that output is the fraction of simulations where the 95% interval contained the
-true ATE. If it is 0.87, the interval is not a 95% interval for this design, and the fix is the
-estimator or the design, not the prose.
+Note the shape: `add_level()` calls cannot be mixed with plain assignments inside one
+`declare_model()`, so the levels go in the first call and the potential outcomes in a second.
+
+`coverage` is the fraction of simulations where the 95% interval contained the true ATE. Here it
+is 0.925 with 60 clusters — already below nominal, and it degrades fast as the cluster count
+falls. If yours comes back 0.87, the interval is not a 95% interval for this design, and the fix
+is the estimator or the design, not the prose.
 
 The same machinery answers the design-analysis questions below without a separate tool.
 

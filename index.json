@@ -1,0 +1,334 @@
+{
+  "skills": [
+    {
+      "name": "audit-analysis",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "digest": "sha256:8cb03a417802f295cba8dd9ec4e8d9f7673149a9b91178f1673f87bda1f5f8db",
+          "size": 9226
+        },
+        {
+          "path": "agents/openai.yaml",
+          "digest": "sha256:92ac0534d62199a6cb04183d5a5bb905354494822e5c204ebfc925ca305f62cf",
+          "size": 240
+        },
+        {
+          "path": "checks/paper-audit.md",
+          "digest": "sha256:b3f182077b1590d1a716020c5906b5cbf5dee6c6a9867f95ab2824792d73fa92",
+          "size": 5025
+        },
+        {
+          "path": "checks/tier1-high-yield.md",
+          "digest": "sha256:03fe761787f5cf16492c7d98a24fcd3f3106d578b01da0f421534e28d90bce21",
+          "size": 10655
+        },
+        {
+          "path": "checks/tier2-statistical.md",
+          "digest": "sha256:3fa848e10d031884f505f5af11e53d22af4bc8c79cd81e5e7a5680f3fe2f3d45",
+          "size": 11172
+        },
+        {
+          "path": "checks/tier3-design.md",
+          "digest": "sha256:52627f413c9f55d8677f2eddb8b61c2fda68fcfe454bb75665f96b70ca8fb871",
+          "size": 7586
+        },
+        {
+          "path": "checks/tier4-econometric.md",
+          "digest": "sha256:160a1c7577099bec0ee6716a248192798314e6b0c050dfa1000809d60c2fe9aa",
+          "size": 8556
+        },
+        {
+          "path": "references/bug-taxonomy.md",
+          "digest": "sha256:bf604f0fd7367aff987256126891f1c3afaa60c28e3ebaa2a083bdc7479c11d9",
+          "size": 8847
+        },
+        {
+          "path": "references/econometric-reading-map.md",
+          "digest": "sha256:eeff4549c9ade541b0cf9f14cd76b0ef1fceb46b82e3ec980c54f65ea4a5a3bc",
+          "size": 2391
+        },
+        {
+          "path": "references/sources.md",
+          "digest": "sha256:7ec83bfec0ce1ad4f78473e410d05ad971de1cd6b0f65049dc8388bfd34c2a2c",
+          "size": 6257
+        },
+        {
+          "path": "scripts/audit_data.py",
+          "digest": "sha256:536127a9586d32bbe335e4d2d67fb5bb727bd917dfc1529aff2e2d728b5bb6d3",
+          "size": 12721
+        },
+        {
+          "path": "scripts/audit_provenance.py",
+          "digest": "sha256:83d3e1198a11b3fc556fec3eea9dd53c412194b3be266adca4dc5255412a47e4",
+          "size": 8201
+        },
+        {
+          "path": "scripts/gates.py",
+          "digest": "sha256:85d6817a362ed8c256a118a53298cebdada29960fce6db36ef0fa7eb7f8b514b",
+          "size": 8312
+        }
+      ],
+      "frontmatter": {
+        "name": "audit-analysis",
+        "description": "Audit empirical social-science analyses and manuscripts for data integrity, econometric correctness, identification, inference, robustness, and claim validity. Use for EDA and join audits, standard-error and clustering reviews, skew and leverage checks, generated outcomes, experiments, panels, fixed effects, difference-in-differences, IV, RD, observational regressions, replication packages, paper-number disagreements, and assessments of whether causal or descriptive claims survive the code and design."
+      }
+    },
+    {
+      "name": "audit-package",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "digest": "sha256:2687b8979a2232edd5a7414b1724295709b50ba4239c0ed396ec718fe2d7afaa",
+          "size": 9995
+        }
+      ],
+      "frontmatter": {
+        "name": "audit-package",
+        "description": "Use when auditing a software library or package for correctness defects — a dependency you rely on, a package you maintain, or a well-known package you suspect — and when preparing a bug fix to send upstream to a maintainer you do not know."
+      }
+    },
+    {
+      "name": "build-data",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "digest": "sha256:8dee5d7a7aa4d901adb69769fb5bc1833744b75ad67d5c26f175643c6c0857b7",
+          "size": 17079
+        },
+        {
+          "path": "agents/openai.yaml",
+          "digest": "sha256:e86b1bfc947ac80701204b40efe08cc5243545fa98cb2528c488aa3d3997da7d",
+          "size": 312
+        },
+        {
+          "path": "references/dictionary.md",
+          "digest": "sha256:b3842235acffba3634bfc66b99d9229aee217d34f45a7896f192a63a0b51840c",
+          "size": 7354
+        },
+        {
+          "path": "references/linking.md",
+          "digest": "sha256:ce793bcf1f146f88fa2707b5acdb8cd397e482ea637cf2e2e37a7539648bf129",
+          "size": 10218
+        },
+        {
+          "path": "references/recode.md",
+          "digest": "sha256:bd6ef6c80e4765ec8304fd8be617a511a848835c4c32da32657b69f5eb0891f4",
+          "size": 6037
+        },
+        {
+          "path": "references/sources.md",
+          "digest": "sha256:4a87c4c486f9184d2c6a3629d22d6c68b359dfbdb49b8af2110a7bbccb5528fb",
+          "size": 4819
+        },
+        {
+          "path": "references/storage.md",
+          "digest": "sha256:71b00f3f58125cea4eed7e2c316b32b48d2dbf78423f0b926a89f4b4af648fb5",
+          "size": 6436
+        },
+        {
+          "path": "scripts/check_join.R",
+          "digest": "sha256:5411caa57ce51d8332a1a0ad9b466c9b0a3acce409e007bbab78a3e6ce526f97",
+          "size": 11391
+        },
+        {
+          "path": "scripts/profile_columns.R",
+          "digest": "sha256:5c51e8c200b6506f856355720e601c70d8d5601a986c04e1df71163bc737af01",
+          "size": 24724
+        }
+      ],
+      "frontmatter": {
+        "name": "build-data",
+        "description": "Use when turning raw or unfamiliar data into an analysis-ready file — columns with no codebook, values you cannot interpret, sentinel codes like -999 or 88, a recode to define, or a merge to plan between tables whose key is not obvious. Replaces \"load it and start joining\" with three artifacts you can defend: a data dictionary that states each column's universe, a recode ledger, and a join contract with a declared key and a verified row count."
+      }
+    },
+    {
+      "name": "design-analysis",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "digest": "sha256:eb421a71ffa8f6472d2e4edd894f4433bb316857ec212504171fce2816f3535d",
+          "size": 18203
+        },
+        {
+          "path": "agents/openai.yaml",
+          "digest": "sha256:a8470b06b75fac7ee2070f9e7a840043a927c8e87acc297163336084fe386a73",
+          "size": 406
+        },
+        {
+          "path": "references/identification.md",
+          "digest": "sha256:491a3511fd956a1074829b5ca6a8985bddc8da28a2102ceefcf58d42c1e44006",
+          "size": 9129
+        },
+        {
+          "path": "references/inference.md",
+          "digest": "sha256:eed4c9c93f2f120d7bd50b653beed1ade026032d506581e7d479ae59a6b64528",
+          "size": 11382
+        },
+        {
+          "path": "references/interpretation.md",
+          "digest": "sha256:a1f603590817dbe2c762f30da07c533827f8a91349cc4c2e9a2b5deb1810e1ff",
+          "size": 6231
+        },
+        {
+          "path": "references/pre-analysis-plan.md",
+          "digest": "sha256:264736dc2ff49f8eaf031b931d29b705dfb1a69a673a47320d53a9fbd491dfbb",
+          "size": 6181
+        },
+        {
+          "path": "references/repo-layout.md",
+          "digest": "sha256:0b893965769af173271a7b6745e03be0ff678ebea227c5bf301c11dcdc82db5a",
+          "size": 14154
+        },
+        {
+          "path": "references/sources.md",
+          "digest": "sha256:603ae0ca315a5b77a67cf793619bd340a5c0b8485dc0be397de64db78a427c5e",
+          "size": 9102
+        },
+        {
+          "path": "scripts/se_ladder.R",
+          "digest": "sha256:57d5cbc2900c21c8ea0e341f2c8360ddecced7240824761c398abfb671f180d9",
+          "size": 20718
+        }
+      ],
+      "frontmatter": {
+        "name": "design-analysis",
+        "description": "Use when an analysis-ready dataset needs a research design before it gets a regression — an estimand to state, an identifying assumption to name, placebos and negative controls to pre-specify, a clustering level and standard error to justify, a repo and manuscript to lay out, or results to interpret without leaning on significance. Replaces \"run it and see what comes out significant\" with a frozen plan: identify, pre-specify, interpret in intervals, build, and get audited before the headline number exists."
+      }
+    },
+    {
+      "name": "empirical-problem-solving",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "digest": "sha256:8b5567188a76888ad7a0048891184306e607f2a1c2cd40ccf178697e8ef207c4",
+          "size": 16298
+        },
+        {
+          "path": "references/diff-from-paper.md",
+          "digest": "sha256:61fbc903a8f9a221f4f5363c4d193c41ab2946b1f4b0a8b2259810f3881761e6",
+          "size": 14679
+        },
+        {
+          "path": "references/hypothesis-libraries.md",
+          "digest": "sha256:750f8c0fd310b6c1a7f4c96b53e0a16892450e95051526847e654f5207051ba3",
+          "size": 8857
+        },
+        {
+          "path": "references/isolation-and-evidence.md",
+          "digest": "sha256:ef762809f065c0d96668f8cf140fcdc3e009c0ba39e17f7beb9fda8f35558d80",
+          "size": 12694
+        },
+        {
+          "path": "references/prioritizing-and-stopping.md",
+          "digest": "sha256:78ed691f59ec811f47938aae01b951697bfad6157f09edef89405a557c71c817",
+          "size": 8232
+        },
+        {
+          "path": "references/sources.md",
+          "digest": "sha256:79629164e9f31153b6c1c7d7bd584e44a087c9a42a9d7d92c3e5b3edefeea73e",
+          "size": 16468
+        },
+        {
+          "path": "scripts/test_slice_discipline.py",
+          "digest": "sha256:0cd69ffb2346d1e8b240fd87e5d34d8ad61fc39e6285f4def65de477cabdbd52",
+          "size": 6109
+        }
+      ],
+      "frontmatter": {
+        "name": "empirical-problem-solving",
+        "description": "Use when something empirical is broken and the cause is unknown — a metric moved, a model regressed, a pipeline started producing wrong values, an experiment returned a surprising result, a job that worked last month does not now. Replaces \"here is a plausible story that fits the data\" with a bounded procedure — check the metric is not lying, reproduce and shrink, enumerate rivals from libraries before inventing them, order tests by probability over cost, and stop when more diagnosis cannot change what you do."
+      }
+    },
+    {
+      "name": "ocr-error-triage",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "digest": "sha256:edd98325d0172bb4dd41493571a503c81196f85bf9d5f1350d2750d643294bc8",
+          "size": 15507
+        }
+      ],
+      "frontmatter": {
+        "name": "ocr-error-triage",
+        "description": "Use when improving an OCR or document-extraction pipeline — diagnosing why fields come out wrong, proposing fixes, and deciding whether a fix is real. Replaces \"I looked at a page and it works now\" with a measured loop: bracket the error rate without ground truth, localise failures statistically, propose from a signature library, and gate every fix on in-sample, out-of-sample, no-degradation and cost."
+      }
+    },
+    {
+      "name": "on-writing",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "digest": "sha256:34fdead2793c9df685fd316cea26a7897257232fb50e2151aa20f87b2be00479",
+          "size": 13434
+        },
+        {
+          "path": "references/ai-patterns.md",
+          "digest": "sha256:672977593d2fea79448e7340cba55a8c6946d13b1a2432031f97cee75f2a42f3",
+          "size": 24195
+        },
+        {
+          "path": "references/argument-craft.md",
+          "digest": "sha256:84617caabf43365b6aaf58c73270df8151249c900632f952ff8f3a68604ebb3d",
+          "size": 14940
+        },
+        {
+          "path": "references/exemplars.md",
+          "digest": "sha256:a46147a1c035b824240b48a8e16cb6bc6c31a2d06032ba8c4e1ce40602d3316e",
+          "size": 4828
+        },
+        {
+          "path": "references/full-example.md",
+          "digest": "sha256:861650a540190a78ef2c0f441c5bb79c493ef2b6d1f96c9341400ed88a9211d5",
+          "size": 4850
+        },
+        {
+          "path": "references/voice.md",
+          "digest": "sha256:51423e502326c854f3eb5303d0fbdc08186cd564bae76f5ee441356b48726b82",
+          "size": 4749
+        }
+      ],
+      "frontmatter": {
+        "name": "on-writing",
+        "description": "Use when writing or editing prose - essays, papers, abstracts, memos, emails, blog posts, documentation, reports, reviews. Use when a draft buries its point, runs long, over-hedges, sounds AI-generated or generic, or needs an editor's pass before it ships. Also use when asked to humanize text, remove AI writing tells, or match an author's voice.",
+        "license": "MIT",
+        "compatibility": "any-agent",
+        "metadata": "version: 1.0.0",
+        "allowed-tools": "- Read - Write - Edit - Grep - Glob - AskUserQuestion"
+      }
+    },
+    {
+      "name": "release",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "digest": "sha256:b6e7b6f0d3df66df9bfee8f9fefc98c2a857ab3f8cdc2b67900542b88a5dfdd8",
+          "size": 16896
+        }
+      ],
+      "frontmatter": {
+        "name": "release",
+        "description": "Use when cutting a release of a package — tagging a version, publishing to PyPI or CRAN, or merging a release branch. Runs an independent review by a second model (Codex, Gemini) as a mandatory gate before anything is tagged or published, because a release is the one action that cannot be taken back."
+      }
+    },
+    {
+      "name": "review-article",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "digest": "sha256:74dc81e63b4dcbd32add575ff3dd5b0ec5f521a73587bfdfea1fdec8fa9c8c05",
+          "size": 3444
+        },
+        {
+          "path": "review-moves.md",
+          "digest": "sha256:b8245b3231359cc8b5927320ef0a086569e4f5441148144a5623086e746dc330",
+          "size": 8968
+        }
+      ],
+      "frontmatter": {
+        "name": "review-article",
+        "description": "Use when asked to review, referee, critique, or assess a quantitative empirical social science paper — experiments/RCTs, difference-in-differences, regression discontinuity, IV, natural experiments — or to evaluate whether a paper's causal claims hold up."
+      }
+    }
+  ]
+}

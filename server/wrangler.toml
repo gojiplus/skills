@@ -1,0 +1,10 @@
+name = "gojiplus-skills"
+main = "src/index.js"
+compatibility_date = "2026-08-01"
+
+[vars]
+GITHUB_REPO = "gojiplus/skills"
+GITHUB_REF = "main"
+
+[observability]
+enabled = true
