@@ -44,7 +44,7 @@ If that fails, the difference is exactly the set of unmatched raw levels — pri
 
 | trap | what it does | check |
 |---|---|---|
-| `replace_na(x, 0)` | turns "not measured" into "measured, zero" | fill rate by arm/wave; if it differs, this manufactures the effect |
+| `replace_na(x, 0)` | turns "not measured" into "measured, zero"; pulls the coefficient toward zero even when missingness is random | fill rate by arm/wave; if it differs, the bias follows the selection and can go either way |
 | `case_when` with no `TRUE ~` arm | unmatched values silently become `NA` | crosstab; count `NA` before and after |
 | `factor()` on a character column | levels ordered alphabetically, so the reference category is whichever label sorts first | `levels()` printed; set it explicitly |
 | `as.numeric(factor)` | returns the level *index*, not the label | never do this; use `as.numeric(as.character(f))` or, better, don't store numbers as factors |

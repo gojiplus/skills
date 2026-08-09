@@ -69,15 +69,23 @@ not thereby important; it may be the collider.
 
 Two-way fixed effects with staggered adoption and heterogeneous effects does not estimate a
 sensible average. Already-treated units serve as controls for later-treated ones, and the implicit
-weights on some 2×2 comparisons are **negative**. Goodman-Bacon's decomposition shows you which
-comparisons your TWFE estimate is actually made of; run it before anything else, because sometimes
-the answer is that the problem is small and you can move on.
+weights on some 2×2 comparisons are **negative**.
 
-When it is not small: `did::att_gt` (Callaway–Sant'Anna) estimates group-time ATTs against
-not-yet-treated or never-treated comparisons and then aggregates the way you choose;
-`fixest::sunab` (Sun–Abraham) does the interaction-weighted version inside a familiar regression;
-`did2s` and `didimputation` are the imputation-based alternatives. Roth, Sant'Anna, Bilinski and
-Poe's survey is the map when the choice is not obvious.
+**Start from the group-time estimand, not from TWFE plus a diagnostic.** Decide which ATT(g,t) you
+want and how you want them aggregated — by cohort, by event time, overall — and pick an estimator
+that targets it: `did::att_gt` (Callaway–Sant'Anna) against not-yet-treated or never-treated
+comparisons; `fixest::sunab` (Sun–Abraham) for the interaction-weighted version inside a familiar
+regression; `didimputation` / `did2s` (Borusyak–Jaravel–Spiess; Gardner) for the imputation
+approach, which is the efficient one under homoskedasticity and handles never-treated-free designs.
+
+Goodman-Bacon's decomposition is **descriptive, not a clearance check.** It tells you which 2×2
+comparisons your TWFE number is made of and how they are weighted, which is worth knowing. It does
+not license staying with TWFE when the weights look benign: small negative weights are neither
+necessary nor sufficient for the bias, which comes from effect heterogeneity and dynamics, and
+those can be large while the weights look fine.
+
+Roth, Sant'Anna, Bilinski and Poe's survey is the map when the choice among estimators is not
+obvious.
 
 ### Parallel trends is untestable
 

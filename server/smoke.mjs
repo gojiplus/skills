@@ -12,8 +12,17 @@
  */
 
 import { createHash } from "node:crypto";
+import { readFileSync } from "node:fs";
 
 const endpoint = process.argv[2] ?? "http://localhost:8787";
+
+// Counts come from the committed index, not from constants: a hardcoded 9 turns
+// every added skill into a test failure, and the reflex fix is to bump the
+// number rather than ask whether the server actually saw it.
+const index = JSON.parse(readFileSync(new URL("../index.json", import.meta.url), "utf8"));
+const SKILL_COUNT = index.skills.length;
+const FILE_COUNT = index.skills.reduce((total, skill) => total + skill.files.length, 0);
+
 let failures = 0;
 let id = 0;
 
@@ -44,7 +53,7 @@ const older = await rpc("initialize", { protocolVersion: "2025-06-18", capabilit
 check("initialize echoes an older supported version", older.result?.protocolVersion === "2025-06-18");
 
 const tools = (await rpc("tools/list")).result?.tools ?? [];
-check("one tool per skill, plus read_skill_file", tools.length === 10, `got ${tools.length}`);
+check("one tool per skill, plus read_skill_file", tools.length === SKILL_COUNT + 1, `got ${tools.length}`);
 check("tool names are legal", tools.every((t) => /^[a-zA-Z0-9_-]{1,64}$/.test(t.name)));
 check("every skill tool carries its description",
   tools.filter((t) => t.name.startsWith("skill_")).every((t) => (t.description ?? "").length > 40));
@@ -71,7 +80,7 @@ const traversal = await rpc("tools/call", {
 check("a path outside the index is refused", traversal.result?.isError === true);
 
 const resources = (await rpc("resources/list")).result?.resources ?? [];
-check("resources/list covers every indexed file", resources.length === 49, `got ${resources.length}`);
+check("resources/list covers every indexed file", resources.length === FILE_COUNT, `got ${resources.length}`);
 check("SKILL.md resources are text/markdown",
   resources.filter((r) => r.uri.endsWith("SKILL.md")).every((r) => r.mimeType === "text/markdown"));
 
@@ -80,7 +89,7 @@ check("resources/read returns content",
   (read.result?.contents?.[0]?.text ?? "").includes("name: review-article"));
 
 const skills = (await rpc("skills/list")).result?.skills ?? [];
-check("skills/list returns every skill", skills.length === 9, `got ${skills.length}`);
+check("skills/list returns every skill", skills.length === SKILL_COUNT, `got ${skills.length}`);
 check("every entry carries frontmatter with name and description",
   skills.every((s) => s.frontmatter?.name && s.frontmatter?.description));
 check("every entry's uri ends in the skill name",

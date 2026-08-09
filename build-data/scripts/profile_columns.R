@@ -467,8 +467,12 @@ coverage <- function(df, time, groups) {
                                   collapse = "  ")))
             }
         }
-        if (!any_hit) cat("  none\n") else
-            cat("  ^ differential missingness MANUFACTURES trends and gaps.\n")
+        if (!any_hit) cat("  none\n") else {
+            cat("  ^ the missingness rate differs across groups. The bias this causes\n")
+            cat("    runs in whatever direction the selection runs -- it can create a\n")
+            cat("    gap, hide one, or do nothing. Work out which before proceeding;\n")
+            cat("    do not assume it only attenuates.\n")
+        }
     }
 }
 

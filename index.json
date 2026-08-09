@@ -93,8 +93,8 @@
       "files": [
         {
           "path": "SKILL.md",
-          "digest": "sha256:8dee5d7a7aa4d901adb69769fb5bc1833744b75ad67d5c26f175643c6c0857b7",
-          "size": 17079
+          "digest": "sha256:fe3f2dba8628abaac5208185e392bfd6585cfd62bfa0beeb66c9eb47b3ab1eba",
+          "size": 17508
         },
         {
           "path": "agents/openai.yaml",
@@ -113,8 +113,8 @@
         },
         {
           "path": "references/recode.md",
-          "digest": "sha256:bd6ef6c80e4765ec8304fd8be617a511a848835c4c32da32657b69f5eb0891f4",
-          "size": 6037
+          "digest": "sha256:04aa42ef8216837ad0551c7a4dadf75106f5abff381c90e8c58908e9f1b34b39",
+          "size": 6128
         },
         {
           "path": "references/sources.md",
@@ -133,8 +133,8 @@
         },
         {
           "path": "scripts/profile_columns.R",
-          "digest": "sha256:5c51e8c200b6506f856355720e601c70d8d5601a986c04e1df71163bc737af01",
-          "size": 24724
+          "digest": "sha256:69e8c766d46f58503c83ce75e1985c185ac5d79db6eb6712330ab1e73615473b",
+          "size": 24984
         }
       ],
       "frontmatter": {
@@ -157,13 +157,13 @@
         },
         {
           "path": "references/identification.md",
-          "digest": "sha256:491a3511fd956a1074829b5ca6a8985bddc8da28a2102ceefcf58d42c1e44006",
-          "size": 9129
+          "digest": "sha256:5b17516ba4a7ca5f9f559ddb835144f5f3e549620ebbe323459cfdf76aa97472",
+          "size": 9623
         },
         {
           "path": "references/inference.md",
-          "digest": "sha256:eed4c9c93f2f120d7bd50b653beed1ade026032d506581e7d479ae59a6b64528",
-          "size": 11382
+          "digest": "sha256:060caf382a76f6b4dfde36a3b1c563749210a64acd44b1afe96ee4a68dfbfb9e",
+          "size": 12684
         },
         {
           "path": "references/interpretation.md",

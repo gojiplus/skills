@@ -6,16 +6,42 @@ on:
   pull_request:
 
 jobs:
-  validate:
+  skills:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
       - uses: actions/setup-python@v7
         with:
           python-version: '3.13'
-      - name: Validate every SKILL.md
-        run: python3 scripts/validate.py
+      - name: Validate frontmatter and index freshness
+        run: make check
       - name: Test the validator
-        run: cd scripts && python3 -m unittest discover -p 'test_*.py'
+        run: make test
       - name: Build the upload zips
         run: make dist
+
+  server:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '22'
+      # Pin the Worker to this commit, not main: on a branch that adds a skill,
+      # a server reading main would be checked against an index.json it has
+      # never seen.
+      - name: Start the Worker against this commit
+        working-directory: server
+        env:
+          SHA: ${{ github.sha }}
+        run: npx --yes wrangler@4 dev --port 8787 --local --var "GITHUB_REF:$SHA" &
+      - name: Wait for it
+        run: |
+          for _ in $(seq 1 60); do
+            curl -sf http://localhost:8787/health && exit 0
+            sleep 2
+          done
+          echo "server never came up"; exit 1
+      - name: Smoke test the protocol surface
+        working-directory: server
+        run: node smoke.mjs http://localhost:8787

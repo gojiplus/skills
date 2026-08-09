@@ -60,10 +60,24 @@ for it.
 | spatial correlation with no natural cluster | Conley, `vcov = vcov_conley(lat, lon, cutoff)` | requires a defensible distance cutoff, reported |
 | serially correlated panel outcomes | cluster on the unit, not the unit-year | Bertrand–Duflo–Mullainathan |
 
-**4. Count treated clusters, not observations.** This is the number that decides the escalation,
-and it is the one that gets skipped. 80,000 observations in 6 treated districts is a 6-cluster
-problem, and no sample size fixes it. Report both counts in every table note where clustering is
-used.
+**4. Count treated clusters, not observations.** 80,000 observations in 6 treated districts is a
+6-cluster problem, and no sample size fixes it. Report both counts in every table note where
+clustering is used.
+
+The count is a *screen*, not the criterion. What actually governs whether cluster-robust
+asymptotics hold is the **effective** number of clusters, and four things drive it below the
+nominal count:
+
+| driver | why it hurts | what to look at |
+|---|---|---|
+| few treated clusters | the score contributions that identify the effect come from a handful of terms | count of clusters with treatment variation |
+| cluster-size imbalance | one large cluster dominates the meat matrix | max/median cluster size; share of N in the largest cluster |
+| high leverage | one cluster moves the estimate | leave-one-cluster-out estimates |
+| little within-cluster variation in the regressor | the cluster-robust variance collapses | the within-share check in 4b |
+
+`clubSandwich::coef_test(..., test = "Satterthwaite")` reports the Satterthwaite degrees of
+freedom, which is the honest summary of all of this in one number. **When it comes back far below
+the cluster count, treat the design as few-cluster regardless of how many clusters you have.**
 
 **4b. Check that the regressor varies within cluster.** If treatment is constant within cluster —
 quota assigned at the GP level, clustered at the GP level — then a fixed effect at or below the
@@ -179,9 +193,13 @@ Decide before you look.
 - **Indices for secondary outcomes.** Anderson (2008): standardise each component, then weight by
   the inverse covariance matrix so outcomes that duplicate each other are down-weighted. One test
   instead of eight, and it is more powerful than any of them when the outcomes are correlated.
-- **Family-wise error**: Romano–Wolf free step-down (`wyoung` in Stata, `fwer` implementations in
-  R). It computes an exact probability rather than a bound and exploits dependence between test
-  statistics, so it dominates Bonferroni-Holm whenever tests are correlated — which they are.
+- **Family-wise error**: Romano–Wolf free step-down (`wyoung` in Stata, `rwolf`, `fwer`
+  implementations in R). It estimates the joint distribution of the test statistics by resampling
+  rather than bounding it, so it can be much less conservative than Bonferroni-Holm when the tests
+  are correlated. Two things not to overclaim: the resampling gives *asymptotic*, not exact,
+  control, and its validity depends on the resampling scheme matching the dependence structure —
+  so under clustering you resample clusters. There is no theorem that it beats Holm in every
+  finite sample; the gain is empirical and comes from the correlation.
 - **False discovery rate**: Anderson's sharpened q-values, when you would rather bound the share
   of rejections that are false than the probability of any false rejection. Note sharpened
   q-values can come out *below* the unadjusted p-values when many hypotheses are rejected. That is

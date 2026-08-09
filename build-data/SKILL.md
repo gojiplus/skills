@@ -121,7 +121,12 @@ inverted logic in a single look. A recode without its crosstab is untested code.
 
 - **`replace_na(x, 0)` is banned** without a stated argument that the zero is *measured* rather
   than *unmeasured* — and a check that the fill rate does not differ by arm, wave, or group.
-  Constant missingness attenuates; differential missingness manufactures the effect.
+  Be precise about which harm you are risking, because the shorthand version of this rule is
+  wrong: *dropping* rows that are missing at random costs precision, not bias; *filling* them with
+  a constant pulls the coefficient toward the value you filled with; and when the missingness rate
+  differs across arms or waves, the bias runs in whatever direction the selection runs — it can
+  create an effect, hide one, or leave it alone. Which of those happens is an argument you make,
+  not a default you assume.
 - Declare what is otherwise implicit: reference category and factor level order (R will pick
   alphabetically and you will not notice), top-coding, winsorising and at which percentile,
   `log(x + 1)` versus log of a strictly positive subset, index construction and its weights,

@@ -67,14 +67,17 @@ changed skill means re-uploading that zip.
 ### Web surfaces — connect the MCP endpoint
 
 To avoid re-uploading, serve this repo over MCP and add it as a custom connector
-on claude.ai (Settings → Connectors) and ChatGPT (Developer Mode). Push to `main`
-and every surface sees the change on the next conversation. Connectors are
+on claude.ai (Settings → Connectors) and ChatGPT (Developer Mode). The server
+reads from GitHub at request time, so push to `main` and every surface sees the
+change on the next conversation — no redeploy, no upload. Connectors are
 account-scoped on claude.ai, so this is also the only path that reaches mobile.
 
-This follows [SEP-2640](https://github.com/modelcontextprotocol/modelcontextprotocol/pull/2640),
-the MCP Skills Extension: skills are served as resources under `skill://` URIs with
-a catalog at `skill://index.json`, plus a per-skill tool shim for clients that do
-not speak `skill://` yet.
+[`server/`](server/) is a Cloudflare Worker: `npx wrangler login && npx wrangler
+deploy`, once. It follows
+[SEP-2640](https://github.com/modelcontextprotocol/modelcontextprotocol/pull/2640),
+the MCP Skills Extension — skills served as resources under `skill://` URIs, with
+SHA-256 digests from `index.json` — plus a per-skill tool shim for the clients
+that do not speak `skill://` yet, which today is all of them.
 
 The tradeoff is real and worth stating: over MCP a skill is text. Bundled scripts
 do not execute, and the body arrives through a tool call the model must choose to
@@ -84,10 +87,15 @@ live sync; use a zip when a skill needs its scripts.
 ## Developing
 
 ```sh
-make check   # validate every SKILL.md against the strictest surface's rules
+make check   # validate every SKILL.md, and confirm index.json is current
 make test    # the validator's own tests, including the cases that must fail
+make index   # regenerate index.json after adding or editing a skill
 make dist    # build the upload zips
 ```
+
+Adding a skill is a directory with a `SKILL.md`, then `make index` and a commit —
+the symlinks mean local agents pick it up with no further step, and the MCP
+endpoint picks it up on push.
 
 `make check` enforces what claude.ai enforces on upload and Claude Code does not:
 `name` at most 64 characters of lowercase letters, numbers and hyphens with no

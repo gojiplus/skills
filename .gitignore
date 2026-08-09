@@ -2,3 +2,5 @@ dist/
 __pycache__/
 *.pyc
 .DS_Store
+server/.wrangler/
+server/node_modules/
