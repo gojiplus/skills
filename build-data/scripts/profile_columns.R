@@ -8,10 +8,17 @@
 # you skip looking.
 #
 # Usage:
-#     Rscript profile_columns.R DATA.parquet
-#     Rscript profile_columns.R DATA.csv --key gp_code year
-#     Rscript profile_columns.R DATA.parquet --key id --group wave --time year
 #     Rscript profile_columns.R DATA.parquet --out data-dictionary.md
+#     Rscript profile_columns.R DATA.csv --key gp_code year --out data-dictionary.md
+#     Rscript profile_columns.R DATA.parquet --key gp_code year --unit gp_code \
+#             --time year --treat quota --group wave --out data-dictionary.md
+#
+# --out is not optional in practice: the draft data dictionary is the artifact
+# this stage exists to produce, and the console output is only how you fill it in.
+#
+# --treat with --unit and --time answers the question that decides the whole
+# design: does the treatment vary within unit over time, or is this a
+# cross-section wearing a panel's clothes?
 #
 # Exit code is 1 if any HARD check fails (a declared --key that is not unique),
 # so it can be dropped into a pipeline as a gate.
@@ -24,6 +31,8 @@ suppressWarnings(suppressMessages({
 }))
 
 HARD_FAIL <- character(0)
+
+`%||%` <- function(a, b) if (is.null(a)) b else a
 
 # Numeric codes that are missing values wearing a number's clothes. See
 # references/dictionary.md for what each usually means.
@@ -59,14 +68,14 @@ parse_args <- function(argv) {
         quit(status = 0)
     }
     out <- list(path = argv[1], key = character(0), group = character(0),
-                time = NULL, out = NULL, top = 12L)
+                treat = character(0), time = NULL, unit = NULL, out = NULL, top = 12L)
     i <- 2L
     cur <- NULL
     while (i <= length(argv)) {
         a <- argv[i]
         if (startsWith(a, "--")) {
             cur <- sub("^--", "", a)
-            if (cur %in% c("time", "out", "top")) {
+            if (cur %in% c("time", "unit", "out", "top")) {
                 i <- i + 1L
                 out[[cur]] <- argv[i]
                 cur <- NULL
@@ -114,6 +123,34 @@ load_table <- function(path) {
 fail <- function(msg) {
     HARD_FAIL <<- c(HARD_FAIL, msg)
     cat(sprintf("FAIL  %s\n", msg))
+}
+
+# Delimited text is read as character on purpose, so that "" / "NA" / "-999" stay
+# distinguishable. But that would leave the numeric sentinel catalogue and the range
+# checks with nothing to run on -- and in testing they printed a reassuring
+# "none found" over a column holding 183 rows of -999. So build a numeric SHADOW of
+# every character column that is overwhelmingly numeric, run the numeric checks on
+# the shadow, and say out loud that it happened.
+COERCED <- character(0)
+
+numeric_shadow <- function(df) {
+    for (col in names(df)) {
+        x <- df[[col]]
+        if (!is.character(x)) next
+        xs <- x[!is.na(x) & trimws(x) != ""]
+        if (!length(xs)) next
+        num <- suppressWarnings(as.numeric(xs))
+        if (mean(!is.na(num)) >= 0.95) {
+            # Leading zeros mean an identifier, not a number: coercing would destroy
+            # the very thing the string hygiene section is looking for.
+            if (any(grepl("^0[0-9]", xs))) next
+            v <- suppressWarnings(as.numeric(x))
+            v[!is.na(x) & trimws(x) == ""] <- NA_real_
+            df[[col]] <- v
+            COERCED <<- c(COERCED, col)
+        }
+    }
+    df
 }
 
 section <- function(title) {
@@ -207,6 +244,15 @@ sentinels <- function(df, groups) {
     section("2. SENTINEL CANDIDATES (a code is a missing value wearing a number)")
     hits <- 0L
     n <- nrow(df)
+    if (length(COERCED)) {
+        cat(sprintf("read as text, coerced to numeric for this sweep: %s\n\n",
+                    paste(COERCED, collapse = ", ")))
+    }
+    if (!any(vapply(df, function(x) is.numeric(x) || inherits(x, "Date"), logical(1)))) {
+        cat("WARNING: no numeric or date column survived typing, so the numeric\n")
+        cat("sentinel catalogue and the range checks did NOT run. This is not a\n")
+        cat("clean bill of health. Supply a typed file (parquet) or fix the reader.\n\n")
+    }
 
     for (col in names(df)) {
         x <- df[[col]]
@@ -371,17 +417,28 @@ ranges_and_digits <- function(df) {
         # last-digit histogram: heaping at 0/5 is self-report; a spike elsewhere is
         # a systematic misread that per-row checks cannot see. Meaningless below ~10
         # distinct values, where the digit distribution just restates the categories.
+        # Only integer-valued rows have a meaningful last digit. Print that subset's
+        # size with the percentages: a "43% end in 9" computed over 205 of 1,440
+        # rows reads as a statement about the column and is not one.
         xi <- x[x == floor(x) & abs(x) < 1e15]
+        frac_int <- length(xi) / length(x)
         if (length(xi) > 100 && length(unique(xi)) >= 10) {
             ld <- abs(xi) %% 10
             tb <- table(factor(ld, levels = 0:9))
             sh <- as.numeric(tb) / sum(tb)
-            cat(sprintf("  last digit: %s\n",
+            cat(sprintf("  last digit (n=%s integer-valued of %s, %s): %s\n",
+                        format(length(xi), big.mark = ","), format(length(x), big.mark = ","),
+                        pct(frac_int),
                         paste(sprintf("%d=%.0f%%", 0:9, 100 * sh), collapse = " ")))
-            if (max(sh) > 0.25) {
-                cat(sprintf("    ^ digit %d holds %s. Heaping at 0/5 is rounding;\n",
+            if (max(sh) > 0.25 && frac_int > 0.5) {
+                cat(sprintf("    ^ digit %d holds %s of the integer-valued rows.\n",
                             which.max(sh) - 1L, pct(max(sh))))
-                cat("      a spike elsewhere is a systematic misread.\n")
+                cat("      Heaping at 0/5 is rounding; a spike elsewhere is a misread.\n")
+            } else if (max(sh) > 0.25) {
+                cat(sprintf("    ^ digit %d holds %s, but only %s of rows are integer-valued,\n",
+                            which.max(sh) - 1L, pct(max(sh)), pct(frac_int)))
+                cat("      so this describes that subset, not the column. Usually the\n")
+                cat("      subset IS the sentinel codes -- check section 2.\n")
             }
         }
     }
@@ -477,7 +534,81 @@ coverage <- function(df, time, groups) {
 }
 
 # --------------------------------------------------------------------------- #
-# 7. the draft dictionary
+# 7. is this panel actually a panel?
+#
+# The single most consequential structural fact about a treatment variable is
+# whether it varies WITHIN unit over time. If it does not, there is no
+# difference-in-differences and no unit fixed effect, whatever the row count
+# suggests, and the effective sample size is the number of assignment units. Two
+# independent test runs both discovered this by hand and both said it belonged
+# here.
+# --------------------------------------------------------------------------- #
+
+panel_structure <- function(df, unit, time, treat) {
+    if (is.null(unit) || is.null(time) || !length(treat)) return(invisible(NULL))
+    if (!all(c(unit, time) %in% names(df))) return(invisible(NULL))
+    section("7. PANEL STRUCTURE: DOES THE TREATMENT VARY WITHIN UNIT?")
+    periods <- sort(unique(df[[time]][!is.na(df[[time]])]))
+    cat(sprintf("unit '%s': %s distinct   time '%s': %s periods (%s)\n",
+                unit, format(length(unique(df[[unit]])), big.mark = ","), time,
+                length(periods), paste(format(periods), collapse = ", ")))
+
+    for (tv in treat) {
+        if (!tv %in% names(df)) next
+        nv <- tapply(df[[tv]], df[[unit]], function(z) length(unique(z[!is.na(z)])))
+        switchers <- sum(nv > 1, na.rm = TRUE)
+        cat(sprintf("\ntreatment '%s': %s of %s units change value over time\n",
+                    tv, format(switchers, big.mark = ","),
+                    format(length(nv), big.mark = ",")))
+        if (switchers == 0) {
+            cat("  NO SWITCHERS. This is not a difference-in-differences and there is\n")
+            cat("  no pre-period. A unit fixed effect would absorb the treatment\n")
+            cat("  entirely. Whatever the row count, the identifying variation is the\n")
+            cat("  number of units assigned, and every row within a unit is replication.\n")
+            # find the coarsest grouping the treatment is constant within -- that is
+            # the assignment level, and it is what you must cluster on.
+            for (g in setdiff(names(df), c(unit, time, treat))) {
+                x <- df[[g]]
+                if (is.list(x) || length(unique(x)) > 200 || length(unique(x)) < 2) next
+                const <- all(tapply(df[[tv]], x, function(z) length(unique(z[!is.na(z)]))) == 1,
+                             na.rm = TRUE)
+                if (!const) next
+                lv <- unique(x[!is.na(x)])
+                ntr <- sum(vapply(lv, function(l) {
+                    any(df[[tv]][!is.na(x) & x == l] != 0, na.rm = TRUE)
+                }, logical(1)))
+                cat(sprintf("  '%s' is a candidate assignment level: %s groups, %s treated.\n",
+                            g, format(length(lv), big.mark = ","),
+                            format(ntr, big.mark = ",")))
+                cat(sprintf("  -> cluster on '%s'; the treated-cluster count is %s, not %s rows.\n",
+                            g, format(ntr, big.mark = ","),
+                            format(sum(df[[tv]] != 0, na.rm = TRUE), big.mark = ",")))
+            }
+        } else if (switchers < 0.05 * length(nv)) {
+            cat(sprintf("  only %s of units switch. A within estimator is identified off\n",
+                        pct(switchers / length(nv))))
+            cat("  those units alone -- check that they are not a peculiar subgroup.\n")
+        } else {
+            cat("  switchers exist, so a within/DiD design is available. Next question is\n")
+            cat("  whether adoption is staggered -- if so, plain TWFE is not the estimator.\n")
+            first <- tapply(seq_len(nrow(df)), df[[unit]], function(i) {
+                z <- df[[tv]][i]; t <- df[[time]][i]
+                if (all(is.na(z)) || !any(z != 0, na.rm = TRUE)) return(NA)
+                min(t[z != 0], na.rm = TRUE)
+            })
+            cohorts <- table(unlist(first), useNA = "no")
+            cat(sprintf("  adoption cohorts (first treated period): %s\n",
+                        paste(sprintf("%s=%s", names(cohorts), cohorts), collapse = "  ")))
+            if (length(cohorts) > 1) {
+                cat("  STAGGERED ADOPTION. Use Callaway-Sant'Anna, Sun-Abraham, or an\n")
+                cat("  imputation estimator; plain TWFE weights some comparisons negatively.\n")
+            }
+        }
+    }
+}
+
+# --------------------------------------------------------------------------- #
+# 8. the draft dictionary
 # --------------------------------------------------------------------------- #
 
 write_dictionary <- function(df, path, src) {
@@ -540,7 +671,7 @@ write_dictionary <- function(df, path, src) {
 
 main <- function() {
     a <- parse_args(commandArgs(trailingOnly = TRUE))
-    df <- load_table(a$path)
+    df <- numeric_shadow(load_table(a$path))
     cat(sprintf("profile_columns.R  %s\n", a$path))
 
     shape_and_unit(df, a$key)
@@ -549,6 +680,9 @@ main <- function() {
     ranges_and_digits(df)
     string_hygiene(df)
     coverage(df, a$time, a$group)
+    # unit defaults to the first declared key column, which is the usual shape
+    unit <- a$unit %||% (if (length(a$key)) a$key[1] else NULL)
+    panel_structure(df, unit, a$time, a$treat)
     if (!is.null(a$out)) write_dictionary(df, a$out, a$path)
 
     section("SUMMARY")

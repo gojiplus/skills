@@ -118,8 +118,16 @@ git tag -a pap-v1 -m "pre-analysis plan, frozen"
 git push --tags
 ```
 
-The tag is the timestamp. Push it, because a local tag proves nothing. Where the project is
-registered externally (OSF, AEA RCT Registry, EGAP), the registration references this commit.
+**The tag is a discipline device, not a timestamp.** Git tags are mutable, commit dates are
+settable with `GIT_COMMITTER_DATE`, and a tag can be force-moved. It stops *you* from quietly
+revising the plan, and it gives the deviation log something to diff against — that is worth
+having, and it is all it is worth.
+
+The credible timestamp is **third-party registration**: OSF Registries, the AEA RCT Registry, or
+EGAP, each of which stamps immutably and supports versioned amendments. Register there and
+reference this commit hash from the registration, not the other way round. If the work is not
+registered anywhere, say in the paper that the plan is self-attested and that a reader should
+weight it accordingly.
 
 **After the freeze, `git log --diff-filter=A -- '*outcome*' '*main*'` should show every
 outcome-model script created after the tag.** If one predates it, say so.

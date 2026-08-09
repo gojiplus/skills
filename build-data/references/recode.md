@@ -68,9 +68,17 @@ Pick one, write it in the dictionary, and apply it everywhere:
 - **Indicator-and-impute.** Fill with a constant and add a missingness dummy. Popular, and biased
   under anything but MCAR for the covariate — the dummy absorbs the level difference but not the
   slope. Acceptable for nuisance covariates, not for the treatment or the outcome.
-- **Multiple imputation.** Correct under MAR, and it requires the imputation model to include the
-  outcome and the treatment or it biases toward the null. Report the number of imputations and
-  pool properly.
+- **Multiple imputation.** Often described as "correct under MAR", which is too generous. MAR is
+  necessary, not sufficient: the imputation model must also be *congenial* with the analysis model
+  (an imputation model that omits the treatment, an interaction, or a non-linearity the analysis
+  uses will bias toward the null), positivity must hold, and MAR itself is untestable. Report the
+  number of imputations, pool with Rubin's rules, state the imputation model in full, and run at
+  least one MNAR sensitivity analysis — a delta-adjustment shifting the imputed values by a
+  plausible amount and showing where the conclusion breaks.
+- **Weighting or doubly-robust adjustment** (IPW, AIPW) is the alternative when missingness is on
+  the outcome and you can model the selection. It buys a second chance at consistency — the
+  estimate survives if *either* the selection model or the outcome model is right — at the cost of
+  needing overlap.
 
 What is never acceptable: a different policy per column, chosen by whichever kept the most rows.
 

@@ -20,10 +20,67 @@ skill defers to rather than duplicating.
 
 ## Usage
 
-`/build-data [path] [stage]` — stage defaults to `auto`: resume at the first stage whose
-artifact is missing.
+`/build-data [path] [stage] [consult|auto]` — stage defaults to `auto` (resume at the first stage
+whose artifact is missing); mode defaults to **`consult`**.
+
+**`auto`** runs the three stages end to end and reports once. Use it only when the user asks for
+it in so many words — "do it autonomously", "don't stop and ask", "just build the file".
 
 **Dictionary → Recode → Link.** Each stage ends in a committed file, not a conclusion.
+
+## Work with the user, not for them
+
+The failure mode of running this alone is not getting a step wrong. It is making forty judgement
+calls silently and handing back a clean file. Each of those calls is a fork the analysis could
+have taken, and the person who knows which fork is right is the one who knows the data's
+provenance, the institutional detail, and what the paper is for. That is not you.
+
+### Show the decisive slice, write the rest to a file
+
+The opposite failure is a wall of output. Twenty tables and five pages of text in a terminal is not
+collaboration; it is the same silence with more scrolling, because nobody reads it.
+
+**Full output goes to a file. Inline goes the slice that decides something.** `profile_columns.R`
+prints two hundred lines — redirect it, then show the user the six rows that matter:
+
+```
+literacy   183 rows at -999 (12.5%), and the rate is 13.1% / 11.3% across arms
+turnout    94 rows at 999 (6.4%)
+full profile: profile_rolls.txt   draft dictionary: data-dictionary.md
+```
+
+Three lines and two paths beats three pages. The rule of thumb: **one screen per checkpoint**, the
+numbers that would change the decision, and a path to everything else. If a table needs more than
+about fifteen rows to make its point, the point is a summary statistic and you should compute it.
+
+### Stop and ask at these five points
+
+Each is a question the data cannot answer:
+
+| checkpoint | what you show | what you ask |
+|---|---|---|
+| a sentinel candidate | the value counts, the spike, its share by group | is `999` missing, not-applicable, or a real top-code? They imply three different denominators |
+| a column whose universe is a guess | the coverage pattern and what you inferred | who is eligible to have a value here, and where is that documented? |
+| a consequential recode | the old × new crosstab, and the estimate under each option if cheap | these two codings differ by N rows; which matches the construct? |
+| the left table and the key | the candidate keys and their uniqueness | the estimand decides this — what is the claim about? |
+| a match rate that differs by group | the by-group table and unmatched exemplars | is 84% in this arm acceptable, or does the sample change? |
+
+Ask the way a colleague would: the numbers, the options and what each implies downstream, **your
+recommendation and your reason**, then the question. Use `AskUserQuestion` so the options are
+selectable. Never ask "shall I proceed?" — that is a request for permission, not for judgement,
+and it spends the user's turn on nothing.
+
+Batch them. Four checkpoints reached in one stage is one question with four parts, not four
+interruptions.
+
+**Do not ask about what the data or this skill already settles.** Not permission to print value
+counts, verify a key, or write the dictionary. Not which file format. Those are decided — make the
+call, say you made it, move on. A skill that asks about everything is as useless as one that asks
+about nothing, and more annoying.
+
+In `auto` mode, and whenever the user is not reachable, **write the assumption into the dictionary
+as an open question** instead of burying it. That list is the record of every fork taken without
+an answer, and it is the first thing the next reader should see.
 
 ## 1. Dictionary: a column is not understood until you can state its universe
 
@@ -31,8 +88,25 @@ The universe is *who is eligible to have a value*. It is not the same as the set
 have one. A column is understood when you can say "every X in period Y has a value here, and
 these are the reasons one would be missing" — and check it.
 
-Run `scripts/profile_columns.R` first. It reports candidates, never verdicts, and it emits a
-draft dictionary you then have to fill in by hand. The hand part is the work.
+Run `scripts/profile_columns.R` first, **with `--out`** — the draft dictionary is the artifact
+this stage exists to produce, and the console output is only how you fill it in:
+
+```
+Rscript scripts/profile_columns.R data/raj/rolls.parquet \
+  --key gp_code year --unit gp_code --time year --treat quota --group wave \
+  --out data-dictionary.md > logs/profile_rolls.txt
+```
+
+It reports candidates, never verdicts. The hand part — filling in every `TODO` for unit, universe,
+missing-code meaning, and provenance — is the work.
+
+`--treat` with `--unit` and `--time` answers the structural question that decides the whole
+design: **does the treatment vary within unit over time?** If it does not, there is no
+difference-in-differences and no unit fixed effect whatever the row count says, and the script
+names the coarsest grouping the treatment is constant within — that is the assignment level, and
+the number of treated groups is the sample size that matters. Two independent test runs of this
+skill found that fact by hand before the script did it; it is cheap and it changes everything
+downstream, so run it early.
 
 For every column, print:
 
@@ -311,6 +385,11 @@ Start with what the analysis-ready file is and what one row of it is. Then provi
 
 Do not report a clean dataset. Report the decisions that made it clean and what each cost.
 
+## Sources
+
+The literature each check came from, and what each supplied, is in
+[sources.md](references/sources.md). Names there are routing devices, not appeals to authority.
+
 ## Red flags you are cutting corners
 
 - You started joining before you could state what one row is.
@@ -323,6 +402,10 @@ Do not report a clean dataset. Report the decisions that made it clean and what 
 - You recoded a categorical variable and did not print the old × new crosstab.
 - You filled a missing value with zero because the column "should" be zero there.
 - You accepted a fuzzy match rate without hand-labelling a single pair.
+- You reported Cronbach's α as if it were the reliability rather than a lower bound on it.
+- You reported one overall accuracy for an LLM-coded variable and never checked it by group.
+- You put a model's output into a regression as if it had been measured.
+- You trained a model on rows that are also in the analysis sample.
 - You picked a left table because it was the one you loaded first.
 - You wrote a derived table to CSV and let the next script re-guess its types.
 - You read a CSV without a column specification and a district code lost its leading zero.

@@ -93,8 +93,8 @@
       "files": [
         {
           "path": "SKILL.md",
-          "digest": "sha256:88556f55936446c946112ec6a5f67d059f38a9629f2669e597762e269c6447cf",
-          "size": 19616
+          "digest": "sha256:0ed5b4aca3025bf3c346833efd556eff9b50ce47b6414548195b680a32f20e7f",
+          "size": 24563
         },
         {
           "path": "agents/openai.yaml",
@@ -118,8 +118,8 @@
         },
         {
           "path": "references/recode.md",
-          "digest": "sha256:04aa42ef8216837ad0551c7a4dadf75106f5abff381c90e8c58908e9f1b34b39",
-          "size": 6128
+          "digest": "sha256:acb318be8171b1a923519b166ff991a7de820aa3797d02792f47850281cd95e6",
+          "size": 6872
         },
         {
           "path": "references/sources.md",
@@ -138,8 +138,8 @@
         },
         {
           "path": "scripts/profile_columns.R",
-          "digest": "sha256:69e8c766d46f58503c83ce75e1985c185ac5d79db6eb6712330ab1e73615473b",
-          "size": 24984
+          "digest": "sha256:d3d2f27b96bbcbe670ce15a2443510581c3d3714cef77057e29e85050a083052",
+          "size": 32629
         }
       ],
       "frontmatter": {
@@ -152,8 +152,8 @@
       "files": [
         {
           "path": "SKILL.md",
-          "digest": "sha256:1254323abc716738799fc889236b1c24d5603b65eb2032123e2b710e74abe518",
-          "size": 18807
+          "digest": "sha256:356ff225363f5228910a46c38210fbd87c0824efd27d223f8aa3e96edc9c59df",
+          "size": 22287
         },
         {
           "path": "agents/openai.yaml",
@@ -177,8 +177,8 @@
         },
         {
           "path": "references/pre-analysis-plan.md",
-          "digest": "sha256:264736dc2ff49f8eaf031b931d29b705dfb1a69a673a47320d53a9fbd491dfbb",
-          "size": 6181
+          "digest": "sha256:c8723f5203fec78cf90b5d3816188f432b6c64bfab409e5cb248653017d165d0",
+          "size": 6710
         },
         {
           "path": "references/repo-layout.md",
@@ -192,8 +192,8 @@
         },
         {
           "path": "scripts/se_ladder.R",
-          "digest": "sha256:57d5cbc2900c21c8ea0e341f2c8360ddecced7240824761c398abfb671f180d9",
-          "size": 20718
+          "digest": "sha256:c41395309c10a00ab4900c284dad76583fdd7f6121c913fa886360ac08e43fd0",
+          "size": 24923
         }
       ],
       "frontmatter": {

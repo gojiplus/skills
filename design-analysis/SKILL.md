@@ -20,12 +20,64 @@ analysis that already exists, and stage 5 hands off to it rather than duplicatin
 
 ## Usage
 
-`/design-analysis [path] [stage]` — stage defaults to `auto`: resume at the first stage whose
-artifact is missing.
+`/design-analysis [path] [stage] [consult|auto]` — stage defaults to `auto` (resume at the first
+stage whose artifact is missing); mode defaults to **`consult`**.
+
+**`auto`** runs the stages end to end and reports once. Use it only when the user says so
+outright — "do it autonomously", "don't stop and ask".
 
 **Identify → Pre-specify → Interpret → Build → Audit.**
 
 > No Y on X until the plan is frozen. Stages 1–3 are done blind to the headline estimate.
+
+## Work with the user, not for them
+
+Every stage here contains a decision that is the researcher's, not the analyst's. An estimand is a
+choice about what question is being asked. An identifying assumption is a substantive claim about
+the world that no diagnostic can settle. A clustering level follows from how treatment was
+assigned, which is institutional knowledge you do not have. Resolving these silently and
+presenting a coefficient is the failure this skill exists to prevent — the same failure as running
+the regression first, arrived at more politely.
+
+**Show the decisive slice, write the rest to a file.** Twenty tables and five pages in a terminal
+is not collaboration, it is silence with more scrolling. `se_ladder.R` prints forty lines —
+redirect it, and show the three that decide something:
+
+```
+treated clusters: 6 of 18  ->  few-cluster regime
+CR2  0.0298 [0.0155, 0.0441]      wild bootstrap  [0.0149, 0.0436]
+iid  0.0298 [0.0261, 0.0335]  <-- 4x narrower, and not this design's variance
+full ladder: tabs/se_ladder.txt
+```
+
+One screen per checkpoint, the numbers that would change the decision, a path to the rest.
+
+### Stop and ask at these five points
+
+| checkpoint | what you show | what you ask |
+|---|---|---|
+| the estimand | the seven parts, filled in as best you can | is this the question? Weighted or unweighted, which population, which contrast? |
+| the identifying assumption | the assumption, what would violate it, whether that is observable | do you accept this, or does the claim become descriptive? |
+| the clustering level | how treatment appears to have been assigned, and the treated-cluster count | was assignment at this level? Nothing in the data can tell me |
+| the primary outcome and subgroup list | the candidate outcomes and the families | which is primary? Everything else becomes secondary or exploratory |
+| the ladder moving | the rungs side by side and the conclusion each supports | this turns on the variance estimator — fatal here, or reportable? |
+
+Show the numbers, state the options and what each implies, **give your recommendation and your
+reason**, then ask — via `AskUserQuestion`, so the options are selectable. Batch checkpoints
+reached in the same stage into one question. Never ask "shall I proceed?"
+
+**Do not ask what the design or this skill already settles.** Not whether to write `vcov`
+explicitly, not whether to report intervals rather than stars, not whether to run the placebos you
+pre-specified. Those are decided.
+
+### The one place the two skills conflict
+
+`build-data` tells you to check whether missingness is informative *about the outcome*. Doing that
+means looking at the outcome, which unblinds you before this skill says to freeze the plan blind.
+The conflict is structural, not a slip, and it resolves as a checkpoint rather than a rule: ask
+whether to run that check blind to the treatment variable, or to accept the unblinding and record
+it. Either way, **the PAP states what had been seen at the moment of freezing.** A plan claiming
+more blinding than it had is worse than one that admits the contamination.
 
 ## 1. Identify: write the estimand and the assumption that buys it
 
@@ -271,6 +323,11 @@ Start with the stage the analysis is at and what blocks the next one. Then provi
 
 Every result stated as an interval and what it rules out. Never present an estimate before the
 plan that produced it.
+
+## Sources
+
+The literature each check came from, and what each supplied, is in
+[sources.md](references/sources.md). Names there are routing devices, not appeals to authority.
 
 ## Red flags you are cutting corners
 

@@ -42,6 +42,23 @@ FEW_CLUSTERS <- 40L
 # robust" about columns that were iid and cluster-robust respectively.
 # --------------------------------------------------------------------------- #
 
+# Build the table note from the LADDER ROW you are actually reporting. Generating
+# it from the base lm() -- which is what an earlier version did -- reproduces the
+# exact error this script exists to prevent: a note reading "classical (iid)" over
+# a column that was clustered.
+ladder_note <- function(res, rung_name, n_cl = NA_integer_, n_tr = NA_integer_) {
+    r <- res[res$rung == rung_name, ][1, ]
+    if (is.na(r$rung)) return("Standard errors: unknown.")
+    txt <- sprintf("Standard errors: %s", r$rung)
+    if (grepl("^CR|bootstrap", r$rung) && !is.na(n_cl)) {
+        txt <- sprintf("%s, clustered on the assignment unit (%s clusters%s)", txt,
+                       format(n_cl, big.mark = ","),
+                       if (!is.na(n_tr)) sprintf(", %s treated", format(n_tr, big.mark = ",")) else "")
+    }
+    if (is.finite(r$dof)) txt <- sprintf("%s, %.1f degrees of freedom", txt, r$dof)
+    paste0(txt, ".")
+}
+
 se_note <- function(m, clusters = NULL) {
     lab <- NULL
     if (inherits(m, "fixest")) {
@@ -77,7 +94,7 @@ rung <- function(name, est, se, dof = Inf, note = "") {
 }
 
 se_ladder <- function(fit, param, clusters = NULL, cluster_name = NULL,
-                      treat = NULL, boot = 9999L, data = NULL) {
+                      treat = NULL, boot = 9999L, data = NULL, has_fe = FALSE) {
     out <- list()
     b <- stats::coef(fit)[param]
     if (is.na(b)) stop(sprintf("parameter '%s' is not in the fitted model", param))
@@ -199,6 +216,7 @@ se_ladder <- function(fit, param, clusters = NULL, cluster_name = NULL,
     attr(res, "n_clusters") <- n_cl
     attr(res, "n_clusters_treated") <- n_cl_treated
     attr(res, "within_share") <- within_var
+    attr(res, "has_absorbing_fe") <- isTRUE(has_fe)
     attr(res, "nobs") <- n
     res
 }
@@ -211,16 +229,35 @@ ri_pvalue <- function(fit, data, param, clusters = NULL, sims = 2000L, seed = 12
     set.seed(seed)
     if (!param %in% names(data)) return(NULL)
     b_obs <- unname(stats::coef(fit)[param])
-    d <- data
-    cl <- if (is.null(clusters)) seq_len(nrow(d)) else clusters
+
+    # Refit on a precomputed model matrix rather than through update(). update()
+    # rebuilds the model frame from the call on every draw, which turns 2,000
+    # permutations into minutes on a model that fits in milliseconds.
+    X <- stats::model.matrix(fit)
+    y <- stats::model.response(stats::model.frame(fit))
+    if (!param %in% colnames(X)) return(NULL)
+    j <- match(param, colnames(X))
+    keep <- rownames(X)
+    idx <- if (!is.null(keep) && !is.null(rownames(data))) match(keep, rownames(data)) else
+        seq_len(nrow(X))
+    cl <- if (is.null(clusters)) seq_len(nrow(X)) else clusters[idx]
+
+    # Permute assignment at the level it was assigned: whole clusters, not rows.
+    # Permuting rows inside a cluster would test a null nobody is entertaining.
     ucl <- unique(cl)
-    assign_by_cluster <- tapply(d[[param]], cl, function(z) z[1])
+    by_cl <- vapply(ucl, function(u) X[cl == u, j][1], numeric(1))
+    pos <- match(cl, ucl)
+
     draws <- vapply(seq_len(sims), function(i) {
-        perm <- sample(assign_by_cluster)
-        d[[param]] <- unname(perm[match(cl, ucl)])
-        unname(stats::coef(stats::update(fit, data = d))[param])
+        Xp <- X
+        Xp[, j] <- sample(by_cl)[pos]
+        fitp <- tryCatch(stats::lm.fit(Xp, y), error = function(e) NULL)
+        if (is.null(fitp)) return(NA_real_)
+        unname(fitp$coefficients[j])
     }, numeric(1))
-    list(p = mean(abs(draws) >= abs(b_obs)), sims = sims,
+    draws <- draws[is.finite(draws)]
+    if (!length(draws)) return(NULL)
+    list(p = mean(abs(draws) >= abs(b_obs)), sims = length(draws),
          null_sd = stats::sd(draws), observed = b_obs)
 }
 
@@ -269,16 +306,34 @@ report <- function(res, param, ri = NULL) {
 
     fails <- character(0)
 
+    # Zero within-cluster variation is NORMAL and correct for a cluster-assigned
+    # treatment -- every cluster-randomised trial and every district-level policy
+    # has it, and cluster-robust SEs are exactly the right tool there. It is only a
+    # problem when the model ALSO absorbs fixed effects at or below the clustering
+    # level, which leaves nothing to identify the coefficient and collapses the
+    # cluster-robust meat matrix toward zero instead of erroring.
     ws <- attr(res, "within_share")
+    has_fe <- isTRUE(attr(res, "has_absorbing_fe"))
     if (!is.na(ws) && ws < 0.01) {
-        cat(sprintf("\nWITHIN-CLUSTER VARIATION IN '%s' IS %.3f%% OF TOTAL.\n", param, 100 * ws))
-        cat("The regressor is (near-)constant within cluster. Any fixed effect at or\n")
-        cat("below the clustering level absorbs it, and the cluster-robust SE then\n")
-        cat("collapses toward zero instead of erroring -- every cluster rung above is\n")
-        cat("meaningless. Either the FE are at the wrong level or the clustering is.\n")
-        fails <- c(fails, sprintf(
-            "no within-cluster variation in '%s' (%.3f%% of variance); cluster rungs are invalid",
-            param, 100 * ws))
+        if (has_fe) {
+            cat(sprintf("\nWITHIN-CLUSTER VARIATION IN '%s' IS %.3f%% OF TOTAL, AND THE MODEL\n",
+                        param, 100 * ws))
+            cat("ABSORBS FIXED EFFECTS AT OR BELOW THE CLUSTERING LEVEL.\n")
+            cat("Nothing is left to identify the coefficient. The cluster-robust SE\n")
+            cat("collapses toward zero rather than erroring, so every cluster rung above\n")
+            cat("is meaningless. Either the fixed effects are at the wrong level or the\n")
+            cat("clustering is.\n")
+            fails <- c(fails, sprintf(
+                "'%s' has no within-cluster variation (%.3f%%) and the model absorbs FE at that level",
+                param, 100 * ws))
+        } else {
+            cat(sprintf("\nNote: '%s' is constant within cluster (%.3f%% of its variance is\n",
+                        param, 100 * ws))
+            cat("within). That is the normal shape of a cluster-assigned treatment, not a\n")
+            cat("problem -- it is the reason to cluster. Two consequences: no fixed effect\n")
+            cat("at or below this level can be added without absorbing the treatment, and\n")
+            cat("the effective sample size is the cluster count, not the row count.\n")
+        }
     }
 
     e <- excl[have_ci]
@@ -322,6 +377,15 @@ report <- function(res, param, ri = NULL) {
     0L
 }
 
+# printed after the verdict so the note is copied from the rung, never retyped
+suggest_note <- function(res, n_cl, n_tr) {
+    default <- if (!is.na(n_cl)) "CR2 (Bell-McCaffrey)" else "HC2"
+    if (!default %in% res$rung) default <- res$rung[nrow(res)]
+    cat("\ntable note for the default rung (copy this, do not retype it):\n")
+    cat(sprintf("  %s\n", ladder_note(res, default, n_cl, n_tr)))
+    cat("If the design justifies a different rung, pass its name to ladder_note().\n")
+}
+
 # --------------------------------------------------------------------------- #
 
 parse_args <- function(argv) {
@@ -363,6 +427,7 @@ main <- function() {
     }
     df <- load_table(a$data)
     fml <- stats::as.formula(a$formula)
+    has_fe <- grepl("|", a$formula, fixed = TRUE)
 
     # A "|" in the formula means fixed effects, which needs fixest. Absorbed models
     # do not work with sandwich/clubSandwich, so fall back to dummies when the FE
@@ -406,12 +471,24 @@ main <- function() {
 
     cat(sprintf("se_ladder.R  %s\n", a$data))
     cat(sprintf("formula: %s\n", deparse1(stats::formula(fit))))
-    cat(sprintf("note as generated: %s\n", se_note(fit, cl)))
 
     res <- se_ladder(fit, param = a$param, clusters = cl, cluster_name = a$clusters,
-                     treat = tr, boot = a$boot)
-    ri <- if (a$ri > 0) ri_pvalue(fit, df, a$param, cl, sims = a$ri) else NULL
-    report(res, a$param, ri)
+                     treat = tr, boot = a$boot, has_fe = has_fe)
+
+    # Randomisation inference is the DEFAULT when assignment is known and binary,
+    # not an escalation -- it gets coverage right by construction. --ri 0 disables
+    # it; --ri N sets the draw count.
+    binary_treat <- !is.null(tr) && all(stats::na.omit(unique(tr)) %in% c(0, 1))
+    n_ri <- if (a$ri > 0) a$ri else if (binary_treat) 2000L else 0L
+    if (a$ri == 0 && !binary_treat && !is.null(tr)) {
+        cat(sprintf("\nrandomisation inference skipped: '%s' is not binary.\n", a$param))
+        cat("Pass --ri N to permute it anyway if the assignment really was random.\n")
+    }
+    ri <- if (n_ri > 0) ri_pvalue(fit, df, a$param, cl, sims = n_ri) else NULL
+
+    status <- report(res, a$param, ri)
+    suggest_note(res, attr(res, "n_clusters"), attr(res, "n_clusters_treated"))
+    status
 }
 
 if (sys.nframe() == 0L && !interactive()) quit(status = main())
