@@ -11,7 +11,15 @@
 #     Rscript check_join.R --left L.parquet --right R.parquet --key gp_code --card m:1
 #     Rscript check_join.R --left L.parquet --left-key gp_code year \
 #                          --right R.parquet --right-key gp_id yr \
-#                          --card m:1 --group treat wave --min-match 0.95
+#                          --card m:1 --group treat wave --min-match 0.95 --type left
+#
+# Flags:
+#   --left/--right PATH     the two tables (parquet, csv, tsv, dta, rds)
+#   --key COL...            key on both sides; or --left-key/--right-key separately
+#   --card 1:1|m:1|1:m      declared cardinality; m:m is refused
+#   --type left|inner       join type, default left
+#   --group COL...          columns to break the match rate down by
+#   --min-match P           floor on the overall match rate, a proportion in [0,1]
 #
 # Cardinality:
 #     1:1   key unique on BOTH sides
@@ -40,15 +48,33 @@ parse_args <- function(argv) {
                 `left-key` = character(0), `right-key` = character(0),
                 card = "m:1", group = character(0), type = "left", `min-match` = "0")
     single <- c("left", "right", "card", "type", "min-match")
+    multi  <- c("key", "left-key", "right-key", "group")
+    known  <- c(single, multi)
     i <- 1L
     cur <- NULL
     while (i <= length(argv)) {
         a <- argv[i]
         if (startsWith(a, "--")) {
             cur <- sub("^--", "", a)
-            if (cur %in% single) { i <- i + 1L; out[[cur]] <- argv[i]; cur <- NULL }
+            # An unrecognised flag used to be absorbed into the list and never
+            # reported, so `--min_match 0.95` (underscore) left min-match at its
+            # default 0 and the documented match-rate gate could never fail.
+            if (!cur %in% known) {
+                die(sprintf("unknown flag '--%s'. Known flags: %s",
+                            cur, paste0("--", sort(known), collapse = " ")))
+            }
+            if (cur %in% single) {
+                if (i + 1L > length(argv) || startsWith(argv[i + 1L], "--")) {
+                    die(sprintf("--%s needs a value", cur))
+                }
+                i <- i + 1L
+                out[[cur]] <- argv[i]
+                cur <- NULL
+            }
         } else if (!is.null(cur)) {
             out[[cur]] <- c(out[[cur]], a)
+        } else {
+            die(sprintf("unexpected argument '%s' (every value must follow a flag)", a))
         }
         i <- i + 1L
     }
@@ -83,9 +109,39 @@ pct <- function(x) sprintf("%.2f%%", 100 * x)
 cma <- function(x) format(x, big.mark = ",")
 
 # Paste key columns into one comparable string. Type coercion here is deliberate and
-# is itself a check: "08" and 8 must not silently match, so both sides go through
-# as.character() and a mismatch shows up as a zero match rate rather than a wrong one.
-keyvec <- function(df, cols) do.call(paste, c(lapply(df[cols], as.character), sep = "\r"))
+# is itself a check: "08" and 8 must not silently match, so a mismatch shows up as a
+# zero match rate rather than a wrong one.
+#
+# But as.character() on a double is not a faithful rendering: as.character(100000)
+# is "1e+05" and as.character(1e15) is "1e+15", so joining a parquet whose id is
+# numeric against a CSV of the same ids gives 0% on exactly the round-magnitude
+# keys -- a formatting artifact that reads as a key mismatch. Worse, ids above 2^53
+# lose precision as doubles and silently COLLIDE (123456789012345678 renders as
+# ...696). Render numerics in full, and refuse to key on a non-integral double.
+render_key <- function(x, col) {
+    if (is.numeric(x)) {
+        finite <- x[is.finite(x)]
+        if (length(finite) && any(finite != floor(finite))) {
+            die(sprintf(paste0(
+                "key column '%s' is a non-integral numeric. Floating point is not a ",
+                "join key -- 0.1 + 0.2 does not equal 0.3. Round it to an integer or ",
+                "store it as text upstream."), col))
+        }
+        if (length(finite) && max(abs(finite)) > 2^53) {
+            die(sprintf(paste0(
+                "key column '%s' holds values above 2^53, where doubles cannot ",
+                "represent consecutive integers. Distinct ids may already have ",
+                "collided in memory. Read this column as character."), col))
+        }
+        return(format(x, scientific = FALSE, trim = TRUE, justify = "none"))
+    }
+    as.character(x)
+}
+
+keyvec <- function(df, cols) {
+    parts <- lapply(cols, function(c) render_key(df[[c]], c))
+    do.call(paste, c(parts, sep = "\r"))
+}
 
 main <- function() {
     a <- parse_args(commandArgs(trailingOnly = TRUE))
@@ -97,6 +153,12 @@ main <- function() {
         die("m:m is not a join contract. It is an undiscovered key -- find it first.")
     if (!a$card %in% c("1:1", "m:1", "1:m"))
         die("--card must be one of 1:1, m:1, 1:m")
+    if (!a$type %in% c("left", "inner"))
+        die("--type must be 'left' or 'inner'")
+    if (!is.finite(a$`min-match`) || a$`min-match` < 0 || a$`min-match` > 1) {
+        die(sprintf("--min-match must be a proportion in [0, 1], got '%s'",
+                    a$`min-match`))
+    }
 
     L <- load_table(a$left)
     R <- load_table(a$right)
@@ -140,7 +202,11 @@ main <- function() {
     section("3. ROW CONSERVATION")
     matched_l <- kl %in% kr
     n_out <- if (a$type == "inner") {
-        sum(vapply(kl[matched_l], function(k) sum(kr == k), numeric(1)))
+        # Was: vapply over every matched left key, each scanning the whole right
+        # vector -- O(n_left x n_right), which hangs on two 100k-row tables. One
+        # table() lookup instead, the same technique the left branch already uses.
+        mult <- table(kr)
+        sum(as.numeric(mult[kl[matched_l]]), na.rm = TRUE)
     } else {
         # left join: each left row appears once per matching right row, at least once
         mult <- table(kr)
@@ -162,6 +228,18 @@ main <- function() {
         cat(sprintf("  the result GREW by %s rows. Under 1:m that is intended;\n",
                     cma(n_out - nrow(L))))
         cat("  under anything else the right side has duplicates.\n")
+    }
+    # An inner join that silently drops part of the left table used to produce no
+    # FAIL at all, because the conservation checks above are gated on type=="left".
+    if (a$type == "inner") {
+        lost <- nrow(L) - sum(matched_l)
+        if (lost > 0) {
+            fail(sprintf(
+                "inner join drops %s of %s left rows (%s). If the estimand is about the left unit, that changes the sample",
+                cma(lost), cma(nrow(L)), pct(lost / nrow(L))))
+            cat("  Use a left join and handle the misses explicitly, or state in the\n")
+            cat("  contract that the estimand is defined only on matched rows.\n")
+        }
     }
 
     section("4. MATCH RATE")

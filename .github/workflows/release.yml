@@ -22,10 +22,10 @@ jobs:
         with:
           files: dist/*.zip
           body: |
-            One zip per skill, ready to upload.
+            One zip per skill for Claude.
 
-            - claude.ai — Settings, then Skills, then upload the zip
-            - ChatGPT — Skills, then Create, then upload from your computer
+            - Claude — Customize → Skills → + → Create skill → Upload a skill
 
-            For live sync instead of uploads, connect the MCP endpoint described
-            in the README.
+            ChatGPT uses the plugin/MCP route described in the README; these zips
+            are not ChatGPT plugin packages. For live sync, connect the MCP
+            endpoint described in the README.

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Visualize Evidence"
+  short_description: "Make clear empirical figures, tables, and maps"
+  default_prompt: "Use $visualize-evidence to redesign these empirical figures and tables around the comparison the reader needs to make."

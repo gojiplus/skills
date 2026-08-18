@@ -63,9 +63,17 @@ inflated by the base rate. Use a chance-corrected statistic:
 | Krippendorff's α | any number of coders, any level, tolerates missing | `irr::kripp.alpha()` |
 | ICC | continuous ratings | `psych::ICC()` |
 
-Krippendorff's α is the general default. Report it per category as well as overall: an α of 0.80
-driven by a common category while the rare, substantively interesting one sits at 0.35 is the
-usual pattern, and the rare category is often the one the paper is about.
+Krippendorff's α is the general default. **Report it per category as well as overall**, because an
+acceptable aggregate routinely hides a rare category nobody can code reliably — and the rare
+category is usually the one the paper is about. Few instances means few disagreements move the
+per-category figure a long way, and the aggregate is dominated by the categories with the mass.
+
+Read a low α against a skewed base rate carefully, in the other direction too. Under the **kappa
+paradox**, a dominant category raises expected chance agreement, and since chance-corrected
+agreement is `(observed − expected) / (1 − expected)`, α can come out near zero while raw
+agreement is 95%. Skew *suppresses* these statistics rather than inflating them. So report raw
+agreement, the chance-corrected statistic, and the confusion matrix together: any one of the three
+alone is misleading, in a direction that depends on the base rate.
 
 ### Test-retest and split-half
 

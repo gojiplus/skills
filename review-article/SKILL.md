@@ -1,6 +1,6 @@
 ---
 name: review-article
-description: Use when asked to review, referee, critique, or assess a quantitative empirical social science paper — experiments/RCTs, difference-in-differences, regression discontinuity, IV, natural experiments — or to evaluate whether a paper's causal claims hold up.
+description: Review a quantitative empirical social-science paper. Use to assess experiments, difference-in-differences, RD, IV, natural experiments, inference, and causal claims.
 ---
 
 # Reviewing Quantitative Social Science Papers

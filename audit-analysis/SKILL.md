@@ -1,6 +1,6 @@
 ---
 name: audit-analysis
-description: Audit empirical social-science analyses and manuscripts for data integrity, econometric correctness, identification, inference, robustness, and claim validity. Use for EDA and join audits, standard-error and clustering reviews, skew and leverage checks, generated outcomes, experiments, panels, fixed effects, difference-in-differences, IV, RD, observational regressions, replication packages, paper-number disagreements, and assessments of whether causal or descriptive claims survive the code and design.
+description: Audit empirical social-science analyses for data integrity, identification, inference, robustness, and claim validity. Use for experiments, panels, causal designs, or replication packages.
 ---
 
 # Audit an empirical analysis
@@ -27,7 +27,7 @@ Package reproduction is necessary but insufficient. Audit whether each artifact 
 
 2. **Inventory the surface.** List every prose number, table, figure, analytical dataset, and producing script. Count them and draw the dependency chain. Mark typed analytical handoffs, manual transcription, live downloads, and outputs excluded from the build.
 
-3. **Run the mechanical sweep.** Run `scripts/audit_data.py` on each analytical dataset and `scripts/audit_provenance.py` on the manuscript. These tools report candidates, not verdicts.
+3. **Run the mechanical sweep.** Run `scripts/audit_data.py` on each analytical dataset and `scripts/audit_provenance.py` on a LaTeX manuscript. The scoped provenance resolver does not support Markdown citations. These tools report candidates, not verdicts.
 
    Know what these tools do and do not do. `audit_data.py` reports *candidates*, never verdicts — "this column is 47% missing and the rate differs by group" is a place to look, not a finding. `audit_provenance.py` localises a **paragraph** whose numbers disagree with the table it cites; it will not always flag every wrong number inside that paragraph, because a number far enough from any current value reads as an orphan rather than a near-miss. Both were validated against a manuscript before and after a known set of nineteen errors: the scoped provenance check re-found the stale paragraph unprompted and returns clean on the corrected version.
 

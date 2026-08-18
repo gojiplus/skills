@@ -33,13 +33,14 @@ npx wrangler login       # interactive, once
 npx wrangler deploy
 ```
 
-Then add the printed `https://gojiplus-skills.<subdomain>.workers.dev` URL as a
-custom connector:
+Then add the printed `https://gojiplus-skills.<subdomain>.workers.dev/mcp` URL:
 
-- **claude.ai** — Settings → Connectors → Add custom connector. No OAuth.
-  Connectors are account-scoped, so this also reaches Claude on mobile.
-- **ChatGPT** — Developer Mode → add an MCP server. Read-only is all this
-  server does, which is all Plus and Pro accounts are permitted anyway.
+- **Claude** — Customize → Connectors → + → Add custom connector. No OAuth.
+- **ChatGPT** — enable Developer mode under Settings → Security and login, then
+  open ChatGPT Plugins → + and enter the URL.
+
+Refresh or reconnect after adding, renaming, or changing a skill description;
+clients may cache the tool catalog even though skill bodies are read live.
 
 To serve a different repo, change `GITHUB_REPO` and `GITHUB_REF` in
 `wrangler.toml`. The repo must be public — there is no token handling here.
@@ -57,8 +58,8 @@ quietly wrong: that a skill's supporting files are reachable, and that a file
 outside `index.json` is not. It also hashes a served file and compares it to the
 digest the catalog published, since an unverified digest is decoration.
 
-`GET /health` returns `{"ok":true,"skills":9}` — enough to tell a broken deploy
-from a broken index.
+`GET /health` returns the current catalog size, for example
+`{"ok":true,"skills":25}` — enough to tell a broken deploy from a broken index.
 
 ## Security
 

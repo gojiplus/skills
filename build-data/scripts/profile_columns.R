@@ -85,7 +85,16 @@ parse_args <- function(argv) {
         }
         i <- i + 1L
     }
-    out$top <- as.integer(out$top)
+    out$top <- suppressWarnings(as.integer(out$top))
+    if (is.na(out$top) || out$top < 1L) {
+        cat("profile_columns.R: --top must be a positive integer\n", file = stderr())
+        quit(status = 2)
+    }
+    if (startsWith(out$path, "--")) {
+        cat("profile_columns.R: the data path must come first, before any flag\n",
+            file = stderr())
+        quit(status = 2)
+    }
     out
 }
 
@@ -132,6 +141,7 @@ fail <- function(msg) {
 # every character column that is overwhelmingly numeric, run the numeric checks on
 # the shadow, and say out loud that it happened.
 COERCED <- character(0)
+COERCE_LOST <- list()
 
 numeric_shadow <- function(df) {
     for (col in names(df)) {
@@ -144,6 +154,14 @@ numeric_shadow <- function(df) {
             # Leading zeros mean an identifier, not a number: coercing would destroy
             # the very thing the string hygiene section is looking for.
             if (any(grepl("^0[0-9]", xs))) next
+            # The up-to-5% that will NOT parse are about to become NA. Silently
+            # dropping them manufactures missingness that every later section then
+            # reports as if it were in the source -- including the differential
+            # missingness table and the dictionary's n_missing. Those values are
+            # usually the sentinel vocabulary this script exists to recover, so
+            # record them and print them rather than discarding them.
+            lost <- xs[is.na(num)]
+            if (length(lost)) COERCE_LOST[[col]] <<- sort(table(lost), decreasing = TRUE)
             v <- suppressWarnings(as.numeric(x))
             v[!is.na(x) & trimws(x) == ""] <- NA_real_
             df[[col]] <- v
@@ -218,13 +236,24 @@ shape_and_unit <- function(df, keys) {
     nd <- vapply(df[cand], function(x) length(unique(x)), numeric(1))
     cand <- names(sort(nd, decreasing = TRUE))
     cand <- utils::head(cand, 14L)
+    # Was: up to C(14,2)+C(14,3) = 455 calls to anyDuplicated on a data.frame, each
+    # of which pastes every row into a string and hashes it -- tens of minutes on a
+    # million rows, on the DEFAULT path when no --key is given. Encode each column
+    # to an integer once, prune combinations that cannot possibly be unique, and
+    # test what survives on a plain integer matrix.
+    codes <- vapply(df[cand], function(x) match(x, unique(x)), numeric(n))
+    if (!is.matrix(codes)) codes <- matrix(codes, nrow = n,
+                                           dimnames = list(NULL, cand))
+    ndc <- nd[cand]
     for (size in 2:3) {
         combos <- utils::combn(cand, size, simplify = FALSE)
         for (cc in combos) {
-            if (!anyDuplicated(df[, cc, drop = FALSE])) {
-                cat(sprintf("  unique on [%s] -- %s rows, %s distinct\n",
-                            paste(cc, collapse = " + "), format(n, big.mark = ","),
-                            format(nrow(unique(df[, cc, drop = FALSE])), big.mark = ",")))
+            # the product of the per-column distinct counts bounds the number of
+            # distinct combinations from above; below n it cannot be unique
+            if (prod(pmin(ndc[cc], n)) < n) next
+            if (!anyDuplicated(codes[, cc, drop = FALSE])) {
+                cat(sprintf("  unique on [%s] -- %s rows\n",
+                            paste(cc, collapse = " + "), format(n, big.mark = ",")))
                 cat("  Verify this is the intended unit before joining on it.\n")
                 return(invisible(NULL))
             }
@@ -245,8 +274,22 @@ sentinels <- function(df, groups) {
     hits <- 0L
     n <- nrow(df)
     if (length(COERCED)) {
-        cat(sprintf("read as text, coerced to numeric for this sweep: %s\n\n",
+        cat(sprintf("read as text, coerced to numeric for this sweep: %s\n",
                     paste(COERCED, collapse = ", ")))
+        if (length(COERCE_LOST)) {
+            cat("\nVALUES THAT DID NOT PARSE AS NUMBERS AND BECAME NA:\n")
+            for (col in names(COERCE_LOST)) {
+                tb <- COERCE_LOST[[col]]
+                cat(sprintf("  %-24s %s\n", col,
+                            paste(sprintf("'%s' x%s", names(tb), as.integer(tb)),
+                                  collapse = "  ")))
+            }
+            cat("  ^ this is a finding, not a nuisance: these are usually the\n")
+            cat("    sentinel or free-text codes the column actually uses. The\n")
+            cat("    missingness they create below is manufactured by this script,\n")
+            cat("    not present in the source.\n")
+        }
+        cat("\n")
     }
     if (!any(vapply(df, function(x) is.numeric(x) || inherits(x, "Date"), logical(1)))) {
         cat("WARNING: no numeric or date column survived typing, so the numeric\n")
@@ -545,9 +588,25 @@ coverage <- function(df, time, groups) {
 # --------------------------------------------------------------------------- #
 
 panel_structure <- function(df, unit, time, treat) {
-    if (is.null(unit) || is.null(time) || !length(treat)) return(invisible(NULL))
-    if (!all(c(unit, time) %in% names(df))) return(invisible(NULL))
+    if (is.null(unit) && is.null(time) && !length(treat)) return(invisible(NULL))
     section("7. PANEL STRUCTURE: DOES THE TREATMENT VARY WITHIN UNIT?")
+    # A mistyped --unit/--time/--treat used to skip this section entirely with no
+    # message, and the SUMMARY then reported "no hard failures". This is the
+    # section the header calls the one that decides the whole design; it does not
+    # get to fail quietly.
+    need <- c(unit = unit, time = time)
+    absent <- c(need[!need %in% names(df)], treat[!treat %in% names(df)])
+    if (is.null(unit) || is.null(time) || !length(treat)) {
+        cat("needs --unit, --time and --treat together; skipping.\n")
+        cat("This is the check that separates a difference-in-differences from a\n")
+        cat("cross-section wearing a panel's clothes. It is worth the three flags.\n")
+        return(invisible(NULL))
+    }
+    if (length(absent)) {
+        fail(sprintf("panel check: column(s) not in the data: %s",
+                     paste(unique(absent), collapse = ", ")))
+        return(invisible(NULL))
+    }
     periods <- sort(unique(df[[time]][!is.na(df[[time]])]))
     cat(sprintf("unit '%s': %s distinct   time '%s': %s periods (%s)\n",
                 unit, format(length(unique(df[[unit]])), big.mark = ","), time,

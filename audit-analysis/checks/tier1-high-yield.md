@@ -153,7 +153,8 @@ other single check.
 
 - Extract every numeric token from the write-up's prose. Count them.
 - For each, locate the table, figure, or script output it comes from, and
-  compare. `scripts/audit_provenance.py` does the extraction and matching.
+  compare. `scripts/audit_provenance.py` does the extraction and matching for
+  LaTeX manuscripts with `\ref` and `\input` citations.
 - Flag two classes: **orphans** (a number in prose that appears in no artifact —
   it was computed by hand and cannot be regenerated) and **mismatches** (a
   number in both, disagreeing).

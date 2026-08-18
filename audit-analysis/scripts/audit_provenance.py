@@ -25,7 +25,6 @@ false-positive rate made it useless. Scope is what makes this work.
 
 Usage:
     python audit_provenance.py ms/paper.tex tables/
-    python audit_provenance.py paper.md outputs/ --ext .tex .csv
     python audit_provenance.py ms/paper.tex tables/ --tol 0.05
 """
 
@@ -33,21 +32,72 @@ import argparse
 import os
 import re
 import sys
+from pathlib import Path
 
 TOKEN = re.compile(r"-?\d[\d,]*(?:\.\d+)?|-?\.\d+")
 # Years and YYYYMMDD crawl stamps are structure, not claims.
 STRUCTURAL = re.compile(r"^(19|20)\d{2}$|^(19|20)\d{6}$")
 
-CITE = re.compile(r"\\[cC]?ref\{([^}]*)\}|\\input\{tables/([^}]*)\}")
+# The \input path is matched loosely on purpose: repositories put fragments in
+# tables/, tabs/, ../tabs/, output/tables/ and so on, and hardcoding one prefix
+# meant a citation in any other layout silently failed to resolve.
+CITE = re.compile(r"\\[cC]?ref\{([^}]*)\}|\\input\{([^}]*)\}")
 LABEL = re.compile(r"\\label\{(tab:[^}]*)\}")
-INPUT = re.compile(r"\\input\{tables/([^}]*)\}")
+INPUT = re.compile(r"\\input\{([^}]*)\}")
+
+
+def normalized_path(path):
+    """Return a slash-normalized relative path without leading ``./``."""
+    value = os.path.normpath(path.strip().replace("\\", "/")).replace("\\", "/")
+    while value.startswith("./"):
+        value = value[2:]
+    return value
+
+
+def resolve_artifact(path, artifacts):
+    """Resolve an input path to one artifact without collapsing directories.
+
+    A manuscript may write ``tables/main/results`` while the artifact root is
+    already ``tables/``. Suffix matching supports that layout. A bare
+    ``results`` is deliberately unresolved when both ``main/results.tex`` and
+    ``appendix/results.tex`` exist.
+    """
+    requested = normalized_path(path)
+    requested_stem = os.path.splitext(requested)[0]
+
+    exact = [
+        key
+        for key in artifacts
+        if key == requested or os.path.splitext(key)[0] == requested_stem
+    ]
+    if len(exact) == 1:
+        return exact[0], exact
+    if len(exact) > 1:
+        return None, exact
+
+    suffix = []
+    for key in artifacts:
+        key_stem = os.path.splitext(key)[0]
+        if (
+            requested.endswith("/" + key)
+            or requested_stem.endswith("/" + key_stem)
+            or key.endswith("/" + requested)
+            or key_stem.endswith("/" + requested_stem)
+        ):
+            suffix.append(key)
+    return (suffix[0], suffix) if len(suffix) == 1 else (None, suffix)
 
 STRIP = [
     re.compile(
         r"\\(?:label|ref|cref|Cref|cite[a-z]*|input|include|includegraphics)"
         r"\s*\{[^}]*\}"
     ),
-    re.compile(r"%.*$", re.M),
+    # A percent sign in LaTeX prose is written `\%`. Without this lookbehind the
+    # pattern deleted everything after it on the line, so "rose 12.4\% from a base
+    # of 2.28 million in 2015" lost both 2.28 and 2015 from every check below --
+    # silently, and disproportionately on the percentage sentences an empirical
+    # paper is largely made of.
+    re.compile(r"(?<!\\)%.*$", re.M),
     re.compile(r"\\[a-zA-Z]+\d*"),
     re.compile(r"```.*?```", re.S),
 ]
@@ -96,7 +146,7 @@ def label_to_file(raw):
         inputs = INPUT.findall(block)
         for lab in labels:
             for inp in inputs:
-                mapping.setdefault(lab, set()).add(inp)
+                mapping.setdefault(lab, set()).add(inp.strip())
     return mapping
 
 
@@ -106,14 +156,14 @@ def artifact_values(dirpath, exts):
         for fn in files:
             if not fn.endswith(tuple(exts)):
                 continue
-            stem = os.path.splitext(fn)[0]
+            key = os.path.relpath(os.path.join(root, fn), dirpath).replace(os.sep, "/")
             try:
-                body = open(
-                    os.path.join(root, fn), encoding="utf-8", errors="replace"
-                ).read()
+                body = Path(os.path.join(root, fn)).read_text(
+                    encoding="utf-8", errors="replace"
+                )
             except OSError:
                 continue
-            vals[stem] = {
+            vals[key] = {
                 v for v in (norm(t) for t in TOKEN.findall(body)) if v is not None
             }
     return vals
@@ -133,7 +183,15 @@ def main():
     ap.add_argument("--min", type=float, default=2.0)
     a = ap.parse_args()
 
-    raw = open(a.manuscript, encoding="utf-8", errors="replace").read()
+    if not a.manuscript.lower().endswith(".tex"):
+        print(
+            "audit_provenance.py: scoped provenance currently supports LaTeX "
+            "manuscripts only; pass a .tex file.",
+            file=sys.stderr,
+        )
+        return 2
+
+    raw = Path(a.manuscript).read_text(encoding="utf-8", errors="replace")
     arts = artifact_values(a.artifacts, a.ext)
     all_vals = set().union(*arts.values()) if arts else set()
     lab2file = label_to_file(raw)
@@ -150,15 +208,30 @@ def main():
     paragraphs = re.split(r"\n\s*\n", raw)
     scoped = []
     checked_paras = 0
+    ambiguous = set()
+    unresolved = set()
     for pi, para in enumerate(paragraphs, 1):
-        cited = set()
+        para_numbers = numbers_in(clean(para), a.min, precise_only=True)
+        raw_citations = set()
         for ref, inp in CITE.findall(para):
             for r in ref.split(","):
                 r = r.strip()
-                cited |= lab2file.get(r, set())
+                mapped = lab2file.get(r)
+                if mapped:
+                    raw_citations |= mapped
+                elif para_numbers and r.startswith("tab:"):
+                    unresolved.add(r)
             if inp:
-                cited.add(inp)
-        cited = {c for c in cited if c in arts}
+                raw_citations.add(inp.strip())
+        cited = set()
+        for raw_path in raw_citations:
+            resolved, matches = resolve_artifact(raw_path, arts)
+            if resolved is not None:
+                cited.add(resolved)
+            elif len(matches) > 1:
+                ambiguous.add((raw_path, tuple(sorted(matches))))
+            elif para_numbers:
+                unresolved.add(raw_path)
         if not cited:
             continue
         checked_paras += 1
@@ -182,7 +255,29 @@ def main():
         f"({checked_paras} paragraphs cite a resolvable table)"
     )
     print("=" * 74)
-    if not scoped:
+    if ambiguous:
+        print("AMBIGUOUS TABLE PATHS (not compared):")
+        for raw_path, matches in sorted(ambiguous):
+            print(f"  {raw_path}: {', '.join(matches)}")
+        print()
+    if unresolved:
+        print("UNRESOLVED TABLE PATHS OR LABELS (not compared):")
+        for raw_path in sorted(unresolved):
+            print(f"  {raw_path}")
+        print()
+    if not scoped and checked_paras == 0:
+        # "none" here used to assert that everything matched, when in fact the
+        # check never ran. This can happen when no paragraph cites a resolvable
+        # artifact, or when the artifacts path is wrong or empty. Both used to
+        # exit 0.
+        print(
+            "THE SCOPED CHECK DID NOT RUN. No paragraph cites a table that could be\n"
+            "resolved to a file, so nothing was compared. This is not a pass.\n"
+            "  - do paragraphs use \\ref/\\input citations?\n"
+            "  - does the artifacts directory exist and contain the .tex fragments?\n"
+            f"  - artifacts loaded: {len(arts)} file(s)"
+        )
+    elif not scoped:
         print(
             "none -- every prose number in a table-citing paragraph either matches\n"
             "its cited table exactly or is far enough away to be a different quantity."
@@ -225,6 +320,10 @@ def main():
         "A match means the value EXISTS somewhere -- not that the prose reads it\n"
         "from the right place. The SCOPED check above is the one with teeth."
     )
+    # A check that could not run has not passed. Exiting 0 there made a mistyped
+    # artifacts path look like a clean result.
+    if ambiguous or unresolved or checked_paras == 0:
+        return 2
     return 1 if scoped else 0
 
 

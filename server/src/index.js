@@ -130,7 +130,7 @@ const HANDLERS = {
       },
       serverInfo: { name: "gojiplus-skills", version: "1.0.0" },
       instructions:
-        "Agent Skills for empirical social-science work. Each skill_* tool " +
+        "Agent Skills for empirical, software, Cloudflare, writing, and release work. Each skill_* tool " +
         "returns a full skill: read it and follow it. Supporting files are " +
         "listed at the end of each skill and fetched with read_skill_file.",
     };
@@ -277,8 +277,10 @@ async function dispatch(message, context) {
 const LANDING = `gojiplus/skills — MCP endpoint
 
 POST JSON-RPC to this URL. Add it as a custom connector:
-  claude.ai   Settings, then Connectors, then Add custom connector
-  ChatGPT     Developer Mode, then add an MCP server
+  Claude      Customize, then Connectors, then Add custom connector
+  ChatGPT     Settings, Security and login, Developer mode; then ChatGPT Plugins
+
+Use this endpoint with /mcp in connector settings.
 
 Source: https://github.com/gojiplus/skills
 `;

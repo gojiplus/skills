@@ -13,13 +13,16 @@
 #                         --clusters district --boot 9999
 #     Rscript se_ladder.R --data d.parquet --formula "y ~ treat | district^block" \
 #                         --param treat --clusters district      # a | means fixest
+#     --boot 0 disables the wild cluster bootstrap; --ri 0 disables randomization inference
 #
 # Also usable as a library:
 #     source("se_ladder.R"); se_ladder(fit, param = "treat", clusters = df$district)
 #     se_note(fit)     # the sentence for a table note, generated from the object
 #
-# Exit code is 1 if the ladder changes the sign of the estimate or moves a 95%
-# interval across zero, so it can be dropped into a pipeline as a gate.
+# Exit code is 1 if a 95% interval crosses zero on some rungs and not others, or
+# if the regressor has no within-cluster variation while the model also absorbs
+# fixed effects at that level -- so it can be dropped into a pipeline as a gate.
+# Exit code 2 means the run was misconfigured and no ladder was produced.
 
 suppressWarnings(suppressMessages({
     has <- function(p) requireNamespace(p, quietly = TRUE)
@@ -29,9 +32,9 @@ suppressWarnings(suppressMessages({
     ok_arrow    <- has("arrow");      ok_readr   <- has("readr")
 }))
 
-# Below this many clusters -- or this many TREATED clusters -- CR2 undercovers and
-# the wild cluster bootstrap or randomisation inference is required rather than
-# optional. MacKinnon, Nielsen and Webb (2023).
+# Below this many clusters -- or this many TREATED clusters -- compare CR2 with
+# the wild cluster bootstrap or randomization inference. MacKinnon, Nielsen and
+# Webb (2023).
 FEW_CLUSTERS <- 40L
 
 `%||%` <- function(a, b) if (is.null(a) || (length(a) == 1 && is.na(a))) b else a
@@ -51,7 +54,7 @@ ladder_note <- function(res, rung_name, n_cl = NA_integer_, n_tr = NA_integer_) 
     if (is.na(r$rung)) return("Standard errors: unknown.")
     txt <- sprintf("Standard errors: %s", r$rung)
     if (grepl("^CR|bootstrap", r$rung) && !is.na(n_cl)) {
-        txt <- sprintf("%s, clustered on the assignment unit (%s clusters%s)", txt,
+        txt <- sprintf("%s, clustered at the specified level (%s clusters%s)", txt,
                        format(n_cl, big.mark = ","),
                        if (!is.na(n_tr)) sprintf(", %s treated", format(n_tr, big.mark = ",")) else "")
     }
@@ -100,6 +103,9 @@ se_ladder <- function(fit, param, clusters = NULL, cluster_name = NULL,
     if (is.na(b)) stop(sprintf("parameter '%s' is not in the fitted model", param))
     n <- stats::nobs(fit)
     k <- length(stats::coef(fit))
+    if (stats::df.residual(fit) <= 0) {
+        stop("the fitted model has no residual degrees of freedom; no variance estimator is defined")
+    }
 
     # --- no-cluster rungs -------------------------------------------------- #
     if (ok_sandwich) {
@@ -178,7 +184,7 @@ se_ladder <- function(fit, param, clusters = NULL, cluster_name = NULL,
         # boottest() takes clustid as the NAME of a column reachable from the
         # model's data, not as a vector -- passing the vector fails with
         # "object '<first cluster value>' not found".
-        if (ok_wcb && inherits(fit, "lm") && !is.null(cluster_name)) {
+        if (boot > 0 && ok_wcb && inherits(fit, "lm") && !is.null(cluster_name)) {
             boot_run <- function(type, ci) {
                 res <- NULL
                 utils::capture.output(suppressWarnings(suppressMessages(
@@ -212,6 +218,10 @@ se_ladder <- function(fit, param, clusters = NULL, cluster_name = NULL,
         }
     }
 
+    if (!length(out)) {
+        stop("no variance estimator ran. Install 'sandwich' (and 'clubSandwich' ",
+             "for the CR2 rung); without them there is no ladder to report.")
+    }
     res <- do.call(rbind, out)
     attr(res, "n_clusters") <- n_cl
     attr(res, "n_clusters_treated") <- n_cl_treated
@@ -225,40 +235,69 @@ se_ladder <- function(fit, param, clusters = NULL, cluster_name = NULL,
 # randomisation inference: correct by construction when assignment is known
 # --------------------------------------------------------------------------- #
 
-ri_pvalue <- function(fit, data, param, clusters = NULL, sims = 2000L, seed = 1234567L) {
+ri_pvalue <- function(fit, data, param, clusters = NULL, sims = 2000L,
+                      seed = 1234567L) {
     set.seed(seed)
-    if (!param %in% names(data)) return(NULL)
     b_obs <- unname(stats::coef(fit)[param])
+    if (!param %in% names(data)) {
+        stop("RI requires param to name the raw assignment column in the data")
+    }
 
-    # Refit on a precomputed model matrix rather than through update(). update()
-    # rebuilds the model frame from the call on every draw, which turns 2,000
-    # permutations into minutes on a model that fits in milliseconds.
+    # Rebuild the complete design matrix from the permuted RAW assignment. Changing
+    # one model-matrix column directly makes impossible rows whenever treatment also
+    # appears in an interaction or transformation. Requiring a raw column means
+    # factor(treat)B needs a separate assignment option that this script does not
+    # pretend to infer.
     X <- stats::model.matrix(fit)
     y <- stats::model.response(stats::model.frame(fit))
     if (!param %in% colnames(X)) return(NULL)
     j <- match(param, colnames(X))
-    keep <- rownames(X)
-    idx <- if (!is.null(keep) && !is.null(rownames(data))) match(keep, rownames(data)) else
-        seq_len(nrow(X))
-    cl <- if (is.null(clusters)) seq_len(nrow(X)) else clusters[idx]
+    if (nrow(data) != nrow(X)) {
+        stop("RI data must be aligned to the estimation sample")
+    }
+    assignment <- data[[param]]
 
-    # Permute assignment at the level it was assigned: whole clusters, not rows.
-    # Permuting rows inside a cluster would test a null nobody is entertaining.
-    ucl <- unique(cl)
-    by_cl <- vapply(ucl, function(u) X[cl == u, j][1], numeric(1))
-    pos <- match(cl, ucl)
+    # The clustering level need not be the assignment level. If treatment is
+    # constant within cluster, permute whole clusters; otherwise permute rows.
+    # Treating every clustered analysis as cluster-randomized silently changes the
+    # design for individually randomized experiments.
+    if (is.null(clusters)) {
+        unit <- seq_len(nrow(X))
+        assignment_level <- "row"
+    } else {
+        if (length(clusters) != nrow(X) || anyNA(clusters)) {
+            stop("RI clusters must be complete and aligned to the estimation sample")
+        }
+        constant <- all(vapply(split(assignment, clusters, drop = TRUE), function(z) {
+            length(unique(z)) == 1L
+        }, logical(1)))
+        unit <- if (constant) clusters else seq_len(nrow(X))
+        assignment_level <- if (constant) "cluster" else "row"
+    }
+    units <- unique(unit)
+    by_unit <- vapply(units, function(u) assignment[unit == u][1], numeric(1))
+    pos <- match(unit, units)
 
     draws <- vapply(seq_len(sims), function(i) {
-        Xp <- X
-        Xp[, j] <- sample(by_cl)[pos]
+        permuted <- data
+        permuted[[param]] <- sample(by_unit)[pos]
+        Xp <- tryCatch(stats::model.matrix(
+            fit$terms,
+            data = permuted,
+            contrasts.arg = fit$contrasts,
+            xlev = fit$xlevels
+        ), error = function(e) NULL)
+        if (is.null(Xp) || nrow(Xp) != nrow(X) ||
+            !identical(colnames(Xp), colnames(X))) return(NA_real_)
         fitp <- tryCatch(stats::lm.fit(Xp, y), error = function(e) NULL)
         if (is.null(fitp)) return(NA_real_)
         unname(fitp$coefficients[j])
     }, numeric(1))
     draws <- draws[is.finite(draws)]
     if (!length(draws)) return(NULL)
-    list(p = mean(abs(draws) >= abs(b_obs)), sims = length(draws),
-         null_sd = stats::sd(draws), observed = b_obs)
+    extreme <- sum(abs(draws) >= abs(b_obs))
+    list(p = (extreme + 1) / (length(draws) + 1), sims = length(draws),
+         null_sd = stats::sd(draws), observed = b_obs, level = assignment_level)
 }
 
 # --------------------------------------------------------------------------- #
@@ -286,11 +325,13 @@ report <- function(res, param, ri = NULL) {
     }
 
     if (!is.null(ri)) {
-        cat(sprintf("\n%-28s %10.5f %10s  randomisation inference p = %.4f (%s draws)\n",
+        cat(sprintf("\n%-28s %10.5f %10s  randomization inference p = %.4f (%s draws)\n",
                     "RI (permutation)", ri$observed, sprintf("%.5f", ri$null_sd),
                     ri$p, format(ri$sims, big.mark = ",")))
-        cat("   ^ the SE column here is the SD of the null distribution, not an\n")
-        cat("     analytic standard error. The p-value is the object of interest.\n")
+        cat(sprintf("   assignment permuted at the %s level. The SE column is the SD\n",
+                    ri$level))
+        cat("   of the null distribution, not an analytic standard error. The p-value\n")
+        cat("   uses (extreme + 1) / (draws + 1).\n")
     }
 
     # --- the verdict ------------------------------------------------------- #
@@ -305,6 +346,7 @@ report <- function(res, param, ri = NULL) {
     }
 
     fails <- character(0)
+    incomplete <- FALSE
 
     # Zero within-cluster variation is NORMAL and correct for a cluster-assigned
     # treatment -- every cluster-randomised trial and every district-level policy
@@ -337,30 +379,56 @@ report <- function(res, param, ri = NULL) {
     }
 
     e <- excl[have_ci]
+    decision_names <- res$rung[have_ci]
+    if (!is.null(ri) && is.finite(ri$p)) {
+        e <- c(e, ri$p < 0.05)
+        decision_names <- c(decision_names, "RI (permutation)")
+    }
     if (length(e) > 1 && any(e) && !all(e)) {
         fails <- c(fails, sprintf(
-            "the 95%% interval excludes zero on [%s] and includes it on [%s]",
-            paste(res$rung[have_ci][e], collapse = ", "),
-            paste(res$rung[have_ci][!e], collapse = ", ")))
+            "the 5%% decision rejects zero on [%s] and does not reject on [%s]",
+            paste(decision_names[e], collapse = ", "),
+            paste(decision_names[!e], collapse = ", ")))
     }
-    if (length(unique(sign(res$estimate))) > 1) {
-        fails <- c(fails, "the estimate changes sign across rungs")
-    }
+    # (Every rung shares one point estimate by construction, so a sign-change check
+    # on res$estimate was dead code. What can change sign is the INTERVAL, and that
+    # is the comparison above.)
 
     if (!is.na(n_cl)) {
+        # The nominal count is a screen; the Satterthwaite dof on the CR2 rung is
+        # the honest summary of leverage, imbalance and treated-cluster
+        # concentration together. Judging "enough clusters" on the nominal count
+        # alone called the bootstrap "decoration" on designs where 300 clusters
+        # behave like a dozen.
+        dof_cr2 <- res$dof[grepl("^CR2", res$rung)][1]
+        effective_few <- !is.na(dof_cr2) && dof_cr2 < FEW_CLUSTERS
         few <- n_cl < FEW_CLUSTERS || (!is.na(n_tr) && n_tr < FEW_CLUSTERS)
-        if (few) {
+        if (few || effective_few) {
             cat(sprintf("\nFEW CLUSTERS (%s total%s, threshold %d).\n",
                         format(n_cl, big.mark = ","),
                         if (!is.na(n_tr)) sprintf(", %s treated", format(n_tr, big.mark = ",")) else "",
                         FEW_CLUSTERS))
-            cat("CR2 undercovers here. Report the wild cluster bootstrap or\n")
-            cat("randomisation inference, not CR0 or the Stata default.\n")
+            if (!few && effective_few) {
+                cat(sprintf("The nominal count clears the threshold, but the CR2\n"))
+                cat(sprintf("Satterthwaite dof is %.1f -- imbalance, leverage, or the\n", dof_cr2))
+                cat("concentration of treated clusters has cut the EFFECTIVE count.\n")
+            }
+            cat("Use CR2 with Satterthwaite degrees of freedom and compare it with\n")
+            cat("the wild cluster bootstrap or randomization inference. Do not rely\n")
+            cat("on CR0 or the Stata default.\n")
+            if (!"wild cluster bootstrap" %in% res$rung && is.null(ri)) {
+                incomplete <- TRUE
+                cat("Neither small-sample comparison ran, so this ladder cannot make\n")
+                cat("a stability claim. Re-run with --boot N or --ri N.\n")
+            }
         } else {
-            cat(sprintf("\nCluster count (%s) is above the few-cluster threshold (%d).\n",
-                        format(n_cl, big.mark = ","), FEW_CLUSTERS))
-            cat("CR2 is sufficient. The bootstrap buys runtime, not coverage --\n")
-            cat("reporting it here is decoration.\n")
+            cat(sprintf("\n%s clusters%s, CR2 Satterthwaite dof %s -- both above the\n",
+                        format(n_cl, big.mark = ","),
+                        if (!is.na(n_tr)) sprintf(" (%s treated)", format(n_tr, big.mark = ",")) else "",
+                        if (is.na(dof_cr2)) "n/a" else sprintf("%.1f", dof_cr2)))
+            cat(sprintf("few-cluster threshold (%d). CR2 is sufficient; the bootstrap\n",
+                        FEW_CLUSTERS))
+            cat("mostly buys runtime here rather than coverage.\n")
         }
     }
 
@@ -371,6 +439,10 @@ report <- function(res, param, ri = NULL) {
         cat("a variance approximation rather than on the data. Say so in the paper;\n")
         cat("do not report the friendliest rung.\n")
         return(1L)
+    }
+    if (incomplete) {
+        cat("\nINCOMPLETE LADDER: no stability verdict.\n")
+        return(2L)
     }
     cat("\nThe conclusion is stable across the ladder. Report the rung the DESIGN\n")
     cat("justifies -- not the narrowest -- and put the ladder in the SI.\n")
@@ -395,14 +467,46 @@ parse_args <- function(argv) {
         quit(status = 0)
     }
     out <- list(data = NULL, formula = NULL, param = NULL, clusters = NULL,
-                boot = "9999", ri = "0")
+                boot = "9999", ri = NA_character_)
+    known <- names(out)
     i <- 1L
     while (i <= length(argv)) {
         a <- argv[i]
-        if (startsWith(a, "--")) { k <- sub("^--", "", a); i <- i + 1L; out[[k]] <- argv[i] }
+        if (startsWith(a, "--")) {
+            k <- sub("^--", "", a)
+            # An unrecognised flag was absorbed silently, so `--cluster district`
+            # (singular) produced the no-cluster ladder with no warning.
+            if (!k %in% known) {
+                cat(sprintf("se_ladder.R: unknown flag '--%s'. Known: %s\n", k,
+                            paste0("--", known, collapse = " ")), file = stderr())
+                quit(status = 2)
+            }
+            if (i + 1L > length(argv) || startsWith(argv[i + 1L], "--")) {
+                cat(sprintf("se_ladder.R: --%s needs a value\n", k), file = stderr())
+                quit(status = 2)
+            }
+            i <- i + 1L
+            out[[k]] <- argv[i]
+        } else {
+            cat(sprintf("se_ladder.R: unexpected argument '%s'\n", a), file = stderr())
+            quit(status = 2)
+        }
         i <- i + 1L
     }
-    out$boot <- as.integer(out$boot); out$ri <- as.integer(out$ri)
+    out$boot <- suppressWarnings(as.integer(out$boot))
+    if (is.na(out$boot) || out$boot < 0L) {
+        cat("se_ladder.R: --boot must be a nonnegative integer\n", file = stderr())
+        quit(status = 2)
+    }
+    if (is.na(out$ri)) {
+        out$ri <- NA_integer_
+    } else {
+        out$ri <- suppressWarnings(as.integer(out$ri))
+        if (is.na(out$ri) || out$ri < 0L) {
+            cat("se_ladder.R: --ri must be a nonnegative integer\n", file = stderr())
+            quit(status = 2)
+        }
+    }
     out
 }
 
@@ -434,12 +538,43 @@ main <- function() {
     # count is small enough to make that honest, and say so.
     if (grepl("|", a$formula, fixed = TRUE)) {
         rhs <- trimws(strsplit(a$formula, "|", fixed = TRUE)[[1]])
-        fes <- strsplit(gsub("\\^", " + ", rhs[2]), "\\+")[[1]]
+        if (length(rhs) > 2) {
+            cat("se_ladder.R: this handles 'y ~ x | fe' only. A third |-separated\n",
+                file = stderr())
+            cat("part (an IV stage) would be silently dropped. Fit it with feols and\n",
+                file = stderr())
+            cat("an explicit vcov instead.\n", file = stderr())
+            quit(status = 2)
+        }
+        # In fixest, `a^b` is the INTERACTION of two fixed effects. Rewriting it to
+        # `a + b` fitted additive effects instead -- a different, less demanding
+        # model -- and reported it as the one requested. It also understated the
+        # level count, so the size guard below did not fire when it should have.
+        terms_fe <- trimws(strsplit(rhs[2], "\\+")[[1]])
+        terms_fe <- terms_fe[nzchar(terms_fe)]
+        fes <- unique(unlist(strsplit(terms_fe, "\\^")))
         fes <- trimws(fes)
-        n_lev <- sum(vapply(fes, function(f) length(unique(df[[f]])), numeric(1)))
+        absent <- fes[!fes %in% names(df)]
+        if (length(absent)) {
+            cat(sprintf("se_ladder.R: fixed-effect column(s) not in the data: %s\n",
+                        paste(absent, collapse = ", ")), file = stderr())
+            quit(status = 2)
+        }
+        as_factor <- vapply(terms_fe, function(t) {
+            parts <- trimws(strsplit(t, "\\^")[[1]])
+            if (length(parts) == 1) sprintf("factor(%s)", parts)
+            else sprintf("interaction(%s, drop = TRUE)", paste(parts, collapse = ", "))
+        }, character(1))
+        n_lev <- sum(vapply(terms_fe, function(t) {
+            parts <- trimws(strsplit(t, "\\^")[[1]])
+            length(unique(do.call(paste, c(unname(df[parts]), sep = "\r"))))
+        }, numeric(1)))
         cat(sprintf("fixed effects [%s] -> %s levels; entering them as factors so the\n",
-                    paste(fes, collapse = ", "), format(n_lev, big.mark = ",")))
+                    paste(terms_fe, collapse = ", "), format(n_lev, big.mark = ",")))
         cat("full ladder is available (absorbed models do not expose a design matrix).\n")
+        if (any(grepl("\\^", terms_fe))) {
+            cat("'^' read as an interaction, matching fixest -- not as '+'.\n")
+        }
         # CR2 inverts a per-cluster matrix whose size grows with the parameter
         # count, so dummy expansion is what makes this slow, not the sample size.
         # Measured: 14 levels ~35s, 300 levels did not finish in 120s.
@@ -453,7 +588,7 @@ main <- function() {
             quit(status = 2)
         }
         fml <- stats::as.formula(paste(rhs[1], "+",
-                                       paste(sprintf("factor(%s)", fes), collapse = " + ")))
+                                       paste(as_factor, collapse = " + ")))
     }
 
     # fwildclusterboot and stats::update() both re-evaluate fit$call, so the
@@ -465,29 +600,80 @@ main <- function() {
     assign("fml", fml, envir = .GlobalEnv)
     assign("df", df, envir = .GlobalEnv)
     fit <- eval(quote(stats::lm(fml, data = df)), envir = .GlobalEnv)
+    if (stats::df.residual(fit) <= 0) {
+        cat("se_ladder.R: the model has no residual degrees of freedom; no variance estimator is defined.\n",
+            file = stderr())
+        quit(status = 2)
+    }
 
-    cl <- if (!is.null(a$clusters)) df[[a$clusters]] else NULL
-    tr <- if (a$param %in% names(df)) df[[a$param]] else NULL
+    # A typo in --clusters used to give df[["nope"]] -> NULL -> the whole cluster
+    # block skipped, no warning, and a final verdict of "stable across the ladder"
+    # with exit 0. And `cl` was the FULL column while `fit` is on the complete
+    # cases, so any NA in the model made every CR rung error inside a tryCatch and
+    # vanish silently -- while the header still printed a cluster count taken from
+    # the full column. Both are resolved here: fail loudly on a bad name, and
+    # subset to the estimation sample.
+    if (!is.null(a$clusters) && !a$clusters %in% names(df)) {
+        cat(sprintf("se_ladder.R: --clusters column '%s' is not in the data.\n",
+                    a$clusters), file = stderr())
+        cat(sprintf("Columns: %s\n", paste(names(df), collapse = ", ")), file = stderr())
+        quit(status = 2)
+    }
+    used <- match(rownames(stats::model.frame(fit)), rownames(df))
+    if (anyNA(used) || length(used) != stats::nobs(fit)) {
+        cat("se_ladder.R: could not align the fitted rows to the input data.\n",
+            file = stderr())
+        quit(status = 2)
+    }
+    dropped <- nrow(df) - length(used)
+    if (dropped > 0) {
+        cat(sprintf("note: %s of %s rows dropped for missingness; all counts below\n",
+                    format(dropped, big.mark = ","), format(nrow(df), big.mark = ",")))
+        cat("      refer to the estimation sample, not the file.\n")
+    }
+    cl <- if (!is.null(a$clusters)) df[[a$clusters]][used] else NULL
+    tr <- if (a$param %in% names(df)) df[[a$param]][used] else NULL
 
     cat(sprintf("se_ladder.R  %s\n", a$data))
     cat(sprintf("formula: %s\n", deparse1(stats::formula(fit))))
 
+    # A binary regressor does not prove random assignment. Require --ri N as the
+    # user's assertion that complete randomization is the design; otherwise an
+    # observational treatment would receive a meaningless permutation p-value.
+    binary_treat <- !is.null(tr) && all(stats::na.omit(unique(tr)) %in% c(0, 1))
+    ri_given <- !is.na(a$ri)
+    n_ri <- if (ri_given) a$ri else 0L
+    estimation_data <- df[used, , drop = FALSE]
+    if (n_ri > 0 && !a$param %in% names(estimation_data)) {
+        cat(sprintf(paste0(
+            "se_ladder.R: --ri requires --param to name the raw assignment column; ",
+            "'%s' is only a derived model term.\n"), a$param), file = stderr())
+        return(2L)
+    }
+
     res <- se_ladder(fit, param = a$param, clusters = cl, cluster_name = a$clusters,
                      treat = tr, boot = a$boot, has_fe = has_fe)
 
-    # Randomisation inference is the DEFAULT when assignment is known and binary,
-    # not an escalation -- it gets coverage right by construction. --ri 0 disables
-    # it; --ri N sets the draw count.
-    binary_treat <- !is.null(tr) && all(stats::na.omit(unique(tr)) %in% c(0, 1))
-    n_ri <- if (a$ri > 0) a$ri else if (binary_treat) 2000L else 0L
-    if (a$ri == 0 && !binary_treat && !is.null(tr)) {
-        cat(sprintf("\nrandomisation inference skipped: '%s' is not binary.\n", a$param))
-        cat("Pass --ri N to permute it anyway if the assignment really was random.\n")
+    if (ri_given && a$ri == 0) cat("\nrandomization inference disabled (--ri 0).\n")
+    if (!ri_given && binary_treat) {
+        cat("\nrandomization inference not run: a binary regressor does not establish\n")
+        cat("random assignment. Pass --ri N only when complete randomization is the\n")
+        cat("design; the script will permute clusters when treatment is constant within\n")
+        cat("cluster and rows otherwise.\n")
     }
-    ri <- if (n_ri > 0) ri_pvalue(fit, df, a$param, cl, sims = n_ri) else NULL
+    ri <- if (n_ri > 0) {
+        ri_pvalue(fit, estimation_data, a$param, cl, sims = n_ri)
+    } else NULL
+    if (n_ri > 0 && is.null(ri)) {
+        cat("se_ladder.R: randomization inference produced no usable draws.\n",
+            file = stderr())
+        return(2L)
+    }
 
     status <- report(res, a$param, ri)
-    suggest_note(res, attr(res, "n_clusters"), attr(res, "n_clusters_treated"))
+    if (status != 2L) {
+        suggest_note(res, attr(res, "n_clusters"), attr(res, "n_clusters_treated"))
+    }
     status
 }
 

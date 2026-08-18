@@ -1,9 +1,7 @@
 # skills
 
-Agent Skills for empirical social-science work — auditing analyses and packages,
-building analysis-ready data, designing a study before it gets a regression,
-diagnosing empirical failures, refereeing papers, triaging OCR pipelines, writing
-prose, and cutting releases.
+Agent Skills for empirical social-science work, software and Cloudflare development,
+writing, and releases.
 
 Skills follow the [Agent Skills](https://agentskills.io) open format: a folder with
 a `SKILL.md` carrying `name` and `description` in frontmatter, plus whatever
@@ -21,6 +19,15 @@ startup and the body only when a task matches.
 | [on-writing](on-writing/) | Edit prose that buries its point, over-hedges, or reads as generated |
 | [release](release/) | Cut a package release behind an independent review gate |
 | [review-article](review-article/) | Referee a quantitative social-science paper |
+| [todo](todo/) | Read and write durable tasks in the user's Obsidian TaskNotes vault |
+| [visualize-evidence](visualize-evidence/) | Design empirical figures, tables, and maps around clear comparisons and uncertainty |
+| [write-empirical-paper](write-empirical-paper/) | Coordinate analysis audits, prose, exhibits, compilation, and paper-level validation |
+
+The repository also carries the Cloudflare skill bundle used by local agents, including
+[cloudflare](cloudflare/), [Agents SDK](agents-sdk/), [Durable Objects](durable-objects/),
+[Workers best practices](workers-best-practices/), [Wrangler](wrangler/), Sandbox,
+Cloudflare One, email, Turnstile, and web-performance skills. The generated
+[`index.json`](index.json) is the complete machine-readable catalog.
 
 ## Installing
 
@@ -40,7 +47,7 @@ ln -s ~/Documents/GitHub/skills ~/.claude/skills   # Claude Code
 ```
 
 `~/.agents/skills` is the cross-tool standard path; `~/.claude/skills` is Claude
-Code's. Restart the agent and it should list all nine. If one lists none, it does
+Code's. Restart the agent and it should list all skills. If one lists none, it does
 not follow a symlinked directory — fall back to per-skill links for that one:
 
 ```sh
@@ -50,27 +57,31 @@ make link DEST=~/.claude/skills
 This is the highest-fidelity install: bundled scripts execute, and progressive
 disclosure works as designed.
 
-### Web surfaces — upload a zip
+### Claude web — upload a zip
 
-claude.ai (Settings → Skills, on Pro/Max/Team/Enterprise with code execution on)
-and ChatGPT (Skills → Create → upload) each accept a zip. Scripts still run, in
-their sandbox. Grab the zips from the [latest release](../../releases/latest), or
-build them:
+In Claude, open **Customize → Skills → + → Create skill → Upload a skill** and
+enable code execution. Grab the zips from the
+[latest release](../../releases/latest), or build them:
 
 ```sh
 make dist        # -> dist/<skill>.zip, one per skill
 ```
 
-Uploads are per-surface and per-user, and there is no API to push them, so a
-changed skill means re-uploading that zip.
+Uploads are per-user. A changed skill means re-uploading that zip. These archives
+are not ChatGPT plugin packages; current ChatGPT distribution uses plugins and
+MCP connections instead.
 
 ### Web surfaces — connect the MCP endpoint
 
-To avoid re-uploading, serve this repo over MCP and add it as a custom connector
-on claude.ai (Settings → Connectors) and ChatGPT (Developer Mode). The server
-reads from GitHub at request time, so push to `main` and every surface sees the
-change on the next conversation — no redeploy, no upload. Connectors are
-account-scoped on claude.ai, so this is also the only path that reaches mobile.
+To avoid re-uploading, serve this repo over MCP. In Claude, open **Customize →
+Connectors → + → Add custom connector**. In ChatGPT, enable Developer mode under
+**Settings → Security and login**, then open **ChatGPT Plugins → +** and enter the
+MCP URL, including `/mcp`.
+
+The server reads content from GitHub at request time, so a push to `main` updates
+skill bodies without a redeploy. Clients may cache the tool catalog; refresh or
+reconnect after adding, renaming, or changing a skill description. The MCP shim
+exposes skills as tools and resources, not as native installed skills.
 
 [`server/`](server/) is a Cloudflare Worker: `npx wrangler login && npx wrangler
 deploy`, once. It follows
@@ -88,7 +99,7 @@ live sync; use a zip when a skill needs its scripts.
 
 ```sh
 make check   # validate every SKILL.md, and confirm index.json is current
-make test    # the validator's own tests, including the cases that must fail
+make test    # run the repository unit tests
 make index   # regenerate index.json after adding or editing a skill
 make dist    # build the upload zips
 ```
@@ -98,11 +109,12 @@ whose pre-commit hook regenerates `index.json`. Otherwise every skill edit is tw
 steps and CI fails on the commits where you forget the second.
 
 Adding a skill is then just a directory with a `SKILL.md`. The symlinks mean
-local agents pick it up with no further step, and the MCP endpoint picks it up on
-push — the server reads GitHub at request time, so there is nothing to redeploy.
+local agents pick it up with no further step. The MCP endpoint picks up content
+on push; refresh connected clients when the catalog metadata changes.
 
 `make check` enforces what claude.ai enforces on upload and Claude Code does not:
 `name` at most 64 characters of lowercase letters, numbers and hyphens with no
-reserved words, `description` non-empty and at most 1024, no XML tags in either,
+reserved words, `description` non-empty and at most 200 characters, no XML tags
+in either,
 and `name` matching the directory. A skill can work locally for months and still
 be rejected at upload; this is the gate that catches that.

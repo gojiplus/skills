@@ -1,0 +1,4 @@
+interface:
+  display_name: "Write an Empirical Paper"
+  short_description: "Coordinate analysis, prose, exhibits, and validation"
+  default_prompt: "Use $write-empirical-paper to audit, revise, compile, and visually inspect this quantitative paper."

@@ -1,6 +1,6 @@
 ---
 name: ocr-error-triage
-description: Use when improving an OCR or document-extraction pipeline — diagnosing why fields come out wrong, proposing fixes, and deciding whether a fix is real. Replaces "I looked at a page and it works now" with a measured loop: bracket the error rate without ground truth, localise failures statistically, propose from a signature library, and gate every fix on in-sample, out-of-sample, no-degradation and cost.
+description: Diagnose and improve OCR or document extraction. Use to measure error without full ground truth, localize failures, test repairs out of sample, and gate regressions and cost.
 ---
 
 # Triaging OCR extraction errors
@@ -122,6 +122,17 @@ commands: `bench --record` measures current code on all splits and stores it; ma
 
 **Guard the ground-truth measures on every change**, whatever field the fix targets. A fix
 that lifts an ID match rate while losing records is not a fix.
+
+**Where position carries meaning, a repair must not change width.** In a ruled grid the
+column *is* the field — ward 6 is ward 6 because of where it sits on the line. Substituting
+`UR(W)` for `[URW` is one character wider and slides every cell after it by one column. This
+is the most dangerous shape of fix available, because every aggregate improves: on a real run
+it recovered 2,401 gender markers, cut unstated rows from 1,754 to 1,122 and moved the
+women's share toward the statutory half, while silently costing one panchayat three of its
+eight wards. Nothing in those numbers could show it — they went up *because* of the change
+that was destroying rows. Pad the replacement, absorb following whitespace, and **decline the
+repair** when there is no room, rather than let a row shift. Then read one record off the page
+cell by cell, because that is the only check that sees it.
 
 **Guard soundness, not fill.** A fill rate *falls* when a provably wrong value is correctly
 cleared, so a gate guarding fill rejects the one move that unambiguously improves the data.

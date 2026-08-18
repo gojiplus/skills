@@ -1,6 +1,6 @@
 ---
 name: on-writing
-description: Use when writing or editing prose - essays, papers, abstracts, memos, emails, blog posts, documentation, reports, reviews. Use when a draft buries its point, runs long, over-hedges, sounds AI-generated or generic, or needs an editor's pass before it ships. Also use when asked to humanize text, remove AI writing tells, or match an author's voice.
+description: Edit prose for organization, clarity, voice, and AI-writing tells. Use for papers, documentation, memos, emails, reports, reviews, humanization, or matching an author's voice.
 license: MIT
 compatibility: any-agent
 metadata:
@@ -38,7 +38,9 @@ Decide two things before touching anything.
 - **O2. Nothing before the point the reader doesn't need.** The rule in full: nothing may precede the main result unless the reader needs it to understand that result. Cut throat-clearing ("X has long been important..."), roadmap paragraphs, and the travelogue of how you got here. Endings too: no summaries, no generic send-offs; stop at the last real point.
 - **O2b. The opening is a filter.** The first paragraph or two defines what can and cannot appear in the rest. Write it, then use it: anything that does not help reach the conclusion it promises gets cut, however interesting. This is why the opening is the hardest part and worth the most passes.
 - **O3. Paragraphs are units of thought.** One point at a time; consolidate each thought into one short paragraph. Move interrupting asides to after the point, or cut them.
+- **O3b. Give empirical paragraphs an internal order.** State the result, give the evidence that establishes it, interpret it, then state its real scope condition. Keep a proposed mechanism separate from the finding and name it as a hypothesis when the design does not identify it.
 - **O4. Order so transitions become implicit.** Stage management ("having discussed X, we turn to Y") means the argument is misordered, not under-signposted. Previews ("as we will see"), recalls ("recall from above"), and saying anything twice are the flags: put material where it is needed, once.
+- **O4b. State the relation instead of gesturing at it.** Replace transitions such as "two caveats attach to this" with the proposition the next sentence establishes: "The reliability estimates have two limitations." Replace a vague "this" or "it" with the result, comparison, or objection meant.
 - **O5. Track what the reader knows.** Define terms at first use, minimize acronyms, use "for example" liberally. Old information starts the sentence; new information ends it. Stop re-establishing context after it's established.
 - **O6. Say it yourself.** Never build a sentence or paragraph around what someone else thinks. No "According to X", "As X shows", "Scholars have long argued". State the claim; put the citation in parentheses at the end of the clause. The literature informs the argument from the background, and the foreground is yours. The best papers have no literature review section.
 - **O7. Cite; don't quote.** Use the thoughts, not the words. Quote only when the exact wording is the point, because it is wrong or too good to paraphrase. A paper should carry many citations and almost no quotations; strung-together quotes crowd out the thinking they stand in for.
@@ -69,6 +71,7 @@ Skip for prose without exhibits. Where there are exhibits, these carry as much o
 - **N4. Name variables, don't code them.** "Democratic incumbent's vote share", not `DINVTSHR`. Typesetters stopped charging by the character decades ago.
 - **N5. Report uncertainty, not just verdicts.** Prefer standard errors to significance stars: readers can divide, and they are entitled to pick their own critical values. Give the magnitude of an effect and not only its statistical significance.
 - **N6. Anyone should be able to rebuild every number** from the paper and its appendix. If a reader cannot see how the central estimate was computed, the writing has failed regardless of how it reads.
+- **N7. Keep constructs and units stable.** Name the analytic universe and denominator. Use percent for a level, percentage points for a difference between percentages, proportion for a 0-to-1 quantity, and ratios with a direction and base. The same technical name must mean the same thing in prose, tables, figures, and captions.
 
 ## Pass 3: AI-tell sweep
 

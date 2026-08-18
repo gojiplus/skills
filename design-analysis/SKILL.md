@@ -1,6 +1,6 @@
 ---
 name: design-analysis
-description: Use when an analysis-ready dataset needs a research design before it gets a regression — an estimand to state, an identifying assumption to name, placebos and negative controls to pre-specify, a clustering level and standard error to justify, a repo and manuscript to lay out, or results to interpret without leaning on significance. Replaces "run it and see what comes out significant" with a frozen plan: identify, pre-specify, interpret in intervals, build, and get audited before the headline number exists.
+description: Design an empirical study before estimation. Use to state estimands and assumptions, freeze analyses, choose inference and clustering, plan placebos, or structure a research repository.
 ---
 
 # Designing an analysis before you run it
@@ -180,17 +180,21 @@ effects force it, with `vcov` written out.
 
 **Wild cluster bootstrap only when clusters are few.** Below roughly 40 clusters, or with few
 *treated* clusters however many total, escalate to `fwildclusterboot::boottest` — MacKinnon,
-Nielsen and Webb's "31" variant — or to randomisation inference. Above that, CR2 is enough and the
+Nielsen and Webb's "31" variant — or to randomization inference. Above that, CR2 is enough and the
 bootstrap buys runtime, not coverage. **Count treated clusters, not observations.** That is the
 number that decides, and it is the one people skip: 80,000 observations in 6 treated districts is
 a 6-cluster problem.
 
-Where assignment is known, **randomisation inference is the default, not the escalation**
+Where assignment is known, **randomization inference is the default, not the escalation**
 (`ri2`, `randomizr`). It gets coverage right by construction because it reuses the actual
-assignment mechanism instead of assuming one.
+assignment mechanism instead of assuming one. The ladder script cannot infer that mechanism
+from a binary regressor: pass `--ri N` only to assert complete random assignment. `--param` must
+name a raw numeric assignment column; derived factor coefficients are rejected. The script rebuilds
+the full design matrix after permuting clusters or rows, so interactions remain internally
+consistent. Use `ri2` or `randomizr` for blocked, stratified, multilevel, or other mechanisms.
 
 **Report the ladder.** `scripts/se_ladder.R` fits one specification and returns iid, HC1, HC2,
-CR0, CR2, wild cluster bootstrap and randomisation inference side by side, with the cluster and
+CR0, CR2, wild cluster bootstrap and randomization inference side by side, with the cluster and
 treated-cluster counts. The design picks which rung is reported in the main table; the ladder goes
 in the SI. **If the conclusion moves across the ladder, that is the result** — say so, rather than
 reporting the friendliest rung and calling the others robustness.
@@ -287,15 +291,36 @@ Self-audit first. Run `audit-analysis` in `own` mode over everything from stages
 outcome models are unblinded**. An audit after the results exist is an audit of a decision you
 have already defended to yourself.
 
-**Then a second model.** `codex exec "<prompt>"` is the reliable non-interactive path; the Gemini
-CLI's individual free tier stopped authenticating in 2026 and now routes through Antigravity, so
-check it works before depending on it.
+**Then a second model.** Two work non-interactively:
+
+```bash
+codex exec "<prompt>"
+
+# Gemini via Antigravity. --print-timeout because the 5m default kills a real
+# review; --dangerously-skip-permissions because headless auto-denies every tool
+# request and the run returns "no output produced" without it -- paired with
+# --mode plan, which keeps the agent read-only.
+agy --mode plan --dangerously-skip-permissions \
+  --print-timeout 45m --model gemini-3.1-pro-high -p "<prompt>"
+```
+
+The standalone `gemini` CLI may refuse individual OAuth outright; `agy` is then the only way in.
+`release` owns these tooling details — check it there rather than rediscovering them.
+
+**Run both when you can.** They do not fail the same way, and the union of two reviews is
+meaningfully larger than either. `agy` also reaches Claude models, but a second opinion from the
+same family as the first is worth less than one from a different family.
 
 Give the second reader the data dictionary, the join contract, the PAP, and the code, and ask for
 exactly three things: **the strongest rival explanation, the three assumptions most likely to be
 wrong, and anything methodologically out of date.** Do not ask for a code review — that is not the
 failure mode at this stage, and asking for it reliably gets you style notes instead of the
 identification problem. Tell it not to summarise your work back to you and not to praise it.
+
+Then **re-derive every finding before acting on it.** Reviewing this skill, one model correctly
+caught that a claim about a package default was wrong for the current release — and was itself
+wrong about the version the repo pinned, where the original claim held. Both halves mattered and
+only running the code settled it.
 
 This is the same gate discipline as `release`, where a second model is mandatory before anything
 irreversible happens, and for the same reason: producing the headline number is the step you

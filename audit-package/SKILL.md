@@ -1,6 +1,6 @@
 ---
 name: audit-package
-description: Use when auditing a software library or package for correctness defects — a dependency you rely on, a package you maintain, or a well-known package you suspect — and when preparing a bug fix to send upstream to a maintainer you do not know.
+description: Audit a software package for correctness defects and prepare an upstream-quality fix. Use for maintained libraries, dependencies, regression tests, and reproducible bug reports.
 ---
 
 # Auditing a Package for Correctness Defects

@@ -6,10 +6,10 @@ REPO := $(shell pwd)
 
 help:
 	@echo "check  validate every SKILL.md, and confirm index.json is current"
-	@echo "test   run the validator's own tests"
+	@echo "test   run the repository unit tests"
 	@echo "index  regenerate index.json (the catalog the MCP server serves)"
 	@echo "hooks  install the pre-commit hook that keeps index.json current"
-	@echo "dist   build dist/<skill>.zip for upload to claude.ai and ChatGPT"
+	@echo "dist   build dist/<skill>.zip for upload to Claude"
 	@echo "link   per-skill symlinks, only if a directory symlink is not followed"
 	@echo "clean  remove dist/"
 

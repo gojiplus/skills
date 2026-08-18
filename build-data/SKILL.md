@@ -1,6 +1,6 @@
 ---
 name: build-data
-description: Use when turning raw or unfamiliar data into an analysis-ready file — columns with no codebook, values you cannot interpret, sentinel codes like -999 or 88, a recode to define, or a merge to plan between tables whose key is not obvious. Replaces "load it and start joining" with three artifacts you can defend: a data dictionary that states each column's universe, a recode ledger, and a join contract with a declared key and a verified row count.
+description: Turn raw or unfamiliar data into an analysis-ready file. Use for undocumented columns, sentinel codes, recodes, data dictionaries, join keys, row-count contracts, and merge audits.
 ---
 
 # Building an analysis-ready dataset
@@ -27,6 +27,44 @@ whose artifact is missing); mode defaults to **`consult`**.
 it in so many words — "do it autonomously", "don't stop and ask", "just build the file".
 
 **Dictionary → Recode → Link.** Each stage ends in a committed file, not a conclusion.
+
+## 0. Look at the data before you do anything to it
+
+**First move, before the dictionary: show the user actual rows and a summary of every key
+table.** Not a description of the file — the file. Head and tail, the row and column counts,
+what each column holds, the most common values, the extremes. Then stop and let them react.
+
+This costs one screen and repeatedly saves the whole build, because the person who knows the
+data spots in seconds what no profiling script is written to catch: a column that is obviously
+the wrong year, an identifier that should be unique and visibly is not, a name field carrying a
+phone number, units that are lakhs where you assumed rupees. A summary alone does not surface
+those — `n=42,318, 6 columns, 0.4% missing` is compatible with the table being the wrong table.
+
+Show for each key table, inline:
+
+- **the first and last few rows, unedited** — including the ugly columns, not a tidy selection
+- **shape**: rows, columns, and what one row is meant to be
+- **per column**: type, missing share, distinct count, and the three most common values
+- **the extremes** of anything numeric or dated — min and max are where the sentinels live
+
+### Unstructured data: open it, do not describe it
+
+When the data is images, audio, video, scans or PDFs, a summary is nearly worthless and a file
+listing is worse. **Open the actual artifacts** so the user sees and hears what the pipeline
+will be reading:
+
+```
+open page.png                      images, scans, rendered PDF pages
+open clip.wav                      audio — they will hear clipping, silence, the wrong language
+open sample.mp4                    video
+pdftoppm -f N -l N -r 150 -png -singlefile doc.pdf /tmp/p && open /tmp/p.png
+```
+
+Show a deliberate spread rather than the first five: a couple of typical items, the largest and
+smallest, the oldest and newest, and anything an automated check already flagged as odd. Say what
+you want them to look for. One glance settles questions — is this the right script, is the scan
+legible, is the audio the interview or the room tone — that would otherwise take many turns to
+infer, and that a passing schema check will never ask.
 
 ## Work with the user, not for them
 

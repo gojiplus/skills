@@ -54,6 +54,15 @@ def shape_and_keys(df, keys):
     if not keys:
         print("no --key given; skipping uniqueness (pass one, it is the cheapest check)")
         return
+    absent = [k for k in keys if k not in df.columns]
+    if absent:
+        # A typo in --key used to be an uncaught KeyError. It is a hard failure,
+        # not a crash: the check the user asked for did not run.
+        print(_fail(f"--key column(s) not in the data: {', '.join(absent)}"))
+        near = [c for c in df.columns if c.lower() in {a.lower() for a in absent}]
+        if near:
+            print(f"      case-insensitive matches present: {', '.join(near)}")
+        return
     dup = int(df.duplicated(subset=keys).sum())
     n_uniq = len(df.drop_duplicates(subset=keys))
     print(f"key {keys}: {n_uniq:,} distinct, {dup:,} duplicate rows")
@@ -155,13 +164,22 @@ def ranges(df):
         if s.empty:
             continue
         if any(h in low for h in SHARE_HINTS):
-            bad = int(((s < 0) | (s > 1)).sum())
-            if bad and s.max() > 1.0000001:
+            # The epsilon belongs only on the upper bound. Conjoining it meant a
+            # share ranging [-0.02, 0.94] -- the classic residual-of-a-subtraction
+            # bug -- counted its violations and then reported nothing, exiting 0.
+            over = int((s > 1 + 1e-7).sum())
+            under = int((s < 0).sum())
+            if over or under:
                 hits += 1
+                parts = []
+                if under:
+                    parts.append(f"{under:,} below 0")
+                if over:
+                    parts.append(f"{over:,} above 1")
                 print(
                     _fail(
                         f"{col} looks like a share but ranges "
-                        f"[{s.min():.4g}, {s.max():.4g}] ({bad:,} outside [0,1])"
+                        f"[{s.min():.4g}, {s.max():.4g}] ({', '.join(parts)})"
                     )
                 )
         if ("count" in low or "n_" in low or low.startswith("num")) and s.min() < 0:
@@ -180,15 +198,24 @@ def distributions(df):
         if len(s) < 10 or s.nunique() < 3:
             continue
         med = s.median()
+        # max/med and a share-of-total are only interpretable on a non-negative
+        # column: with a negative median the ratio flips sign and the heavy-tail
+        # flag below can never fire, and with mixed signs s.sum() is near zero so
+        # the mass ratio is an arbitrary large number that sorts to the top.
+        nonneg = bool((s >= 0).all())
+        n_top = max(1, len(s) // 100)
         rows.append(
             {
                 "column": col,
                 "median": med,
                 "max": s.max(),
-                "max/med": s.max() / med if med else np.inf,
+                "max/med": (s.max() / med if med > 0 else np.nan) if nonneg else np.nan,
                 "skew": s.skew(),
-                "top1%_mass": (
-                    s.nlargest(max(1, len(s) // 100)).sum() / s.sum() if s.sum() else 0
+                "n_top": n_top,
+                "top_n_mass": (
+                    s.nlargest(n_top).sum() / s.sum()
+                    if nonneg and s.sum() > 0
+                    else np.nan
                 ),
             }
         )
@@ -198,6 +225,12 @@ def distributions(df):
     out = pd.DataFrame(rows).sort_values("skew", key=abs, ascending=False)
     with pd.option_context("display.width", 200, "display.max_rows", 200):
         print(out.to_string(index=False, float_format=lambda x: f"{x:,.3f}"))
+    print(
+        "\n'top_n_mass' is the share of the total held by the n_top largest values"
+        "\n(n_top = max(1, n/100), so it is a single value below n = 200). Both it"
+        "\nand max/med are blank for columns with negative values, where neither is"
+        "\ninterpretable."
+    )
     heavy = out[(out["skew"].abs() > 2) | (out["max/med"] > 20)]
     if not heavy.empty:
         print(
@@ -218,10 +251,16 @@ def denominators(df):
     # Requiring strict positivity here produced false NOT-FOUNDs on the very
     # column the rates were actually built from, so allow zeros and compare only
     # where the denominator is positive.
+    # `(num[c] >= 0).all()` is False whenever the column has a single NaN, because
+    # `NaN >= 0` is False -- so any candidate denominator with one missing value was
+    # dropped from the search entirely and the true denominator came back NOT FOUND.
+    # That is the exact failure the comment above says was fixed.
     cands = [
         c
         for c in num.columns
-        if c not in rate_cols and (num[c] >= 0).all() and num[c].nunique() > 10
+        if c not in rate_cols
+        and (num[c].dropna() >= 0).all()
+        and num[c].nunique() > 10
     ]
     print(
         f"{len(rate_cols)} rate-like column(s); testing each against "
@@ -281,25 +320,81 @@ def leverage(df, outcome, covariates):
     if not covs:
         print("no --covariates given; skipping")
         return
+    missing = [c for c in [outcome] + covs if c not in df.columns]
+    if missing:
+        print(f"column(s) not in the data, skipping: {', '.join(missing)}")
+        return
+    # A duplicated index makes `.drop(label)` remove every row sharing the label,
+    # which silently turns leave-one-out into leave-k-out. Renumber first.
     d = df[[outcome] + covs].dropna()
+    idx_labels = d.index.tolist()
+    d = d.reset_index(drop=True)
+    if len(d) <= len(covs) + 2:
+        print(f"only {len(d):,} complete rows for {len(covs)} covariates; skipping")
+        return
     formula = f"{outcome} ~ " + " + ".join(covs)
     full = smf.ols(formula, d).fit(cov_type="HC1")
     print(f"n = {int(full.nobs):,}   formula: {formula}\n")
-    print(f"{'term':32s} {'full':>12s} {'worst LOO':>12s} {'shift':>10s}")
-    for term in full.params.index:
+
+    # Leave-one-out coefficients have a closed form, so refitting the model once
+    # per row is unnecessary -- and it was the reason this section never finished
+    # on a real dataset (38.7ms per refit x n rows x p terms; 1,189 rows and 3
+    # covariates did not print a single line inside two minutes).
+    #
+    #     beta - beta_(-i) = (X'X)^-1 x_i e_i / (1 - h_i)
+    #
+    # Verified identical to the refit loop to 8 decimal places, including the
+    # driving row index, at 8.3s -> 0.0006s.
+    X = np.asarray(full.model.exog, dtype=float)
+    XtXi = np.linalg.pinv(X.T @ X)
+    resid = np.asarray(full.resid, dtype=float)
+    h = np.einsum("ij,jk,ik->i", X, XtXi, X)
+    # h_i = 1 means the row is fitted exactly and its LOO coefficient is undefined.
+    exact = h >= 1 - 1e-12
+    denom = np.where(exact, np.nan, 1.0 - h)
+    dfbeta = (XtXi @ X.T).T * (resid / denom)[:, None]
+    if exact.any():
+        print(f"note: {int(exact.sum()):,} row(s) have leverage 1 and no defined "
+              "leave-one-out coefficient; excluded below.\n")
+
+    names = list(full.params.index)
+    print(f"{'term':28s} {'full':>12s} {'worst LOO':>12s} {'in SEs':>8s} {'shift':>9s}")
+    flagged = []
+    for j, term in enumerate(names):
         if term == "Intercept":
             continue
-        base = full.params[term]
-        worst, worst_i = base, None
-        for i in range(len(d)):
-            b = smf.ols(formula, d.drop(d.index[i])).fit().params[term]
-            if abs(b - base) > abs(worst - base):
-                worst, worst_i = b, i
-        shift = abs(worst - base) / (abs(base) if base else 1)
-        flag = "  <-- one observation moves this >10%" if shift > 0.10 else ""
-        print(f"{term:32s} {base:12.4f} {worst:12.4f} {100 * shift:9.1f}%{flag}")
-        if worst_i is not None and shift > 0.10:
-            print(f"    driven by row {d.index[worst_i]}")
+        base = float(full.params[term])
+        se = float(full.bse[term])
+        col = dfbeta[:, j]
+        if not np.isfinite(col).any():
+            print(f"{term:28s} {base:12.4f}  (no defined LOO coefficient)")
+            continue
+        i = int(np.nanargmax(np.abs(col)))
+        worst = base - col[i]
+        # Scale by the standard error, not by |base|. A relative shift is dominated
+        # by how close the coefficient sits to zero rather than by leverage: on a
+        # fixture with no influential observation at all, all three covariates
+        # tripped a >10% relative threshold while the largest true single-row
+        # influence was 0.31 SE.
+        in_ses = abs(col[i]) / se if se > 0 else np.inf
+        shift = abs(col[i]) / (abs(base) if base else 1)
+        flag = "  <--" if in_ses >= 0.5 else ""
+        print(f"{term:28s} {base:12.4f} {worst:12.4f} {in_ses:8.2f} "
+              f"{100 * shift:8.1f}%{flag}")
+        if in_ses >= 0.5:
+            flagged.append((term, idx_labels[i], in_ses))
+
+    if flagged:
+        print("\none observation moves these by at least half a standard error:")
+        for term, label, k in flagged:
+            print(f"    {term:28s} row {label}  ({k:.2f} SEs)")
+        print("Check that row before trusting the coefficient. A DFBETAS above ~0.5"
+              "\nSE is worth a look; above 1 SE the estimate is one observation.")
+    else:
+        print("\nno single observation moves any coefficient by half a standard "
+              "error.\nThe percentage column is reported for reference only -- it "
+              "is large whenever\na coefficient is near zero, which is not the same "
+              "as being influential.")
 
 
 def main():

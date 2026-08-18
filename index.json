@@ -1,12 +1,121 @@
 {
   "skills": [
     {
+      "name": "agents-sdk",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "digest": "sha256:2631982317bb0607af87a88aa8856b3d504d76f0e87297067ea561e8da3a0ff0",
+          "size": 11927
+        },
+        {
+          "path": "references/browse-the-web.md",
+          "digest": "sha256:e35b6627eee0bcd0f86e264ad0973aa5c364a5bd3ec14838ad36217faf47c841",
+          "size": 1634
+        },
+        {
+          "path": "references/callable.md",
+          "digest": "sha256:4c116204cd68ff53908c49100a110d5fb773f9a3bc486a2be57afb09a4ead248",
+          "size": 2115
+        },
+        {
+          "path": "references/client-sdk.md",
+          "digest": "sha256:cefd3d4947e8c081ac2a66ce6dedf95edb3e30f34bde0c6b8a2eaef182ee7210",
+          "size": 2287
+        },
+        {
+          "path": "references/codemode.md",
+          "digest": "sha256:35d9639fe1db69400479c34670a71090031608276ebf9bc1c5e7fa32f77d487b",
+          "size": 2902
+        },
+        {
+          "path": "references/configuration.md",
+          "digest": "sha256:91842e59fb17eff0d40df1cf16905aca8abd3ad9a939f8d15bfd6c5b84175354",
+          "size": 1837
+        },
+        {
+          "path": "references/durable-execution.md",
+          "digest": "sha256:7cea752aa3423745be812cc97df38b6beeea97900b97b21f171fc3ad1a5e281b",
+          "size": 1705
+        },
+        {
+          "path": "references/email.md",
+          "digest": "sha256:0a156971806f83f2f93450d731a57d6cb315cab387e3adeb33ad6ff50fe49ecc",
+          "size": 3539
+        },
+        {
+          "path": "references/human-in-the-loop.md",
+          "digest": "sha256:729bb89c146b1e260e58b751bf47566ac7870afa33fff35d672ad485ed695766",
+          "size": 1804
+        },
+        {
+          "path": "references/mcp.md",
+          "digest": "sha256:18d010499dd8efe61ed1bdd32321da1c1d76884f6619fa773ee06237f36487b3",
+          "size": 4659
+        },
+        {
+          "path": "references/observability.md",
+          "digest": "sha256:4563c0b9856b0f2ce9728470473caab565442cb2eb40044434d771805b9aa7f1",
+          "size": 1339
+        },
+        {
+          "path": "references/queue-retries.md",
+          "digest": "sha256:989733a31aa7ab7b6e9b778da975a3a5db6e21f200a02af073069150eb700ea3",
+          "size": 2228
+        },
+        {
+          "path": "references/routing.md",
+          "digest": "sha256:55c9c94b02f827cbd90bc00ca798197b4cdee0e87e0b2fe15b8f77d7725d66a6",
+          "size": 1828
+        },
+        {
+          "path": "references/server-driven-messages.md",
+          "digest": "sha256:8ac4eac5459693272c6e54fc1a656538f5e4a118029ee76988726ca84d20fd05",
+          "size": 1681
+        },
+        {
+          "path": "references/state-scheduling.md",
+          "digest": "sha256:a1da07a5a7808a0e399213ab5d473fd3e6b021769796d06c9649f81373a37315",
+          "size": 4044
+        },
+        {
+          "path": "references/streaming-chat.md",
+          "digest": "sha256:519bd7acbe7d2e5a0d253e4d87de24f499deb457e6806f7a147204e719fabe7a",
+          "size": 5066
+        },
+        {
+          "path": "references/think.md",
+          "digest": "sha256:1c507f9a22414290cf1c45821deb1d83ae3b008098ead751af380559789547e5",
+          "size": 2929
+        },
+        {
+          "path": "references/voice.md",
+          "digest": "sha256:b6254f2afa76a9530c43741bc9ea4dfcc9bcef2c7819dfba026825811943b06a",
+          "size": 1901
+        },
+        {
+          "path": "references/webhooks-push.md",
+          "digest": "sha256:1ee166ab7d14d2b26db04ce8c6071e7cf0b348bf5bf704b13f943229e1a52cb5",
+          "size": 2423
+        },
+        {
+          "path": "references/workflows.md",
+          "digest": "sha256:1778b2dee2788d0238c1d4b61e3ee42538a24166770cf33c38d78c22c1ac6dbe",
+          "size": 3878
+        }
+      ],
+      "frontmatter": {
+        "name": "agents-sdk",
+        "description": "Build stateful AI agents on Cloudflare Workers. Use for Agents SDK state, RPC, WebSockets, schedules, workflows, queues, voice, MCP servers, or React chat clients."
+      }
+    },
+    {
       "name": "audit-analysis",
       "files": [
         {
           "path": "SKILL.md",
-          "digest": "sha256:8cb03a417802f295cba8dd9ec4e8d9f7673149a9b91178f1673f87bda1f5f8db",
-          "size": 9226
+          "digest": "sha256:81f0ac12849b6fc0365d662104478e0cb1e99948743352cb66b3ea2d16a813a5",
+          "size": 8980
         },
         {
           "path": "agents/openai.yaml",
@@ -20,8 +129,8 @@
         },
         {
           "path": "checks/tier1-high-yield.md",
-          "digest": "sha256:03fe761787f5cf16492c7d98a24fcd3f3106d578b01da0f421534e28d90bce21",
-          "size": 10655
+          "digest": "sha256:c82e62eef18158e26e1ea2856a0867c6c67747b39e43d35699706e60555c7ce9",
+          "size": 10714
         },
         {
           "path": "checks/tier2-statistical.md",
@@ -55,23 +164,23 @@
         },
         {
           "path": "scripts/audit_data.py",
-          "digest": "sha256:536127a9586d32bbe335e4d2d67fb5bb727bd917dfc1529aff2e2d728b5bb6d3",
-          "size": 12721
+          "digest": "sha256:fea1657c4583e96c6797a894634bf5921936921e628fc06d1ae5afc60a3468ff",
+          "size": 17560
         },
         {
           "path": "scripts/audit_provenance.py",
-          "digest": "sha256:83d3e1198a11b3fc556fec3eea9dd53c412194b3be266adca4dc5255412a47e4",
-          "size": 8201
+          "digest": "sha256:668b95c9b302fab2badc539991516c803a450fd6e1b1b1b0c3e7a3b414944de5",
+          "size": 12343
         },
         {
           "path": "scripts/gates.py",
-          "digest": "sha256:85d6817a362ed8c256a118a53298cebdada29960fce6db36ef0fa7eb7f8b514b",
-          "size": 8312
+          "digest": "sha256:50d4a49b8e949ff759f8c2f9f82495b96411db7fb4c3a5289331b2e2d355ac40",
+          "size": 13962
         }
       ],
       "frontmatter": {
         "name": "audit-analysis",
-        "description": "Audit empirical social-science analyses and manuscripts for data integrity, econometric correctness, identification, inference, robustness, and claim validity. Use for EDA and join audits, standard-error and clustering reviews, skew and leverage checks, generated outcomes, experiments, panels, fixed effects, difference-in-differences, IV, RD, observational regressions, replication packages, paper-number disagreements, and assessments of whether causal or descriptive claims survive the code and design."
+        "description": "Audit empirical social-science analyses for data integrity, identification, inference, robustness, and claim validity. Use for experiments, panels, causal designs, or replication packages."
       }
     },
     {
@@ -79,13 +188,13 @@
       "files": [
         {
           "path": "SKILL.md",
-          "digest": "sha256:2687b8979a2232edd5a7414b1724295709b50ba4239c0ed396ec718fe2d7afaa",
-          "size": 9995
+          "digest": "sha256:e00a18ecb0798563f684dd810b269f0fdaf86d092708f9e1a260eab01734216b",
+          "size": 9928
         }
       ],
       "frontmatter": {
         "name": "audit-package",
-        "description": "Use when auditing a software library or package for correctness defects — a dependency you rely on, a package you maintain, or a well-known package you suspect — and when preparing a bug fix to send upstream to a maintainer you do not know."
+        "description": "Audit a software package for correctness defects and prepare an upstream-quality fix. Use for maintained libraries, dependencies, regression tests, and reproducible bug reports."
       }
     },
     {
@@ -93,8 +202,8 @@
       "files": [
         {
           "path": "SKILL.md",
-          "digest": "sha256:0ed5b4aca3025bf3c346833efd556eff9b50ce47b6414548195b680a32f20e7f",
-          "size": 24563
+          "digest": "sha256:da0f15a779aab8e88e024c219dacb1b8c953a0927086021e5b3406446e6feab2",
+          "size": 26472
         },
         {
           "path": "agents/openai.yaml",
@@ -113,8 +222,8 @@
         },
         {
           "path": "references/measurement.md",
-          "digest": "sha256:3f0a8ae368d3d4f809fbe8c00968b070726363ef69f882d6492286204bbc8312",
-          "size": 9613
+          "digest": "sha256:76677213c704c5fef93c21709aff799f1053da5d3454eccd43b0fd077df7dea6",
+          "size": 10279
         },
         {
           "path": "references/recode.md",
@@ -133,18 +242,1695 @@
         },
         {
           "path": "scripts/check_join.R",
-          "digest": "sha256:5411caa57ce51d8332a1a0ad9b466c9b0a3acce409e007bbab78a3e6ce526f97",
-          "size": 11391
+          "digest": "sha256:c47be3e86814bcfd8b72967476d06b25d9a0b5635044d9f98e6965aaea284667",
+          "size": 15248
         },
         {
           "path": "scripts/profile_columns.R",
-          "digest": "sha256:d3d2f27b96bbcbe670ce15a2443510581c3d3714cef77057e29e85050a083052",
-          "size": 32629
+          "digest": "sha256:a83a32fe37cd3da3064bf30aab37d0482e7c59c6a6c3c98f44b4c6c24d0cb38a",
+          "size": 35897
         }
       ],
       "frontmatter": {
         "name": "build-data",
-        "description": "Use when turning raw or unfamiliar data into an analysis-ready file — columns with no codebook, values you cannot interpret, sentinel codes like -999 or 88, a recode to define, or a merge to plan between tables whose key is not obvious. Replaces \"load it and start joining\" with three artifacts you can defend: a data dictionary that states each column's universe, a recode ledger, and a join contract with a declared key and a verified row count."
+        "description": "Turn raw or unfamiliar data into an analysis-ready file. Use for undocumented columns, sentinel codes, recodes, data dictionaries, join keys, row-count contracts, and merge audits."
+      }
+    },
+    {
+      "name": "cloudflare",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "digest": "sha256:8b6be6771c67f235ed9012aa0c13181182a56b768a46b4dd31c2c843497e6d9e",
+          "size": 8807
+        },
+        {
+          "path": "references/agents-sdk/README.md",
+          "digest": "sha256:b4077f2728f4518fa8c9c229eba890ab108f5a161d5501aeda051e674901f666",
+          "size": 2776
+        },
+        {
+          "path": "references/agents-sdk/api.md",
+          "digest": "sha256:01e978f31c084a1393b1026f4f9b8e7c1707a20c49e56966b0c52f5fbbd1ff8b",
+          "size": 5882
+        },
+        {
+          "path": "references/agents-sdk/configuration.md",
+          "digest": "sha256:d677798820dce13976e54d8f9d767784dd36d15b7540d0d11b370ed59e7da71b",
+          "size": 3597
+        },
+        {
+          "path": "references/agents-sdk/gotchas.md",
+          "digest": "sha256:3d827b972e4fe3fc14a7f961eb3fcf86b5854678a8fca24a0ca390282ac2daa6",
+          "size": 5086
+        },
+        {
+          "path": "references/agents-sdk/patterns.md",
+          "digest": "sha256:32633aff956ee5ac8bd5bb4daee18e345eb9979e29b9c8e3370f31e568b784a8",
+          "size": 5583
+        },
+        {
+          "path": "references/ai-gateway/README.md",
+          "digest": "sha256:bcbf3530087e8168c8a68469a8b9472578af02894003c078292827a9b43f3301",
+          "size": 6299
+        },
+        {
+          "path": "references/ai-gateway/configuration.md",
+          "digest": "sha256:1135a774a42e059942ccb12d8ba514e6479d7f8f5f47400b4053f6da5984b532",
+          "size": 2954
+        },
+        {
+          "path": "references/ai-gateway/dynamic-routing.md",
+          "digest": "sha256:56f3539a61bae2fda7d8a98c81ed14e820caf733f27e6cce2fffeeaf7a6c1db5",
+          "size": 1835
+        },
+        {
+          "path": "references/ai-gateway/features.md",
+          "digest": "sha256:efbc7d2d4464c1aab4881f059589439e2979b9967568878c32f7cb3e72cc6ccf",
+          "size": 2726
+        },
+        {
+          "path": "references/ai-gateway/sdk-integration.md",
+          "digest": "sha256:cbff034669a30dbb4f3be053db71b8954f34c94ae5af4d9dbe1dac6af1f7a69b",
+          "size": 2683
+        },
+        {
+          "path": "references/ai-gateway/troubleshooting.md",
+          "digest": "sha256:c79d02ce7b9e6cb361f1700eff6e12149fc74547aad3438501863d8cd02b2a79",
+          "size": 2420
+        },
+        {
+          "path": "references/ai-search/README.md",
+          "digest": "sha256:9b7a45bc366492935da635557d52167c13d2af657d2050db33b3e915bf9e5bca",
+          "size": 4517
+        },
+        {
+          "path": "references/ai-search/api.md",
+          "digest": "sha256:cff4ce1bee49988265f176fe5a0bdd69714a1b6e215a65662ddbf305f981d05f",
+          "size": 2519
+        },
+        {
+          "path": "references/ai-search/configuration.md",
+          "digest": "sha256:59af92d0c3b196bea13ac72e18b42db528721f8971c7d335b27951b77aa4ddb0",
+          "size": 1760
+        },
+        {
+          "path": "references/ai-search/gotchas.md",
+          "digest": "sha256:e548c0f2cba170e81dd3e9e15b7cf430eabd7e73770ed29589b90dc20c3bf452",
+          "size": 2135
+        },
+        {
+          "path": "references/ai-search/patterns.md",
+          "digest": "sha256:1215875bf8a9e6317d31019a84a124aa7ba7e85bac10b92bc445d0ef7383d619",
+          "size": 2008
+        },
+        {
+          "path": "references/analytics-engine/README.md",
+          "digest": "sha256:d60bb6b6bb29c836886637ee584485ba9145ca1b326ee8ea55d86a4f62bb2c6f",
+          "size": 3418
+        },
+        {
+          "path": "references/analytics-engine/api.md",
+          "digest": "sha256:ae82c22e055e2edef7078286b7442763e19f70894b95fe310dd7c1709f9a572c",
+          "size": 3161
+        },
+        {
+          "path": "references/analytics-engine/configuration.md",
+          "digest": "sha256:86112c2385fe4e44b4825f9962cfe3429e6681de9f051a50a1c70514f1b85131",
+          "size": 2361
+        },
+        {
+          "path": "references/analytics-engine/gotchas.md",
+          "digest": "sha256:e05e6fbe80c71d1b73b30970b91a4376993ead9e090d127edb7c51399cbde06c",
+          "size": 2004
+        },
+        {
+          "path": "references/analytics-engine/patterns.md",
+          "digest": "sha256:092079ff8831b03a0e9267ed30ab8915936c9e09cf089389203d3ed858ffb5e7",
+          "size": 2309
+        },
+        {
+          "path": "references/api/README.md",
+          "digest": "sha256:f5c1e63c45d540fae02993c8c665d908bb5ae12a2953e3750839a352d2295f84",
+          "size": 2497
+        },
+        {
+          "path": "references/api/api.md",
+          "digest": "sha256:847c33ce18c1a4ff210ce5db75db0694113fe5367bdba983b0e6f0d7dd2742b1",
+          "size": 4308
+        },
+        {
+          "path": "references/api/configuration.md",
+          "digest": "sha256:6ea23fb895605fd2a2380580f7cd21ab39c51dde470067ed191fd387f6337cb4",
+          "size": 3748
+        },
+        {
+          "path": "references/api/gotchas.md",
+          "digest": "sha256:b721d8e28866f376ca8ac91d8f7f9fa35726f6378f83796baed13687f6eca6e2",
+          "size": 5390
+        },
+        {
+          "path": "references/api/patterns.md",
+          "digest": "sha256:7ea6b294371bc04ffbf0a1fdc71a2e138f3303bfcdd85b91b1e29d0d53f80bc2",
+          "size": 4639
+        },
+        {
+          "path": "references/api-shield/README.md",
+          "digest": "sha256:a032c7160b70c9a200e982bc457acd746760c2960e25b7554dfb315da98f71dc",
+          "size": 1796
+        },
+        {
+          "path": "references/api-shield/api.md",
+          "digest": "sha256:2ac3f5be499c1047575dddae5fe10fd9ab93e153eec3bd3fae3e2add82275aaa",
+          "size": 3900
+        },
+        {
+          "path": "references/api-shield/configuration.md",
+          "digest": "sha256:79acd0a84bdeca4f45ef92d3772e9f403d15266210205700a7fccc313a084418",
+          "size": 5020
+        },
+        {
+          "path": "references/api-shield/gotchas.md",
+          "digest": "sha256:485d767b531a8e8035bbc782cde8a39fc77e78d582f2b8106019168f72bddec1",
+          "size": 4943
+        },
+        {
+          "path": "references/api-shield/patterns.md",
+          "digest": "sha256:0e608d4ee3f6b672fc496b496f86f9c28360633fca880b475908ed40c8bba585",
+          "size": 5836
+        },
+        {
+          "path": "references/argo-smart-routing/README.md",
+          "digest": "sha256:405ab3a8878c32c95e12fb1c769f6cf79a597def8898b5e291d347a04c3e9052",
+          "size": 4060
+        },
+        {
+          "path": "references/argo-smart-routing/api.md",
+          "digest": "sha256:eca247b480b82b8310ba9d1f4924ff1620b2edf77b8d855613f2d7302494e0d6",
+          "size": 6561
+        },
+        {
+          "path": "references/argo-smart-routing/configuration.md",
+          "digest": "sha256:efbecea8b0db4b1b611ed0752bfa572cc59ef4310cc7736a23a5ded9a58193e3",
+          "size": 4435
+        },
+        {
+          "path": "references/argo-smart-routing/gotchas.md",
+          "digest": "sha256:747217b3c1e704d474e3cfee74f4e79ab66b54c80e2de9ce9d55a2f760d492b0",
+          "size": 4323
+        },
+        {
+          "path": "references/argo-smart-routing/patterns.md",
+          "digest": "sha256:33ce9f183681a5a32a87860a2a66f244d7cd5da169b4f3b1bdcd61c56419c25b",
+          "size": 3043
+        },
+        {
+          "path": "references/artifacts/README.md",
+          "digest": "sha256:d48c787042e9352dfd459b49f660f979f169990fea899260fad8341efb84e583",
+          "size": 3772
+        },
+        {
+          "path": "references/artifacts/api.md",
+          "digest": "sha256:5a6fd7bcacbbaf2c2ea83a5a899480a667f504a15cb973256260d1b476bef3e9",
+          "size": 5096
+        },
+        {
+          "path": "references/artifacts/configuration.md",
+          "digest": "sha256:04648f76ad4d32a2265bbc6696c37229db2f67ed1ced99be6783ee61000c2d14",
+          "size": 3154
+        },
+        {
+          "path": "references/bindings/README.md",
+          "digest": "sha256:5ba09af5a3ce0b8ea090f60b87a0660f56d6252e256a36eff86ec1dfcd8c69a0",
+          "size": 4042
+        },
+        {
+          "path": "references/bindings/api.md",
+          "digest": "sha256:5870938d52de1102e6a26436dd5bf41d5af2f3ada240eecec24d0a76169ee058",
+          "size": 5195
+        },
+        {
+          "path": "references/bindings/configuration.md",
+          "digest": "sha256:a5eafe8fd2b2ba85828b39fb07c3e33a296a8976efc566615ef282525cbc25e8",
+          "size": 4490
+        },
+        {
+          "path": "references/bindings/gotchas.md",
+          "digest": "sha256:6e1b1ca2de853851fa391d134be44415ee1b468bacf238a30a33129f04002b1e",
+          "size": 6147
+        },
+        {
+          "path": "references/bindings/patterns.md",
+          "digest": "sha256:eba14eae23aa66b87381961918eeae3a36230c0d8435b2f29885e6d42d2cfa5b",
+          "size": 5040
+        },
+        {
+          "path": "references/bot-management/README.md",
+          "digest": "sha256:4d50475aa586fb08cadbc7067d55b7ef1a6e5556bad3587b23e35ae37d541967",
+          "size": 3762
+        },
+        {
+          "path": "references/bot-management/api.md",
+          "digest": "sha256:4db2a9e3507dac50ebaa419bf6e54a5d26a7cc52c743735a444dd43591614c1c",
+          "size": 5777
+        },
+        {
+          "path": "references/bot-management/configuration.md",
+          "digest": "sha256:102b6d13b8f63c2d0a2efc3586a57bcd65ec69c4ec1a1967da4a6e4f854daba5",
+          "size": 5738
+        },
+        {
+          "path": "references/bot-management/gotchas.md",
+          "digest": "sha256:3a2baa45c7e937620824d5add7de2fe277d3710069a7991a5c8e6e214e83b2a1",
+          "size": 5642
+        },
+        {
+          "path": "references/bot-management/patterns.md",
+          "digest": "sha256:55ad66c51e886b10107074eb052420772f045f305f6faa05e908e54f91774775",
+          "size": 4935
+        },
+        {
+          "path": "references/browser-rendering/README.md",
+          "digest": "sha256:a0c6e51afc6c19f2a892e3f144b9210f4fe067318ad2550e34ded538a9db9463",
+          "size": 3092
+        },
+        {
+          "path": "references/browser-rendering/api.md",
+          "digest": "sha256:20b4be2684bca3cde3c23c6a4f0dd1bc868189e84440ef6cfb2250de23d4f061",
+          "size": 2974
+        },
+        {
+          "path": "references/browser-rendering/configuration.md",
+          "digest": "sha256:db9206a7f14bf13d5f8ade9875927662796016c52b0221b54c3e08238890b952",
+          "size": 1802
+        },
+        {
+          "path": "references/browser-rendering/gotchas.md",
+          "digest": "sha256:31c3e69294545b1f7f9aecc80c3809521efe3b8d4c36bbc47ba8a693a81460ea",
+          "size": 2520
+        },
+        {
+          "path": "references/browser-rendering/patterns.md",
+          "digest": "sha256:ed518864d14d821619b23d0a6e4fe0b39b64c8da98ad17d3da07b4b42d35c161",
+          "size": 2647
+        },
+        {
+          "path": "references/c3/README.md",
+          "digest": "sha256:a29848e8c74b2a8055330461f2ffec6ccb14d5d61b97b8214195ee7787c70d20",
+          "size": 3352
+        },
+        {
+          "path": "references/c3/api.md",
+          "digest": "sha256:1c5429d72d1f5d5dab6d21914f7eb8aded761a828b4190655a2d4a0be6b12592",
+          "size": 2286
+        },
+        {
+          "path": "references/c3/configuration.md",
+          "digest": "sha256:01e7f90dfbfce4d20a86a41b3ca882dab74d0b540ea07952da2f4ff1c6b6626c",
+          "size": 1637
+        },
+        {
+          "path": "references/c3/gotchas.md",
+          "digest": "sha256:bd566b20d30d9683445c6354121d658971f27573d96a8baceb6a75bf3b9aded6",
+          "size": 2297
+        },
+        {
+          "path": "references/c3/patterns.md",
+          "digest": "sha256:4e446fec9a271af8763872c5a13847155b6147653d2ad43b1268457e575cb58b",
+          "size": 2201
+        },
+        {
+          "path": "references/cache-reserve/README.md",
+          "digest": "sha256:90f848f9b142ddbfd911eea882b46bd45b5062efeda6b22e5be3d526c6155144",
+          "size": 5609
+        },
+        {
+          "path": "references/cache-reserve/api.md",
+          "digest": "sha256:c46b8bd7eb609220a7a23c23d1ee56918c823fb5238bbb4f16078b1cb440fd74",
+          "size": 6011
+        },
+        {
+          "path": "references/cache-reserve/configuration.md",
+          "digest": "sha256:7a033bcbe69e1617d6df25d202c8ecf58fe40a1a06b91c7b71d9ac1964886869",
+          "size": 3660
+        },
+        {
+          "path": "references/cache-reserve/gotchas.md",
+          "digest": "sha256:08376d20aef1bd7b19dd294a0226e477264ec7f268bcc7cdf5251f78cfd3ced7",
+          "size": 5778
+        },
+        {
+          "path": "references/cache-reserve/patterns.md",
+          "digest": "sha256:fdcc7452fc522541617c8c0ff60c2d81395117bcc87fef247c578095fef9461c",
+          "size": 6237
+        },
+        {
+          "path": "references/containers/README.md",
+          "digest": "sha256:84ac21e42da260e8a2a5cbf677b455a7a06e0585dcd56be49895c014a26ae998",
+          "size": 3531
+        },
+        {
+          "path": "references/containers/api.md",
+          "digest": "sha256:f7935cd4aed62fc4b647cf75b4eb62e6b4d069e9504ffcfd9b7d90abfa010f62",
+          "size": 4309
+        },
+        {
+          "path": "references/containers/configuration.md",
+          "digest": "sha256:00af782c2e2ab7c95cd4491d0269eddc12efcc541ec67a5692ab0b50bc7c6cdd",
+          "size": 5424
+        },
+        {
+          "path": "references/containers/gotchas.md",
+          "digest": "sha256:5707e264b73f62b30624e3ae14646d5fb7dd889a463376f3123a5424f2dd66d2",
+          "size": 4485
+        },
+        {
+          "path": "references/containers/patterns.md",
+          "digest": "sha256:3170d787f22b4891aed8ef2a9567e5186f87922dff6055fdb6ad0a576f7fad2d",
+          "size": 4891
+        },
+        {
+          "path": "references/cron-triggers/README.md",
+          "digest": "sha256:1d76304b50406c396539d5a08907d35dd09fb838308ed829e3dcf46b753e6b3a",
+          "size": 2990
+        },
+        {
+          "path": "references/cron-triggers/api.md",
+          "digest": "sha256:826a227a73e2a40d7c820f0aba5ee16adc8213e966c7bcf8605d063c809b9fdd",
+          "size": 5852
+        },
+        {
+          "path": "references/cron-triggers/configuration.md",
+          "digest": "sha256:aa36e5acefb1c9bbe08303b80f1ed35af9ee9254411439db91e673132ac35496",
+          "size": 4244
+        },
+        {
+          "path": "references/cron-triggers/gotchas.md",
+          "digest": "sha256:3244097ad1a93c799ec3a094320006be4a2ad7e5c15d35d1d6f35363016561ce",
+          "size": 6298
+        },
+        {
+          "path": "references/cron-triggers/patterns.md",
+          "digest": "sha256:3607db3353208a0839c2e0cb9a32f563fa1b6eb03aa01be3bfc71b8ea1ddc4c5",
+          "size": 6978
+        },
+        {
+          "path": "references/d1/README.md",
+          "digest": "sha256:a8374574ff4963e39014ca1228dbf651f36fe8c6355187687c2609ae1f7633d4",
+          "size": 4756
+        },
+        {
+          "path": "references/d1/api.md",
+          "digest": "sha256:ea957b3260a43c46ab7845303ed34065655b4367683bf502c53b334e5fa4c776",
+          "size": 6806
+        },
+        {
+          "path": "references/d1/configuration.md",
+          "digest": "sha256:94d31fee923ac3c9859f5741692ec843101463bc72dd8ead1fd3b086bb48a834",
+          "size": 5680
+        },
+        {
+          "path": "references/d1/gotchas.md",
+          "digest": "sha256:5dfa5789a7ff3566f07206835d851bdc774a0bb60a2e70d2c46ac96cda9c17ff",
+          "size": 4286
+        },
+        {
+          "path": "references/d1/patterns.md",
+          "digest": "sha256:4a668b5e220bf4157bdfef7f76ce5c599a4468547253a9b383b4395894834d62",
+          "size": 7238
+        },
+        {
+          "path": "references/ddos/README.md",
+          "digest": "sha256:63018c3c2d25ce26a0f1b80dd60bd2d3c5193a26bf96979ef624030ab766c4a8",
+          "size": 2054
+        },
+        {
+          "path": "references/ddos/api.md",
+          "digest": "sha256:47ac34cf947ff3ddc651ff37c6e26f22349709503a6beb058b8ddfb52cf9f41d",
+          "size": 4169
+        },
+        {
+          "path": "references/ddos/configuration.md",
+          "digest": "sha256:a170dfacdfc269e1244132193dc3e525268adec5cac569cc5a92d90a4ede45e8",
+          "size": 3003
+        },
+        {
+          "path": "references/ddos/gotchas.md",
+          "digest": "sha256:c6413f58e77afa7291ae3a671079487a7a298f5432b7f338df0035cd9f7ec07a",
+          "size": 3892
+        },
+        {
+          "path": "references/ddos/patterns.md",
+          "digest": "sha256:546d722c64d8b1c14bc0a924b38eec24bcd3e639c25bbf424bb8cf73933ac306",
+          "size": 5680
+        },
+        {
+          "path": "references/do-storage/README.md",
+          "digest": "sha256:b9343c642a86285063c46d34ba5d4930939a3c4c7cc57e9a3d483334eaff59a0",
+          "size": 2755
+        },
+        {
+          "path": "references/do-storage/api.md",
+          "digest": "sha256:d3a0957cca017ae837bcf891d34404a6faca40a9b4d9b4be26a3f6272c223622",
+          "size": 3571
+        },
+        {
+          "path": "references/do-storage/configuration.md",
+          "digest": "sha256:b5c021af150ea3122d4e2ff9f2a6627849867f300f4e8f04d7d430391ea633fa",
+          "size": 2215
+        },
+        {
+          "path": "references/do-storage/gotchas.md",
+          "digest": "sha256:7b196588c9cfce58742358aa612db19497b8b942fa8cf40b86fd8eff193ac770",
+          "size": 5180
+        },
+        {
+          "path": "references/do-storage/patterns.md",
+          "digest": "sha256:8361f7f57e3bb29fd783c51a1932b370f08d1cff1d3a3b646de4f4405708896d",
+          "size": 6119
+        },
+        {
+          "path": "references/do-storage/testing.md",
+          "digest": "sha256:2782b28063efea6bda878ba591c5b771f7cf69ca670d9535ebbec4831583afa7",
+          "size": 4886
+        },
+        {
+          "path": "references/durable-objects/README.md",
+          "digest": "sha256:2b2ba333208d4f335ac1f2093a463f2214e75d51c49e498e3c839c4a3d7c7eb8",
+          "size": 6605
+        },
+        {
+          "path": "references/durable-objects/api.md",
+          "digest": "sha256:eb5130f010a09e1c86942cbe784653dfee88ab8f326a964604d0a08e15f8fcd1",
+          "size": 6136
+        },
+        {
+          "path": "references/durable-objects/configuration.md",
+          "digest": "sha256:65e72f58459566e8e7caf0a2e1025fbab8438d7fc0ffd6ecf05dc27e016fbd24",
+          "size": 4262
+        },
+        {
+          "path": "references/durable-objects/gotchas.md",
+          "digest": "sha256:87e5d1f934043445b0b7eb6edad9ab30971adec50d2b0f44c34ec2940d92309e",
+          "size": 7270
+        },
+        {
+          "path": "references/durable-objects/patterns.md",
+          "digest": "sha256:07ef13e8e4dcda928855994da82e598390858b53ed075f4dd65c036fc3f5a7c8",
+          "size": 6689
+        },
+        {
+          "path": "references/email-routing/README.md",
+          "digest": "sha256:0d2189c79711b3d8a790642e455e55516430ee7e606007841d640124b8b527b6",
+          "size": 3423
+        },
+        {
+          "path": "references/email-routing/api.md",
+          "digest": "sha256:0faff37f85e5024387b5bbfebdc3d81b46ffea6949daf160050784f5ba1a6d63",
+          "size": 5305
+        },
+        {
+          "path": "references/email-routing/configuration.md",
+          "digest": "sha256:a9a45e84286ffce8b67cd6a50e72a3a0f169f4414280fd94e5f33f9e9ac4ecd1",
+          "size": 3571
+        },
+        {
+          "path": "references/email-routing/gotchas.md",
+          "digest": "sha256:7d16c6d42eef4ca6aa2b6d677d4c87d8f614c85c41e7eac032e2bde5a0e3e77f",
+          "size": 4127
+        },
+        {
+          "path": "references/email-routing/patterns.md",
+          "digest": "sha256:150f206ecaa8fa671829dbd0822f579e48c550c1b147d21312844904cc7f715e",
+          "size": 5411
+        },
+        {
+          "path": "references/email-workers/README.md",
+          "digest": "sha256:8e85af55cb2f1cc126bfbc20012d425d2072fba2feb3cf9d52b6a5a1cdef5610",
+          "size": 5385
+        },
+        {
+          "path": "references/email-workers/api.md",
+          "digest": "sha256:f21557224ccd0d04d5e28d5e9485abf5269b6896fa9834f68935e40339aa4c92",
+          "size": 6074
+        },
+        {
+          "path": "references/email-workers/configuration.md",
+          "digest": "sha256:984d84d6842f4adda147cb783537ffd51ac887c331a0de3c100374c63c06d33e",
+          "size": 2719
+        },
+        {
+          "path": "references/email-workers/gotchas.md",
+          "digest": "sha256:d1eccc06d83dce5ac8b0fab47bad9694e5b067752ebad52b51bd8f32fcde45bb",
+          "size": 3058
+        },
+        {
+          "path": "references/email-workers/patterns.md",
+          "digest": "sha256:e8704f7beac19235631b246420c5ce730b054ccf899f43548366d70fe430737d",
+          "size": 2785
+        },
+        {
+          "path": "references/flagship/README.md",
+          "digest": "sha256:a4d1719c39d4a93ed884eef6e7cddc81e203d386332ba0d288d34436d3ed2995",
+          "size": 3663
+        },
+        {
+          "path": "references/flagship/api.md",
+          "digest": "sha256:c7b8eb86ed852a3f37709f000988aeb89860c24aedee58527379e475f0996894",
+          "size": 11749
+        },
+        {
+          "path": "references/flagship/configuration.md",
+          "digest": "sha256:a067854b48b4f6cbbb7fac4ca886ef6a14ddd1fc108650ec2f096ca730d55c02",
+          "size": 4863
+        },
+        {
+          "path": "references/flagship/gotchas.md",
+          "digest": "sha256:5daaa2c1895e625b06f9dd413f7548603aa0159fb4781145b0cdbcb0a6f07c44",
+          "size": 6353
+        },
+        {
+          "path": "references/flagship/patterns.md",
+          "digest": "sha256:e89e1f39fadfb9aad0c01fd6ac84b8c8f36716e88f26df1fd79c53aaf2eee8e7",
+          "size": 14059
+        },
+        {
+          "path": "references/graphql-api/README.md",
+          "digest": "sha256:324df669a01caceff7f0dbdb25e3b35dcaa40a5c20700605628c4bcb66b0d093",
+          "size": 7769
+        },
+        {
+          "path": "references/graphql-api/api.md",
+          "digest": "sha256:0c0250cdf31adfbf2c7f96bf3ec257c32d14709160a8552b3238a861b3540de5",
+          "size": 5782
+        },
+        {
+          "path": "references/graphql-api/configuration.md",
+          "digest": "sha256:765e696dfd11bfa87d231c011b10fb2c10a2e33d704d7c6d04f1f125585c5b92",
+          "size": 4675
+        },
+        {
+          "path": "references/graphql-api/gotchas.md",
+          "digest": "sha256:59dbb9a541db17cdac52665fd6883d2eb660ec6fea4b45cc87c291d2e2b4a50f",
+          "size": 4857
+        },
+        {
+          "path": "references/graphql-api/patterns.md",
+          "digest": "sha256:902d188040a60c5d130790222442158ff12879232357ee34ab410e0d7b9b5e76",
+          "size": 6539
+        },
+        {
+          "path": "references/hyperdrive/README.md",
+          "digest": "sha256:4d0e1a0e8366975d6ac0dcfd183e8b0a925f582c35917897aace568addff09f6",
+          "size": 2918
+        },
+        {
+          "path": "references/hyperdrive/api.md",
+          "digest": "sha256:7e7bb032dc6151ca8e3c30b278efa19d617362e9225f7a5f77a176585f10f7e5",
+          "size": 3875
+        },
+        {
+          "path": "references/hyperdrive/configuration.md",
+          "digest": "sha256:9c66135e7d5ed7a0e4f6b1395b71387b62aa22166d7eb26ab7d918b1fb5b5e57",
+          "size": 3913
+        },
+        {
+          "path": "references/hyperdrive/gotchas.md",
+          "digest": "sha256:46ff6cb426e0da125ba119484b2d1182423a94c947c6384f61a80864b73fe1b5",
+          "size": 3906
+        },
+        {
+          "path": "references/hyperdrive/patterns.md",
+          "digest": "sha256:0ba6b647a9e5fbd2cd72534a82bb99dfff15cc8d69c79b0acd386028a1c5bd4c",
+          "size": 5979
+        },
+        {
+          "path": "references/images/README.md",
+          "digest": "sha256:2df48cf4d8d5269c55a2c2e94ec331c576200db80cb33bdb3f08f104fee88676",
+          "size": 2900
+        },
+        {
+          "path": "references/images/api.md",
+          "digest": "sha256:92c62bd77b133bf58287e93f12dced76725c0dc699b28ecad2acdae709ceea3c",
+          "size": 2574
+        },
+        {
+          "path": "references/images/configuration.md",
+          "digest": "sha256:f38fd695cbf8d628158b04eb679b8b2508db2099694f9c95da984a3ca3a61c38",
+          "size": 4118
+        },
+        {
+          "path": "references/images/gotchas.md",
+          "digest": "sha256:447ec285923c9ab4b29e56ec7ec0318f30a559c05c257d37b02f60e62971b9d2",
+          "size": 2490
+        },
+        {
+          "path": "references/images/patterns.md",
+          "digest": "sha256:b1cfebd7afdd7024e581e4a1002a304af0c00e630d4cd4623e97caae1c02fcd1",
+          "size": 3582
+        },
+        {
+          "path": "references/kv/README.md",
+          "digest": "sha256:c141ec2f48645a0f0884511baceee0265776075f3073aefbd199f3037b420681",
+          "size": 2883
+        },
+        {
+          "path": "references/kv/api.md",
+          "digest": "sha256:94a2fc711801bf91b2697d3690ca5b5f6c7732f22ec50965e1eb0eafed204ff4",
+          "size": 4327
+        },
+        {
+          "path": "references/kv/configuration.md",
+          "digest": "sha256:59138344e7c23b43b360e0df44a23ee56253d013a4a1a9633c5b459b3d4ebac3",
+          "size": 3083
+        },
+        {
+          "path": "references/kv/gotchas.md",
+          "digest": "sha256:8bb847dca86ad3912b4d1104dc0d6013c0a4d8cfe570b3fe43ee2a6b69aa0c53",
+          "size": 4444
+        },
+        {
+          "path": "references/kv/patterns.md",
+          "digest": "sha256:a78bbcbee191b6fbeb60375945671416db8528a5e52c2a7667c81174cffa9d8e",
+          "size": 4708
+        },
+        {
+          "path": "references/miniflare/README.md",
+          "digest": "sha256:484f0edc585d46559ee0be2bc443da8c7e96d6cde31e2c18ea52a2ae6c73bb95",
+          "size": 2976
+        },
+        {
+          "path": "references/miniflare/api.md",
+          "digest": "sha256:e17cff9393c0d55d9b2b012f55e0fc611535e899529eed33827c3a285bb00e60",
+          "size": 4598
+        },
+        {
+          "path": "references/miniflare/configuration.md",
+          "digest": "sha256:795d95a8250db63d38ffc161452337f2b149bfed232e6217559f3f79af18f2ad",
+          "size": 3513
+        },
+        {
+          "path": "references/miniflare/gotchas.md",
+          "digest": "sha256:e76a8b55021a492ec15964d07e5abe7255c99f1f4012eab88e35ac17ad7b2bec",
+          "size": 3712
+        },
+        {
+          "path": "references/miniflare/patterns.md",
+          "digest": "sha256:43f3f131601675c688cf78f465e1ff92bcaaba747dc7839d818f434a86c66bb8",
+          "size": 4256
+        },
+        {
+          "path": "references/network-interconnect/README.md",
+          "digest": "sha256:00aa27f34cbe4277a1c79624a06bfe3ab8cf910e2c847eb5ba9c5206f1e12b3e",
+          "size": 3230
+        },
+        {
+          "path": "references/network-interconnect/api.md",
+          "digest": "sha256:7cd2e2eb39604a96d4cb4c5bdbf2c1f6c36b2f04a6b5d4fdd2dbe96ba4a8e433",
+          "size": 5624
+        },
+        {
+          "path": "references/network-interconnect/configuration.md",
+          "digest": "sha256:3edfa1d1642a0aed71121156acd7e4f76258b027b8f3758cbca68ab0ea5a1956",
+          "size": 4257
+        },
+        {
+          "path": "references/network-interconnect/gotchas.md",
+          "digest": "sha256:d8e4694e9e93544d62deb0d3b3f739a9607ab8125ec921b13b08dac61b204597",
+          "size": 5532
+        },
+        {
+          "path": "references/network-interconnect/patterns.md",
+          "digest": "sha256:e696a628f29643cb7955ed5d0607875188d462dcdff8a2758d287302d6b0fa1f",
+          "size": 4041
+        },
+        {
+          "path": "references/observability/README.md",
+          "digest": "sha256:3c33e551008c5862bb09373b6d2b7fbaec300facf4fa70030f6e16598feb595e",
+          "size": 4016
+        },
+        {
+          "path": "references/observability/api.md",
+          "digest": "sha256:76314fff61f53d6d84fcaf49b37a74d3ba57926fb186f713f91483a2ed717000",
+          "size": 3472
+        },
+        {
+          "path": "references/observability/configuration.md",
+          "digest": "sha256:63acfd61395d4ac56a0f031443ce796db04077da26010c7e41d853793645ae69",
+          "size": 3572
+        },
+        {
+          "path": "references/observability/gotchas.md",
+          "digest": "sha256:1f7dadd3d639fca56b0fe2ff1b8aebf6c97cda0875467f0b932095392cb658d2",
+          "size": 3750
+        },
+        {
+          "path": "references/observability/patterns.md",
+          "digest": "sha256:e83a6eb55b3f84ecc20faf7af32a82d4a9c29cdd6803a94d82faf96fe70f5272",
+          "size": 2472
+        },
+        {
+          "path": "references/pages/README.md",
+          "digest": "sha256:0b79f0e3bd7dd929d03de09ac7c35e006547c99763399f01b64436749085afe8",
+          "size": 2834
+        },
+        {
+          "path": "references/pages/api.md",
+          "digest": "sha256:22875bfabcdb615581d4626cca0e16802346e39fe122733e6607125d517af6ae",
+          "size": 5962
+        },
+        {
+          "path": "references/pages/configuration.md",
+          "digest": "sha256:b41bcef00e9cd4d0a9f815bf044edf8e2dbba2cafc25403282f830efd8598fc5",
+          "size": 5871
+        },
+        {
+          "path": "references/pages/gotchas.md",
+          "digest": "sha256:46e88be9b2ba3ecb5301f6dd4b071608149ed928fae122053498c70fa8353ead",
+          "size": 7964
+        },
+        {
+          "path": "references/pages/patterns.md",
+          "digest": "sha256:75d82bb097dec9196f07fb0c788d37f057e7d665f40de46c49cabf72d0317b68",
+          "size": 5980
+        },
+        {
+          "path": "references/pages-functions/README.md",
+          "digest": "sha256:7961024c9fafd29555b98395a738b1c434ac27dc243c8efdf3a0d08dc0cf5c6a",
+          "size": 3321
+        },
+        {
+          "path": "references/pages-functions/api.md",
+          "digest": "sha256:554c3c9ee62930772525ec87e0c1a97fc48824bb3bec21e28ba36434078dda7c",
+          "size": 4675
+        },
+        {
+          "path": "references/pages-functions/configuration.md",
+          "digest": "sha256:463941304e559b73b31ab4de3d63164e55c3226aae2790dbaa35cd2255557f4d",
+          "size": 3000
+        },
+        {
+          "path": "references/pages-functions/gotchas.md",
+          "digest": "sha256:6cd2beeeb7d8102ee0e89477f6a1b94c907a0fd4c710da17340bfe1d099d90d0",
+          "size": 3863
+        },
+        {
+          "path": "references/pages-functions/patterns.md",
+          "digest": "sha256:c64d4bc8f55725a2192a1f610efddd102faa3b3dcc0a4c99ff8e8dd4effa93c4",
+          "size": 4209
+        },
+        {
+          "path": "references/pipelines/README.md",
+          "digest": "sha256:4f27dac23439852855e23dd270efe6791f360f11d80fb9eda6633c1b2b216e83",
+          "size": 4257
+        },
+        {
+          "path": "references/pipelines/api.md",
+          "digest": "sha256:6dfced39253c563560c990fe062e3de2de9254cbde159771f488842ca2882597",
+          "size": 5058
+        },
+        {
+          "path": "references/pipelines/configuration.md",
+          "digest": "sha256:c10e1eb1066da113b54c33e4b06034c7e359912a344ede6ed7752ab29768bd52",
+          "size": 6099
+        },
+        {
+          "path": "references/pipelines/gotchas.md",
+          "digest": "sha256:b0d85c6a6519bac88f9d08d5fd9449515c2ca6750cb220ffc1c2e1394e87e2f3",
+          "size": 3029
+        },
+        {
+          "path": "references/pipelines/patterns.md",
+          "digest": "sha256:2790aa7ad664b4ba467d39f8fe8952b663876b56ba4d229bb7d4b15251823f4c",
+          "size": 4674
+        },
+        {
+          "path": "references/pulumi/README.md",
+          "digest": "sha256:2803dd115110b5f4b8ac414fb78debbe06c3a653d57032aee2374f89eca4d2d5",
+          "size": 3231
+        },
+        {
+          "path": "references/pulumi/api.md",
+          "digest": "sha256:5e6459dbe3bcd802965fbc8467c54744671d5a9b3c600fececb2db314295797d",
+          "size": 5761
+        },
+        {
+          "path": "references/pulumi/configuration.md",
+          "digest": "sha256:bf11548bfce495214d530d8cf859eb320180e1cb79439f70f4ed0fabe16dbd36",
+          "size": 5639
+        },
+        {
+          "path": "references/pulumi/gotchas.md",
+          "digest": "sha256:c4566d9c60edafa27322486ebbdf4a8d48c5595dea131adeafefaebecbfc85d9",
+          "size": 6519
+        },
+        {
+          "path": "references/pulumi/patterns.md",
+          "digest": "sha256:975cd37cd6735d790624d042982a683f05f96dd6509f9da8ada7e78f8e645f2e",
+          "size": 6974
+        },
+        {
+          "path": "references/queues/README.md",
+          "digest": "sha256:faa1106897e0f1b89a0b87040e14955f7594a48ef966d3ee88ece436cbef9359",
+          "size": 3058
+        },
+        {
+          "path": "references/queues/api.md",
+          "digest": "sha256:a702d7161738bc49949db6efc44208a933688354b0434f01f647bbbc2432bc42",
+          "size": 5549
+        },
+        {
+          "path": "references/queues/configuration.md",
+          "digest": "sha256:94bae22a6cf3d854b2c32ec82bb9919b27b6d5e5a8f1f81ee3f8863278e83864",
+          "size": 3825
+        },
+        {
+          "path": "references/queues/gotchas.md",
+          "digest": "sha256:74d8a45524b4a58f5f66e783e1d6e04aacd5794b873a06ff4dfe3800e1bcf7a1",
+          "size": 7196
+        },
+        {
+          "path": "references/queues/patterns.md",
+          "digest": "sha256:1481924df521e162967cba5c20deeb8f42f17d8194ec2e275399a7659c71316d",
+          "size": 5479
+        },
+        {
+          "path": "references/r2/README.md",
+          "digest": "sha256:23446f0ea3b5145c151f82cccb601ddfd10f141e6082e86a710ee125614cdce8",
+          "size": 2823
+        },
+        {
+          "path": "references/r2/api.md",
+          "digest": "sha256:d229e1d53595db452fb893ab5053d37781e782bd46f5ead3193599474abbba88",
+          "size": 5649
+        },
+        {
+          "path": "references/r2/configuration.md",
+          "digest": "sha256:c2e3bb6047af5ca71e4e539a3dedaf9c62b7d41d4ef7f41c298495e9e9380fd3",
+          "size": 3654
+        },
+        {
+          "path": "references/r2/gotchas.md",
+          "digest": "sha256:aba6af95a628ad1852895cd9bac34507768af7a6314713613ae13ffed6fb7b41",
+          "size": 5038
+        },
+        {
+          "path": "references/r2/patterns.md",
+          "digest": "sha256:2719546b3c5451d4adf0cfe1a2b572f06a64765d11d6e32ec826190d19eeeafd",
+          "size": 5842
+        },
+        {
+          "path": "references/r2-data-catalog/README.md",
+          "digest": "sha256:b07f4b83262229427e5af643a719cafe8bd991fe2ce95cbf251222e61572ebad",
+          "size": 3980
+        },
+        {
+          "path": "references/r2-data-catalog/api.md",
+          "digest": "sha256:10ed527665327f3ef405b8e8b1119c50df7406924d2965854c9ebc75b2dac094",
+          "size": 5615
+        },
+        {
+          "path": "references/r2-data-catalog/configuration.md",
+          "digest": "sha256:fffc79472ae6ed229cbcfadfd938d1ce0e60e07386ea6a17913cab602e4e1d34",
+          "size": 3969
+        },
+        {
+          "path": "references/r2-data-catalog/gotchas.md",
+          "digest": "sha256:ddfe37a9189eb4caa0ed54f8b07bb0309598c141b77ba719c53b53c121905775",
+          "size": 3244
+        },
+        {
+          "path": "references/r2-data-catalog/patterns.md",
+          "digest": "sha256:5d7bf03405cbb311701728508678a47328e2903cc9fd052d81c603618ae14fd3",
+          "size": 5345
+        },
+        {
+          "path": "references/r2-sql/README.md",
+          "digest": "sha256:ebfb497e2abfb46b4e0ac29ae3ac8088d8de69fb2d409435781d114e56c9ab12",
+          "size": 3260
+        },
+        {
+          "path": "references/r2-sql/api.md",
+          "digest": "sha256:4d5601b6c29df2a54eb68786e69aa2f1bc0d86409515394ea46edb762bb32d66",
+          "size": 4898
+        },
+        {
+          "path": "references/r2-sql/configuration.md",
+          "digest": "sha256:742a0b853a519bbc02085c4c71b22dc5a82516a0a6fefd2e0696b371e04cb052",
+          "size": 1679
+        },
+        {
+          "path": "references/r2-sql/gotchas.md",
+          "digest": "sha256:0776a81ba0ffeb1b0fba4067f23efc5cf9d1437f675ce0b113f57c301203b6ed",
+          "size": 1969
+        },
+        {
+          "path": "references/r2-sql/patterns.md",
+          "digest": "sha256:55141805996052be7b8dbfeaae1472808c1085ca364cf92fcbccfb5015393a35",
+          "size": 4357
+        },
+        {
+          "path": "references/realtime-sfu/README.md",
+          "digest": "sha256:2c1a23b8c44198e95eabb9f8db96453db61d935f96292932e9a5d1feea31e98c",
+          "size": 3078
+        },
+        {
+          "path": "references/realtime-sfu/api.md",
+          "digest": "sha256:1d8f55d422f74b12954390163fea82bc7264faa3bd1450bbde6464c8b889306e",
+          "size": 3764
+        },
+        {
+          "path": "references/realtime-sfu/configuration.md",
+          "digest": "sha256:97e6946d51b1852d420cad08319b3f33f28d65a0c3ad3749ad0272f034ff9163",
+          "size": 3497
+        },
+        {
+          "path": "references/realtime-sfu/gotchas.md",
+          "digest": "sha256:452719661f7cc207a2f5311340b008b13498059a8fbc23911857ebcbb0cb2f11",
+          "size": 4892
+        },
+        {
+          "path": "references/realtime-sfu/patterns.md",
+          "digest": "sha256:f43a3aae433b55fdcf09eba89540daca591de023038ac691c8ab85d2b62e5528",
+          "size": 5395
+        },
+        {
+          "path": "references/realtimekit/README.md",
+          "digest": "sha256:190ecae4bb2ed00795cec6b59df4b0b3045cbc07d09b818abe398c239e97d531",
+          "size": 4047
+        },
+        {
+          "path": "references/realtimekit/api.md",
+          "digest": "sha256:37020e6102c6f4f080f430f3de20c83532930e59cdcaaee52752d1fe62190152",
+          "size": 8352
+        },
+        {
+          "path": "references/realtimekit/configuration.md",
+          "digest": "sha256:4d4ccf99fa72d8923df1eb3910eade99021cb77c5d9b4aa95310a01aeade0aaf",
+          "size": 5192
+        },
+        {
+          "path": "references/realtimekit/gotchas.md",
+          "digest": "sha256:83cecda63bad4c55c4b375f0b83fd90bcdc9a15a257fc95809ab08fa4c102618",
+          "size": 6883
+        },
+        {
+          "path": "references/realtimekit/patterns.md",
+          "digest": "sha256:6deff54b73b75100eeac50039ad068ea89325fa9eb2834d3d37f8cea962b0527",
+          "size": 7646
+        },
+        {
+          "path": "references/sandbox/README.md",
+          "digest": "sha256:ee7e1f0bc5d0475028571964d6d50352bf48848ac90d8148f1ec15105fdceccb",
+          "size": 3112
+        },
+        {
+          "path": "references/sandbox/api.md",
+          "digest": "sha256:21b515a841e3f8267d1d39d6780f54cd9fcbe7929254d5d35adfa2dcdcc457ed",
+          "size": 5024
+        },
+        {
+          "path": "references/sandbox/configuration.md",
+          "digest": "sha256:95f1152c0040c2a43a22def525608659c9ad57bd17d651f26d4775f26ae8ada8",
+          "size": 3410
+        },
+        {
+          "path": "references/sandbox/gotchas.md",
+          "digest": "sha256:56b1e74e0ad0ec803bb096dd1a9fcabf043a92078a0aa5b82a4b42d896c84d84",
+          "size": 5469
+        },
+        {
+          "path": "references/sandbox/patterns.md",
+          "digest": "sha256:ce18f7dde2ee8a70d5aa92ebd2ff3059ff249203a827481c40bce3e27f6959b2",
+          "size": 5171
+        },
+        {
+          "path": "references/secrets-store/README.md",
+          "digest": "sha256:82c078e9d71d9bd28b2f23535f086e74bec7adad08e3cb6c289326a4a6e14550",
+          "size": 2215
+        },
+        {
+          "path": "references/secrets-store/api.md",
+          "digest": "sha256:d6453c2646c9b2a7fa74b9a63a7a6aa0707ceb499a06705bdda367cfe3e8a1fd",
+          "size": 4358
+        },
+        {
+          "path": "references/secrets-store/configuration.md",
+          "digest": "sha256:a7cb7ba5afedecbd005217d6155d85e2800b9f5029bc49f16f15498fc99f17ba",
+          "size": 3890
+        },
+        {
+          "path": "references/secrets-store/gotchas.md",
+          "digest": "sha256:a8e41a019bf5edda9fe9d13c1390cf674b21ce443dd9bcbf1c9be81a3891e945",
+          "size": 3818
+        },
+        {
+          "path": "references/secrets-store/patterns.md",
+          "digest": "sha256:e27860d6a752b5f56b5552b6117c4cf767c41b53061b1333fb681462e28a26e1",
+          "size": 5632
+        },
+        {
+          "path": "references/smart-placement/README.md",
+          "digest": "sha256:12eeb912c202c82ee2a41b16c53c1eba4b87d6df8511221b47cb24f793854872",
+          "size": 5023
+        },
+        {
+          "path": "references/smart-placement/api.md",
+          "digest": "sha256:a57aaf74c479e9f45db165fab1e762c1f5d58aeb4111a27425865cbac4f4a648",
+          "size": 5547
+        },
+        {
+          "path": "references/smart-placement/configuration.md",
+          "digest": "sha256:e9267bbc9cde1db801743f451cd65a2d1b335b382199d817d1be2df29d06cc7a",
+          "size": 6117
+        },
+        {
+          "path": "references/smart-placement/gotchas.md",
+          "digest": "sha256:8e56c052e6b513b9ab565f0eaf0e7f84bca236dfc30bb77ec6715b70821a5b92",
+          "size": 5637
+        },
+        {
+          "path": "references/smart-placement/patterns.md",
+          "digest": "sha256:367d10f1429c3a3aba9fcaa4a8cfe1f5a4e754c92e8ab451f4e24c742e25777a",
+          "size": 5759
+        },
+        {
+          "path": "references/snippets/README.md",
+          "digest": "sha256:4f66291949e5fb2a66e49a98b392c2d18057ff36ba74906feae3aeef94f9701f",
+          "size": 3132
+        },
+        {
+          "path": "references/snippets/api.md",
+          "digest": "sha256:6180b06d9a9da3f5ab233bc595fab937006dd7bd3f5c0596ea8c7087b002aa88",
+          "size": 5132
+        },
+        {
+          "path": "references/snippets/configuration.md",
+          "digest": "sha256:ba51bb247f31d446e72237f19c716c620ea9612932edf97f128d35cd3a91c391",
+          "size": 6306
+        },
+        {
+          "path": "references/snippets/gotchas.md",
+          "digest": "sha256:301c7167f03075505498f1f6b5fe1c72a393065a8228f42c435fde9f1b694150",
+          "size": 2220
+        },
+        {
+          "path": "references/snippets/patterns.md",
+          "digest": "sha256:d23080b676011160f7c72791381ea8bfa9c7a5b3b9cb4a41a87b762550139c7f",
+          "size": 3338
+        },
+        {
+          "path": "references/spectrum/README.md",
+          "digest": "sha256:6dfd516d6e54696accbe6bb499f4e70686061abd0afa192897b32d7fd0c3f32e",
+          "size": 2355
+        },
+        {
+          "path": "references/spectrum/api.md",
+          "digest": "sha256:bef098862434f4c8e253d718d3437091813e45c3bfaa5004e8e86d6ceb83beb2",
+          "size": 4924
+        },
+        {
+          "path": "references/spectrum/configuration.md",
+          "digest": "sha256:9a653312707a79c2a35ed8337f77500edafc3b9affdd9d5c1b35e3ab286f2609",
+          "size": 4330
+        },
+        {
+          "path": "references/spectrum/gotchas.md",
+          "digest": "sha256:3969902e536361a818752d02a49524c079ee3da1c2ee4bbe330a8047fdd39181",
+          "size": 3717
+        },
+        {
+          "path": "references/spectrum/patterns.md",
+          "digest": "sha256:087e7d9a1a1a308eb13614332df217137296501cf57082077f05bb3a1f2bf7b0",
+          "size": 4778
+        },
+        {
+          "path": "references/static-assets/README.md",
+          "digest": "sha256:ef31f6ca300cb5fb1f111a626f6d92ef2b5b48a3ed97c2203874c33a2f38c0e8",
+          "size": 2197
+        },
+        {
+          "path": "references/static-assets/api.md",
+          "digest": "sha256:619acb0a8d9732395316fc0beeed11e1a10557e08c639338ac92473cea1c5701",
+          "size": 4451
+        },
+        {
+          "path": "references/static-assets/configuration.md",
+          "digest": "sha256:c35204c02177893d0b8c5b9bf2341d7814ed9d1e8e2ca3fc7c87d05603e9ec50",
+          "size": 4826
+        },
+        {
+          "path": "references/static-assets/gotchas.md",
+          "digest": "sha256:400e448cc085ecb01811669d01a6498f1846e2fd47d45bd90a28672da6432540",
+          "size": 4110
+        },
+        {
+          "path": "references/static-assets/patterns.md",
+          "digest": "sha256:a9b508f7936d8edf7c63c65fb217d27f6aa555209a21e0a65eadf7a32d9ec9c4",
+          "size": 4895
+        },
+        {
+          "path": "references/stream/README.md",
+          "digest": "sha256:ead31da7979689bffda222b1b1c20903fb1aca03301b208eff0b3682a422b6ab",
+          "size": 3864
+        },
+        {
+          "path": "references/stream/api-live.md",
+          "digest": "sha256:e7b22992f52df4585aad1574e33b2ab01ab5ada737aedc1fc10adc02c2bddb41",
+          "size": 5156
+        },
+        {
+          "path": "references/stream/api.md",
+          "digest": "sha256:5440838fb2fb329fe815aecde94709a3d32be08c917491355709314ff7e3d8f1",
+          "size": 5260
+        },
+        {
+          "path": "references/stream/configuration.md",
+          "digest": "sha256:74c156e9c665e9d523bcd7c5d9a763339aba0356b1dc69d723ef6bab41a25328",
+          "size": 3222
+        },
+        {
+          "path": "references/stream/gotchas.md",
+          "digest": "sha256:fdb901e88bab4654e0156f9c4a98c1469b53bad1a6e4827119f61badb142ddfb",
+          "size": 4306
+        },
+        {
+          "path": "references/stream/patterns.md",
+          "digest": "sha256:6148708948bcce4162ccb839983b37e88d7246a235289d79558913a9ca27beae",
+          "size": 6384
+        },
+        {
+          "path": "references/tail-workers/README.md",
+          "digest": "sha256:22776dd6348b07d2c7132ee4a52715f49bc61c1bb50d0af81e49281e44bb9799",
+          "size": 3020
+        },
+        {
+          "path": "references/tail-workers/api.md",
+          "digest": "sha256:038077a73cc61376e0f2a299ee313b0db79b504e712d784a5e39a060aebacc28",
+          "size": 5119
+        },
+        {
+          "path": "references/tail-workers/configuration.md",
+          "digest": "sha256:e30b9d4e0846c61563696e2db6d645491dedb2dc07172f98ae3ffe51b2e8d126",
+          "size": 3472
+        },
+        {
+          "path": "references/tail-workers/gotchas.md",
+          "digest": "sha256:f4d2fb7bfec50643c145eb1680756b5e3a067f6f950fb315b622bdfef9c97931",
+          "size": 4561
+        },
+        {
+          "path": "references/tail-workers/patterns.md",
+          "digest": "sha256:d6a82a85e888047f23a9ad37dcddd4bb3702c8fb12da4fb41d006b691ab561d6",
+          "size": 4008
+        },
+        {
+          "path": "references/terraform/README.md",
+          "digest": "sha256:5654b9d1a8c4a9373c241f805011e98947fbe46ecad87bd4f70f5c7a1c4498ed",
+          "size": 3672
+        },
+        {
+          "path": "references/terraform/api.md",
+          "digest": "sha256:5dc812c078d06454d801b0e126d50c48031c1a7b0ffef7ebf77a97cf7b41e768",
+          "size": 4020
+        },
+        {
+          "path": "references/terraform/configuration.md",
+          "digest": "sha256:4d12cad256eaf2b021c1c19e7be29ef79e2d76183e387eefce2d4eb50b8d483e",
+          "size": 7577
+        },
+        {
+          "path": "references/terraform/gotchas.md",
+          "digest": "sha256:d6e7b425b9c4ccea6ddd0efeb975648b7e75d458c4d4b4baf251d70f9a6ffd2b",
+          "size": 5236
+        },
+        {
+          "path": "references/terraform/patterns.md",
+          "digest": "sha256:59e1eb6f7ca0d1fdbf9600dbc2e77ff030dbf3a4f9e4133087669ced4870b33e",
+          "size": 6638
+        },
+        {
+          "path": "references/tunnel/README.md",
+          "digest": "sha256:1cbeda06e54ae97dc5db42721579e9b455cc1a2eec61f4756b3d4de29dddf2a0",
+          "size": 3738
+        },
+        {
+          "path": "references/tunnel/api.md",
+          "digest": "sha256:698055870e668a0827b8bbb83d9016b093e22e4a95f4aabeaca7ef2e0d1e099f",
+          "size": 4444
+        },
+        {
+          "path": "references/tunnel/configuration.md",
+          "digest": "sha256:c656471269c97e7a02760cf195abb01b4db202e7d8e14e1540c2b5550fc46ca7",
+          "size": 3692
+        },
+        {
+          "path": "references/tunnel/gotchas.md",
+          "digest": "sha256:267e3fad1f1a328bec1786ce883f7d658ee328ee5e812c2a4ee61739b507c691",
+          "size": 3933
+        },
+        {
+          "path": "references/tunnel/networking.md",
+          "digest": "sha256:99f51bcb065fdd62df94aa116f11effde03d81c4299f369770492346add235ca",
+          "size": 3993
+        },
+        {
+          "path": "references/tunnel/patterns.md",
+          "digest": "sha256:696d5fe99640934a94b6facb6e3198d93dc38bfac3c3324fd817e47f620bc40d",
+          "size": 3853
+        },
+        {
+          "path": "references/turn/README.md",
+          "digest": "sha256:9b1e36931f40b1faf3c8f24f89acb12c4f4223de0afc83e6b8de636f4730d542",
+          "size": 3693
+        },
+        {
+          "path": "references/turn/api.md",
+          "digest": "sha256:edb24cd2264d1373e2cb02528fa292c0ba786ba36ff1d92ddef1ac51fb989bf8",
+          "size": 5218
+        },
+        {
+          "path": "references/turn/configuration.md",
+          "digest": "sha256:8df0cf402a41dd2a8205b9fc94f868df48273ef9e85cf1ad690732ac1e2469b7",
+          "size": 4178
+        },
+        {
+          "path": "references/turn/gotchas.md",
+          "digest": "sha256:5607b14328a49807750badbf308d24c1794376f588305a3eff04ccec9415a510",
+          "size": 7017
+        },
+        {
+          "path": "references/turn/patterns.md",
+          "digest": "sha256:38c6deb1f2c48e3b2179aed6fcf88e0870724056c0a19347f4fa421eb7edb0da",
+          "size": 6171
+        },
+        {
+          "path": "references/turnstile/README.md",
+          "digest": "sha256:7db62e2aa8c2bdbedbdedc23b4db9051d04aafbd4a944663ce681f347ab30b41",
+          "size": 3531
+        },
+        {
+          "path": "references/turnstile/api.md",
+          "digest": "sha256:7394663f7284c4cdb31bafb4387b3785809abdb36fa4a6f9bf62cfe5d488a5e0",
+          "size": 6422
+        },
+        {
+          "path": "references/turnstile/configuration.md",
+          "digest": "sha256:bb218eba0ddd17e6449e281514f39d31681246fb3518d5c8955f27ddc630ef9b",
+          "size": 6712
+        },
+        {
+          "path": "references/turnstile/gotchas.md",
+          "digest": "sha256:ec480b0a32f0815b8d15e8ac96085922317f58e64937c1e198fd5355bad2bb1e",
+          "size": 6268
+        },
+        {
+          "path": "references/turnstile/patterns.md",
+          "digest": "sha256:7e73d6d9f009823c856bcb7fed73418a5fb157f1cf2b5d01b8de90e180123062",
+          "size": 4648
+        },
+        {
+          "path": "references/vectorize/README.md",
+          "digest": "sha256:0f2b2a0b920c04d5ee49efa3d5233d61400bb707649f5d66a6e9a489ac484861",
+          "size": 4287
+        },
+        {
+          "path": "references/vectorize/api.md",
+          "digest": "sha256:1a9eb04dc17cd4c346fdca49f10b8059a8897e3cbc28ea5ec6ca898874b86318",
+          "size": 2442
+        },
+        {
+          "path": "references/vectorize/configuration.md",
+          "digest": "sha256:057eaef43f53e8bd71699ca17a3d296eb0c165ce1c1a304d71dea53ee9ab0908",
+          "size": 1986
+        },
+        {
+          "path": "references/vectorize/gotchas.md",
+          "digest": "sha256:ed128e78cb088cd62d3a4a4ada65aa7729e09b0bc9ecde1066fb38d00906fdaf",
+          "size": 2241
+        },
+        {
+          "path": "references/vectorize/patterns.md",
+          "digest": "sha256:dcc4227997e7a856444a701b9243a9a1c8d1cb38680429ac3047b761f85e71c3",
+          "size": 2514
+        },
+        {
+          "path": "references/waf/README.md",
+          "digest": "sha256:3e4ce7314101178adc16f422bc6ff2758656ae9baa07a3dbaebe78240cc13117",
+          "size": 3454
+        },
+        {
+          "path": "references/waf/api.md",
+          "digest": "sha256:21b038b9215a41500d58d525b5196ceb58756979686b078eda61e3463c76000d",
+          "size": 5830
+        },
+        {
+          "path": "references/waf/configuration.md",
+          "digest": "sha256:e4fb36ebccdb73eb8be9513d316a7294ab62a6ce355b7e09498a77af91cdb095",
+          "size": 4765
+        },
+        {
+          "path": "references/waf/gotchas.md",
+          "digest": "sha256:144ba47292507ef90e45f0514468b92484efcc28c8018e1a049716c2e7c219a3",
+          "size": 6289
+        },
+        {
+          "path": "references/waf/patterns.md",
+          "digest": "sha256:5173bbd81e048dc9b70521f04a8062ef700816325e2924bd58fbccced5da5008",
+          "size": 5336
+        },
+        {
+          "path": "references/web-analytics/README.md",
+          "digest": "sha256:f284cbfd425e0d2c53f79c79187287d7c0c74e6d84259294f2ca5b996834857c",
+          "size": 5368
+        },
+        {
+          "path": "references/web-analytics/configuration.md",
+          "digest": "sha256:075434a2076f5a98b7a03f929a91bd5716bfe7a08faf468f26dcdb6b6027d516",
+          "size": 2002
+        },
+        {
+          "path": "references/web-analytics/gotchas.md",
+          "digest": "sha256:4b7dba8a0221295e32bed592ab74f1fe514d40cb50178f3adf3fc47484729e07",
+          "size": 1989
+        },
+        {
+          "path": "references/web-analytics/integration.md",
+          "digest": "sha256:904815684b97837074c6a5ae995d74dd3ed88e87c1059a1bc3843b3a9c9b2e1e",
+          "size": 1771
+        },
+        {
+          "path": "references/web-analytics/patterns.md",
+          "digest": "sha256:b14483238f89c0679c869b43b7088efdd64692c976fc24dabdd58f44fd86c873",
+          "size": 2235
+        },
+        {
+          "path": "references/workerd/README.md",
+          "digest": "sha256:daed9e582eff91b2c29dc77701c7c18a3d92fde0dc6883b2913df26094c0c597",
+          "size": 2789
+        },
+        {
+          "path": "references/workerd/api.md",
+          "digest": "sha256:97522502d284040248da050f7c6fce4b67ff77f08ebf13313ecb9da0fbdca4b3",
+          "size": 4957
+        },
+        {
+          "path": "references/workerd/configuration.md",
+          "digest": "sha256:a22a90fb354b5e01cec488586f68a3f4f13e4284ae72e2376bec5d320e084cee",
+          "size": 5259
+        },
+        {
+          "path": "references/workerd/gotchas.md",
+          "digest": "sha256:ed3107537e54d440445408131b89db5f81f869902bade11cda7978f31234f74a",
+          "size": 4781
+        },
+        {
+          "path": "references/workerd/patterns.md",
+          "digest": "sha256:db771fb75822afa39974f7ee1ac291a6fa903f1cc9a85400b099b589a7c8573a",
+          "size": 4930
+        },
+        {
+          "path": "references/workers/README.md",
+          "digest": "sha256:fb58d3e290aacafd9423fcbea9197da4e4d43e34303790717fe4d0f55aeb74d3",
+          "size": 3447
+        },
+        {
+          "path": "references/workers/api.md",
+          "digest": "sha256:dad6c81d6209ba2ca84155fc57820cac4d44e882bb25820071edfd208c909fc5",
+          "size": 5148
+        },
+        {
+          "path": "references/workers/configuration.md",
+          "digest": "sha256:fd67860ac8b996afad1239658b8f07bbe737020345e946c9bbddb5c0bd3202eb",
+          "size": 4323
+        },
+        {
+          "path": "references/workers/frameworks.md",
+          "digest": "sha256:520538d460fa6a11360163e3ed0725d840946c776feb9e00bd0bafd9f1cff699",
+          "size": 4276
+        },
+        {
+          "path": "references/workers/gotchas.md",
+          "digest": "sha256:c0229abdc9c832039bddf4efa62fcba44e95f2f9cb63525edf10cf66a9beebd3",
+          "size": 4902
+        },
+        {
+          "path": "references/workers/patterns.md",
+          "digest": "sha256:07bd565af6bec9a9fcfe413c48f611c6b4ae346a887befc3eb2262b3f1dd3de1",
+          "size": 5446
+        },
+        {
+          "path": "references/workers-ai/README.md",
+          "digest": "sha256:3e6d6fca26f243e214689c0c735784447d503ef118cb752315ac846b45db9c9f",
+          "size": 6036
+        },
+        {
+          "path": "references/workers-ai/api.md",
+          "digest": "sha256:2b6093736b90376cf9089726eddc580f77d9f719be5031a1552cd05a4f3e991c",
+          "size": 2715
+        },
+        {
+          "path": "references/workers-ai/configuration.md",
+          "digest": "sha256:acfe8100a30a006b2b35ba9f81897130402825b062a087984258fa597ea8fa1a",
+          "size": 1989
+        },
+        {
+          "path": "references/workers-ai/gotchas.md",
+          "digest": "sha256:10fe3b26750c2fc92ff6ccdefc1200352cdae88c573071cd7735d0a84ff925da",
+          "size": 2693
+        },
+        {
+          "path": "references/workers-ai/patterns.md",
+          "digest": "sha256:1ebfd949690bd1e8150435c1bd1bf7b5cd3e6ab35eec5442f7af8bf39ea80198",
+          "size": 3063
+        },
+        {
+          "path": "references/workers-for-platforms/README.md",
+          "digest": "sha256:f4ccefa36d15ca0f500722a86e0ff933f587c859d78ab96c17da6c25c4d2a8e1",
+          "size": 3912
+        },
+        {
+          "path": "references/workers-for-platforms/api.md",
+          "digest": "sha256:e8c61ee7e1e6113e374fbc9df94962e072b53e011f93c9c82fd8b83e63867055",
+          "size": 5503
+        },
+        {
+          "path": "references/workers-for-platforms/configuration.md",
+          "digest": "sha256:d671398898e46dcaf2c72eb52f8d4048aa1fa6f8722a46688f6ff42dbeb8dbf2",
+          "size": 3891
+        },
+        {
+          "path": "references/workers-for-platforms/gotchas.md",
+          "digest": "sha256:6697732e34bdfc7f98496d94efc23c82f860dacd9ee7ba37c6c86e0e7ef924d5",
+          "size": 5416
+        },
+        {
+          "path": "references/workers-for-platforms/patterns.md",
+          "digest": "sha256:d24005af33bc58a671ef3a8a1aa4ea0d2ef48da22dd07cabe7ddeb8e50db3168",
+          "size": 5571
+        },
+        {
+          "path": "references/workers-playground/README.md",
+          "digest": "sha256:88428c57b687c3c6ca23ce95559d0217dcc218a806172ddd70d0c86db0ed5231",
+          "size": 4033
+        },
+        {
+          "path": "references/workers-playground/api.md",
+          "digest": "sha256:10ca3f561c09227408451ead3809331429e5deb29d3eb2af48ce984dae8959fd",
+          "size": 2265
+        },
+        {
+          "path": "references/workers-playground/configuration.md",
+          "digest": "sha256:ce0183c32a0df67ae263f8fbbe459b0dfb6247adff5e869c0b1b4d06ae1f6300",
+          "size": 4479
+        },
+        {
+          "path": "references/workers-playground/gotchas.md",
+          "digest": "sha256:478b65b6a1827a2c95789dfe6038c16837a7dd463b6b943c630afea63a7454bd",
+          "size": 2060
+        },
+        {
+          "path": "references/workers-playground/patterns.md",
+          "digest": "sha256:c95d27741ecccbad12386ff4fa9dae6c8ff21438bf83f3edfd177ec156a8da69",
+          "size": 3303
+        },
+        {
+          "path": "references/workers-vpc/README.md",
+          "digest": "sha256:580ffb65b02faa9e0089ac2abe1a6caa92e21a7c8a9622d2455f2ef701cdb369",
+          "size": 5472
+        },
+        {
+          "path": "references/workers-vpc/api.md",
+          "digest": "sha256:97d8fef3e492ea7e3261111099f35668ad434c689841912bd46b70c9fa7a0ab9",
+          "size": 5305
+        },
+        {
+          "path": "references/workers-vpc/configuration.md",
+          "digest": "sha256:2bff2271b75ed4db399fe927324e6304577fef7022b19e4a6631a3bd415482de",
+          "size": 3897
+        },
+        {
+          "path": "references/workers-vpc/gotchas.md",
+          "digest": "sha256:70e2d004800e75ccdbbdcc37623b97d9f5b4592183aae1421e21bad19e111d80",
+          "size": 4477
+        },
+        {
+          "path": "references/workers-vpc/patterns.md",
+          "digest": "sha256:9099d7e9198127b55d0fbcfae97880830bf052aecd827b6799718be265fb882e",
+          "size": 6003
+        },
+        {
+          "path": "references/workflows/README.md",
+          "digest": "sha256:54d02d71d4bccf72e5c5c3a6dd30220edae4ccf75c77bf1a2cbb1355d18455d1",
+          "size": 2861
+        },
+        {
+          "path": "references/workflows/api.md",
+          "digest": "sha256:a91d6cd8713c0a472c560fcfb7c308b2e3883594b1dcb77442769eb06c5716e5",
+          "size": 7744
+        },
+        {
+          "path": "references/workflows/configuration.md",
+          "digest": "sha256:d91f3f358c2601e2faa0cb92cc798200c71584c34a5b866678ec242271146bac",
+          "size": 3869
+        },
+        {
+          "path": "references/workflows/gotchas.md",
+          "digest": "sha256:d422e821ab8586e170368cc610ec111a8bfa41988bcc9060f85d661cc3c557c5",
+          "size": 4540
+        },
+        {
+          "path": "references/workflows/patterns.md",
+          "digest": "sha256:1b8353188349a7b52441b62212a4989a3718456b7e9e7967fd2965dedc373d28",
+          "size": 6665
+        },
+        {
+          "path": "references/wrangler/README.md",
+          "digest": "sha256:67bab7fd889e3296fa48f88398f52b44e0e52f159ab1442ecd594059f3f741f1",
+          "size": 4460
+        },
+        {
+          "path": "references/wrangler/api.md",
+          "digest": "sha256:9285a26c93753a01f0232ec5a35c61e23d02c023cfd8b6d1327dbfb58ae063b6",
+          "size": 4615
+        },
+        {
+          "path": "references/wrangler/configuration.md",
+          "digest": "sha256:fd28ead66875bdc6ae1ab9ed8c652b906a9e86979ba95b15ead3af0e8b23cac8",
+          "size": 4712
+        },
+        {
+          "path": "references/wrangler/gotchas.md",
+          "digest": "sha256:36efe0acc61eab95d6bc5bb4bd1b6c4f74b79acce1c26cfe634aad76fa55ffde",
+          "size": 5947
+        },
+        {
+          "path": "references/wrangler/patterns.md",
+          "digest": "sha256:208f4f1b7c288a4ce1f635b35f6aeef830e4e7a87e551b078fbde305ee8f7426",
+          "size": 4868
+        },
+        {
+          "path": "references/zaraz/IMPLEMENTATION_SUMMARY.md",
+          "digest": "sha256:eba1671fc4ba17fae19d1ff2d1b312d5042b5821e7a4dbc2f6367a4fa8bd5506",
+          "size": 3494
+        },
+        {
+          "path": "references/zaraz/README.md",
+          "digest": "sha256:929bee8e3efffad15b1a2ee2e20ff87b5d89cc724b4f450f07f6ef15caf4b2f9",
+          "size": 3909
+        },
+        {
+          "path": "references/zaraz/api.md",
+          "digest": "sha256:6b28a3e1525d46aad707b1bf4edd2739df9f48ae880f71a705448270b42f8b9e",
+          "size": 3197
+        },
+        {
+          "path": "references/zaraz/configuration.md",
+          "digest": "sha256:6f3666ac64d1b36b4a708b3dea9d3b1d9679b34c58a00e3ca8e254edd602418a",
+          "size": 1811
+        },
+        {
+          "path": "references/zaraz/gotchas.md",
+          "digest": "sha256:30378f48fde6e866780466228a3e698005a9ce23a24188c8ed520195b03eac3e",
+          "size": 2001
+        },
+        {
+          "path": "references/zaraz/patterns.md",
+          "digest": "sha256:2ea1d00fe81b1e881c00090fd18c96d8c78ebb41fcc55f540b68150320d90d17",
+          "size": 2133
+        }
+      ],
+      "frontmatter": {
+        "name": "cloudflare",
+        "description": "Build or review Cloudflare applications and infrastructure. Use for Workers, Pages, storage, AI, networking, security, feature flags, Terraform, or Pulumi. Retrieve current docs first.",
+        "references": "- workers - pages - d1 - durable-objects - workers-ai"
+      }
+    },
+    {
+      "name": "cloudflare-email-service",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "digest": "sha256:0b5b2664450d466ed910296bd1d782730330fc8b56db11f03ea510434bc9d0bd",
+          "size": 7614
+        },
+        {
+          "path": "references/cli-and-mcp.md",
+          "digest": "sha256:906aa333331e080a275a4ba3d4c342281b655afcef25a2081d197a396a3da913",
+          "size": 4039
+        },
+        {
+          "path": "references/deliverability.md",
+          "digest": "sha256:174ff9cafe8e87c98faf2e25b30acb8889cd108caabe55b71c0db2bcb23077a7",
+          "size": 9145
+        },
+        {
+          "path": "references/rest-api.md",
+          "digest": "sha256:edc9da52397ed70db9a0a520d5d7d075d6acd396fd8637e34c6dc1252a3303e7",
+          "size": 6014
+        },
+        {
+          "path": "references/routing.md",
+          "digest": "sha256:db54ef436d72bfa1454a6da95be6a33b29b94266a1e8d1bffe86ffe0e007565c",
+          "size": 7462
+        },
+        {
+          "path": "references/sending.md",
+          "digest": "sha256:e7164e0a96c11fcccb0c684695e3c475a81e4f210891b83503bdda392232f47f",
+          "size": 9530
+        }
+      ],
+      "frontmatter": {
+        "name": "cloudflare-email-service",
+        "description": "Build or review Cloudflare Email Sending and Email Routing. Use for transactional email, Workers bindings, REST APIs, deliverability, SPF/DKIM/DMARC, or Agents SDK email."
+      }
+    },
+    {
+      "name": "cloudflare-one",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "digest": "sha256:24c86e14f6c247bb6c416c8ff1284761e8b101cd36f7950ed8e4cba4238ee26e",
+          "size": 22145
+        }
+      ],
+      "frontmatter": {
+        "name": "cloudflare-one",
+        "description": "Design, configure, troubleshoot, or review Cloudflare One deployments. Use for Access, Gateway, WARP, Tunnel, WAN, DLP, CASB, device posture, identity, or Zero Trust migrations."
+      }
+    },
+    {
+      "name": "cloudflare-one-migrations",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "digest": "sha256:50ed246b92a3f82c7afac864201093269fad8de24e4ce7ea18929103a26adad8",
+          "size": 12363
+        }
+      ],
+      "frontmatter": {
+        "name": "cloudflare-one-migrations",
+        "description": "Plans migrations from Zscaler ZIA/ZPA, Palo Alto, legacy VPN, SWG, or SASE stacks to Cloudflare One. Use for migration assessments, policy mapping, rollout plans, and parity/gap analysis."
       }
     },
     {
@@ -152,8 +1938,8 @@
       "files": [
         {
           "path": "SKILL.md",
-          "digest": "sha256:356ff225363f5228910a46c38210fbd87c0824efd27d223f8aa3e96edc9c59df",
-          "size": 22287
+          "digest": "sha256:1f1552c176af35a3d3fdde879376fdebadb5bba501af739eb3f965badf0a3f02",
+          "size": 23412
         },
         {
           "path": "agents/openai.yaml",
@@ -167,8 +1953,8 @@
         },
         {
           "path": "references/inference.md",
-          "digest": "sha256:ab2e9995e660378148f6493ea90c34b7c06a58a279ed88dbe5beee438e03001a",
-          "size": 17257
+          "digest": "sha256:d9e6338a837649841eb58537adafd2926d040082d72d6c40266764543453321c",
+          "size": 18236
         },
         {
           "path": "references/interpretation.md",
@@ -192,13 +1978,42 @@
         },
         {
           "path": "scripts/se_ladder.R",
-          "digest": "sha256:c41395309c10a00ab4900c284dad76583fdd7f6121c913fa886360ac08e43fd0",
-          "size": 24923
+          "digest": "sha256:4390dc05336b0fde72d502a35293957f11906b1d7c0a1d765264ab00f357047e",
+          "size": 33946
         }
       ],
       "frontmatter": {
         "name": "design-analysis",
-        "description": "Use when an analysis-ready dataset needs a research design before it gets a regression — an estimand to state, an identifying assumption to name, placebos and negative controls to pre-specify, a clustering level and standard error to justify, a repo and manuscript to lay out, or results to interpret without leaning on significance. Replaces \"run it and see what comes out significant\" with a frozen plan: identify, pre-specify, interpret in intervals, build, and get audited before the headline number exists."
+        "description": "Design an empirical study before estimation. Use to state estimands and assumptions, freeze analyses, choose inference and clustering, plan placebos, or structure a research repository."
+      }
+    },
+    {
+      "name": "durable-objects",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "digest": "sha256:d04b4cc7b19c6e2368fa156a8927b65f7c8f04360db44fac2c9983f0ee36c45e",
+          "size": 5664
+        },
+        {
+          "path": "references/rules.md",
+          "digest": "sha256:b1087f99c424364dd4c4bc6f99ad076646a6f65435a87c6393c354e745cf9b94",
+          "size": 8479
+        },
+        {
+          "path": "references/testing.md",
+          "digest": "sha256:6a247f1e5c0cdd74e8884e4e8dc5d73c82468e67c409f97f4a7f8ad03915465c",
+          "size": 6503
+        },
+        {
+          "path": "references/workers.md",
+          "digest": "sha256:042f8821109d3dec26560d0e21affb7d5c24db11466cd199f4f97de1743b8d4b",
+          "size": 7535
+        }
+      ],
+      "frontmatter": {
+        "name": "durable-objects",
+        "description": "Build or review Cloudflare Durable Objects. Use for stateful coordination, RPC, SQLite storage, alarms, WebSockets, Workers bindings, or Vitest tests. Retrieve current docs first."
       }
     },
     {
@@ -206,8 +2021,8 @@
       "files": [
         {
           "path": "SKILL.md",
-          "digest": "sha256:8b5567188a76888ad7a0048891184306e607f2a1c2cd40ccf178697e8ef207c4",
-          "size": 16298
+          "digest": "sha256:129ba5c0a6c43d2144a975c47f8d9b1d529bf6e52b39b804030f01733e003d94",
+          "size": 15943
         },
         {
           "path": "references/diff-from-paper.md",
@@ -242,7 +2057,7 @@
       ],
       "frontmatter": {
         "name": "empirical-problem-solving",
-        "description": "Use when something empirical is broken and the cause is unknown — a metric moved, a model regressed, a pipeline started producing wrong values, an experiment returned a surprising result, a job that worked last month does not now. Replaces \"here is a plausible story that fits the data\" with a bounded procedure — check the metric is not lying, reproduce and shrink, enumerate rivals from libraries before inventing them, order tests by probability over cost, and stop when more diagnosis cannot change what you do."
+        "description": "Diagnose a broken empirical metric, model, experiment, or pipeline. Use to reproduce and shrink failures, enumerate rival causes, order tests, and stop on evidence."
       }
     },
     {
@@ -250,13 +2065,13 @@
       "files": [
         {
           "path": "SKILL.md",
-          "digest": "sha256:edd98325d0172bb4dd41493571a503c81196f85bf9d5f1350d2750d643294bc8",
-          "size": 15507
+          "digest": "sha256:f1e9f1aeacb67a06f9871c7e46b9c1d154e400476b36d0adc15c3fa8f0ce1999",
+          "size": 16164
         }
       ],
       "frontmatter": {
         "name": "ocr-error-triage",
-        "description": "Use when improving an OCR or document-extraction pipeline — diagnosing why fields come out wrong, proposing fixes, and deciding whether a fix is real. Replaces \"I looked at a page and it works now\" with a measured loop: bracket the error rate without ground truth, localise failures statistically, propose from a signature library, and gate every fix on in-sample, out-of-sample, no-degradation and cost."
+        "description": "Diagnose and improve OCR or document extraction. Use to measure error without full ground truth, localize failures, test repairs out of sample, and gate regressions and cost."
       }
     },
     {
@@ -264,8 +2079,8 @@
       "files": [
         {
           "path": "SKILL.md",
-          "digest": "sha256:34fdead2793c9df685fd316cea26a7897257232fb50e2151aa20f87b2be00479",
-          "size": 13434
+          "digest": "sha256:0c4de95b15a9075b26c56e9908cbec8c3469773d17c2e7616e596a6a1a6162e4",
+          "size": 14172
         },
         {
           "path": "references/ai-patterns.md",
@@ -295,7 +2110,7 @@
       ],
       "frontmatter": {
         "name": "on-writing",
-        "description": "Use when writing or editing prose - essays, papers, abstracts, memos, emails, blog posts, documentation, reports, reviews. Use when a draft buries its point, runs long, over-hedges, sounds AI-generated or generic, or needs an editor's pass before it ships. Also use when asked to humanize text, remove AI writing tells, or match an author's voice.",
+        "description": "Edit prose for organization, clarity, voice, and AI-writing tells. Use for papers, documentation, memos, emails, reports, reviews, humanization, or matching an author's voice.",
         "license": "MIT",
         "compatibility": "any-agent",
         "metadata": "version: 1.0.0",
@@ -307,13 +2122,13 @@
       "files": [
         {
           "path": "SKILL.md",
-          "digest": "sha256:b6e7b6f0d3df66df9bfee8f9fefc98c2a857ab3f8cdc2b67900542b88a5dfdd8",
-          "size": 16896
+          "digest": "sha256:9af720a080b3f75f2ab90cc1900ab50d679d821fc9634b8a779b72d37eb46660",
+          "size": 20616
         }
       ],
       "frontmatter": {
         "name": "release",
-        "description": "Use when cutting a release of a package — tagging a version, publishing to PyPI or CRAN, or merging a release branch. Runs an independent review by a second model (Codex, Gemini) as a mandatory gate before anything is tagged or published, because a release is the one action that cannot be taken back."
+        "description": "Cut a package release, tag, or registry publication. Requires user-facing documentation review with on-writing, complete tests, and independent second-model review before release."
       }
     },
     {
@@ -321,8 +2136,8 @@
       "files": [
         {
           "path": "SKILL.md",
-          "digest": "sha256:74dc81e63b4dcbd32add575ff3dd5b0ec5f521a73587bfdfea1fdec8fa9c8c05",
-          "size": 3444
+          "digest": "sha256:077301050e1b6f6d3a9459159e63aedd859c820b7f30620692e268c06e023fbb",
+          "size": 3351
         },
         {
           "path": "review-moves.md",
@@ -332,7 +2147,243 @@
       ],
       "frontmatter": {
         "name": "review-article",
-        "description": "Use when asked to review, referee, critique, or assess a quantitative empirical social science paper — experiments/RCTs, difference-in-differences, regression discontinuity, IV, natural experiments — or to evaluate whether a paper's causal claims hold up."
+        "description": "Review a quantitative empirical social-science paper. Use to assess experiments, difference-in-differences, RD, IV, natural experiments, inference, and causal claims."
+      }
+    },
+    {
+      "name": "sandbox-migrate-to-next",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "digest": "sha256:adbb4a74a3bb81a5ccf94afe7e1d7415cf8cc6ea50a6ba6386f69ff179e897fb",
+          "size": 7946
+        }
+      ],
+      "frontmatter": {
+        "name": "sandbox-migrate-to-next",
+        "description": "Port a Cloudflare Sandbox app from stable @cloudflare/sandbox to the @next SDK 1.0 preview. Use only for migrations, not stable maintenance or new @next applications."
+      }
+    },
+    {
+      "name": "sandbox-next",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "digest": "sha256:7b1aa58d062949074e9fc40c0bd0bdcd2e8e53dda708ee2720283e76fc29bae5",
+          "size": 6879
+        },
+        {
+          "path": "references/api-quick-ref.md",
+          "digest": "sha256:0b29ee510f7a177cb6abf9cf563ccb2140548fca674cf2634b8b80413ff40c91",
+          "size": 3344
+        },
+        {
+          "path": "references/examples.md",
+          "digest": "sha256:08d1e6776e16931dec2bb637b82a425679ff217081ac1d50182ab94de40f4fc6",
+          "size": 526
+        }
+      ],
+      "frontmatter": {
+        "name": "sandbox-next",
+        "description": "Build or change apps on @cloudflare/sandbox@next, the SDK 1.0 preview. Use for execution, runners, terminals, files, mounts, tunnels, lifecycle, or errors; not stable apps."
+      }
+    },
+    {
+      "name": "sandbox-stable",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "digest": "sha256:4be3d0ed35f2f32f6514b973bc47840b6f81183a95b830bc338fee5f01df0e17",
+          "size": 8821
+        }
+      ],
+      "frontmatter": {
+        "name": "sandbox-stable",
+        "description": "Build or change apps on stable @cloudflare/sandbox. Use for commands, sessions, files, ports, tunnels, terminals, production, or deprecated-API cleanup; not the @next preview."
+      }
+    },
+    {
+      "name": "todo",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "digest": "sha256:9f7888895815d06d3453e133b7bbbd9bd173bc71455963ff803c925e950b8f31",
+          "size": 4494
+        }
+      ],
+      "frontmatter": {
+        "name": "todo",
+        "description": "Read and write the user's Obsidian TaskNotes todo list. Use when asked to add, track, complete, or show tasks, preserving enough context for the task to be resumed later."
+      }
+    },
+    {
+      "name": "turnstile-spin",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "digest": "sha256:19f39d09bcb5a51dded32b8ababa22bfe1f7a81d48db34e0b8f971c007177660",
+          "size": 28326
+        },
+        {
+          "path": "README.md",
+          "digest": "sha256:e5c50413b3db0fc2e1bf5ae0147b093f36ed9a66567c5e39f6bd93b2c972f440",
+          "size": 3757
+        },
+        {
+          "path": "references/astro.md",
+          "digest": "sha256:6e2faeba9bf9ad24c062c6a723dc37c74644e5843dd7a06164999240e83d7a96",
+          "size": 5929
+        },
+        {
+          "path": "references/hugo.md",
+          "digest": "sha256:5bc91dca7264de9bcb163d4c8e21a20d64afcad7becdd69926f9c7a09d1bb05c",
+          "size": 3852
+        },
+        {
+          "path": "references/nextjs-app.md",
+          "digest": "sha256:a8e10a569937efd076c3f32f37b48a8083c8c52918c9aa309b770d35d5a03273",
+          "size": 7643
+        },
+        {
+          "path": "references/nextjs-pages.md",
+          "digest": "sha256:f6fa729155fa682f6c77b157cbb75492caf172f7451bcc889bc417441a3f02a5",
+          "size": 2737
+        },
+        {
+          "path": "references/sveltekit.md",
+          "digest": "sha256:da8dbe10014a0a94d25c51e80010ffd4fb5f0719caa7226c42b9dacb3ae8933a",
+          "size": 5513
+        },
+        {
+          "path": "references/vanilla-html.md",
+          "digest": "sha256:bb01ca94b0e942c0e329c2fcaf50d0c5ff846f1ae166aa6d654d4c962d48fa9d",
+          "size": 5756
+        },
+        {
+          "path": "scripts/auth-probe.sh",
+          "digest": "sha256:a54d7ab1f6e6ac98a6aeb45498d7bb3568d173669d2d3a7c6a08b56ed2c20182",
+          "size": 11270
+        },
+        {
+          "path": "scripts/persist-skill.sh",
+          "digest": "sha256:56f3dafdcfd6f3b7ea3334d5d1b0af1c45f7fba8f9966ba04b16730443557f9f",
+          "size": 3775
+        },
+        {
+          "path": "scripts/validate.sh",
+          "digest": "sha256:45af59068104650ac8b247cf2059d985fa17960d9c2f3d867287fc296771de81",
+          "size": 4438
+        },
+        {
+          "path": "scripts/widget-create.sh",
+          "digest": "sha256:ebc3ef13ef99f4f6f93400ce66ffc3848c1913aac0cb0876470c6378cf1d9fed",
+          "size": 4149
+        },
+        {
+          "path": "tests/validation.md",
+          "digest": "sha256:e92fedb23a709b104877733365162bddb2d2be7c8a25c1dec9483bbedddae46f",
+          "size": 2916
+        }
+      ],
+      "frontmatter": {
+        "name": "turnstile-spin",
+        "description": "Set up Cloudflare Turnstile end to end. Use to add or fix CAPTCHA protection, create a widget, wire frontend and server-side siteverify, validate, and persist the skill.",
+        "references": "- vanilla-html - nextjs-app - nextjs-pages - astro - sveltekit - hugo"
+      }
+    },
+    {
+      "name": "visualize-evidence",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "digest": "sha256:6c3f3c7462e573de4fe0084c73331e121e95630037efdfb51f110f56db7c2101",
+          "size": 6203
+        },
+        {
+          "path": "agents/openai.yaml",
+          "digest": "sha256:0e76f8a4e77f612b43433bd6e51d8452bfe948fd776ade6ad0ae03f302a70f1c",
+          "size": 257
+        },
+        {
+          "path": "references/evidence-design.md",
+          "digest": "sha256:4cffb555b8ed567664343c8bf4f61770c3653bf699f688bb354d267e27992c25",
+          "size": 25917
+        }
+      ],
+      "frontmatter": {
+        "name": "visualize-evidence",
+        "description": "Design or audit empirical figures, tables, and maps. Use for comparisons, uncertainty, units, captions, visual consistency, generated exhibits, or rendered-page quality assurance."
+      }
+    },
+    {
+      "name": "web-perf",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "digest": "sha256:ba1c0032b22ced70d5598d4ed17831210951dce39da2edf65cb120e12227aae5",
+          "size": 7916
+        }
+      ],
+      "frontmatter": {
+        "name": "web-perf",
+        "description": "Audit or optimize web performance with Chrome DevTools MCP. Use for Core Web Vitals, load speed, render blocking, network chains, layout shifts, caching, or accessibility."
+      }
+    },
+    {
+      "name": "workers-best-practices",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "digest": "sha256:5e91359fd6f887a2145f2a7291d6edaade3eb9c27d85baf20c0efcbbe1864919",
+          "size": 6900
+        },
+        {
+          "path": "references/review.md",
+          "digest": "sha256:3e32da345be0906d020e5235d01f2b6398a41216900b5370a267e3f17757ade0",
+          "size": 8145
+        },
+        {
+          "path": "references/rules.md",
+          "digest": "sha256:b0273b18c7fa40fadf33262e7da7c8f2a52f2f1240ce66d590e4c31663261380",
+          "size": 16483
+        }
+      ],
+      "frontmatter": {
+        "name": "workers-best-practices",
+        "description": "Write or review Cloudflare Workers for production. Use for Worker code, Wrangler configuration, streaming, promises, global state, secrets, bindings, or observability."
+      }
+    },
+    {
+      "name": "wrangler",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "digest": "sha256:b07d318c0b0294b9e264acd170a3ddd3c6140c19aed1fa9e6ff44cd79578cd14",
+          "size": 18186
+        }
+      ],
+      "frontmatter": {
+        "name": "wrangler",
+        "description": "Use the Cloudflare Wrangler CLI for Workers, storage, AI, containers, queues, workflows, pipelines, secrets, and deployment. Load before running Wrangler commands."
+      }
+    },
+    {
+      "name": "write-empirical-paper",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "digest": "sha256:0c4380639ee15e9815c27f65aeedfb6baf00298cccd887f81c09998a07e2f3e7",
+          "size": 5816
+        },
+        {
+          "path": "agents/openai.yaml",
+          "digest": "sha256:8845aa6d8a7080742a73b9f729417235e9cb8f6ccfff43858e84d63d4a4825b5",
+          "size": 250
+        }
+      ],
+      "frontmatter": {
+        "name": "write-empirical-paper",
+        "description": "Coordinate revision of a quantitative empirical paper and repository. Use for analysis audits, prose, figures, tables, citations, compilation, rendered-page checks, and claim validation."
       }
     }
   ]

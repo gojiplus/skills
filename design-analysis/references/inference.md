@@ -108,10 +108,16 @@ stopifnot(within_share > 0.01)   # else the FE and the clustering are at odds
 fixed effects are at the wrong level or the clustering is — and deciding which is a stage-1
 question, not a variance question.
 
-**5. Escalate only when few.** Below roughly 40 clusters — or with few treated clusters at any
-total — CR2 undercovers and you need the wild cluster bootstrap or randomisation inference. Above
-that, the bootstrap buys runtime, not coverage. Reaching for `boottest` with 300 clusters signals
-that the clustering level was never justified in the first place.
+**5. Escalate on the effective count, not the nominal one.** Below roughly 40 clusters — or with
+few treated clusters at any total — CR2 undercovers and you need the wild cluster bootstrap or
+randomization inference.
+
+Above 40, the bootstrap usually buys runtime rather than coverage — but "usually" is doing real
+work in that sentence, and it is governed by step 4 above, not by the nominal count. Three hundred
+clusters with one holding most of the sample, or with the treated ones concentrated in a handful,
+has a small *effective* count and needs the bootstrap exactly as much as thirty balanced ones do.
+Let the Satterthwaite degrees of freedom decide: when it comes back far below the cluster count,
+escalate regardless of how many clusters you nominally have.
 
 ```r
 # the "31" variant: WCR with the CRVE3 (jackknife) numerator and a CRVE1 bootstrap DGP.
@@ -130,6 +136,13 @@ version is for confidence intervals and is less reliable under the null.
 bootstrap and randomisation inference for one specification, with the cluster and treated-cluster
 counts, and flags whether the few-cluster threshold was crossed. The design picks the rung that
 goes in the main table; the ladder goes in the SI.
+
+The script runs randomization inference only with an explicit `--ri N`. That flag asserts complete
+random assignment: the script permutes clusters when treatment is constant within the specified
+clusters and rows otherwise. `--param` must name the raw numeric assignment column, and the full
+design matrix is rebuilt on every draw so interactions stay valid. Derived factor coefficients are
+rejected. Binary treatment alone is not evidence of random assignment. Use `ri2` or `randomizr`
+when assignment was blocked, stratified, multilevel, or otherwise constrained.
 
 **If the conclusion moves across the ladder, that is the result.** Say it. An estimate whose
 interval excludes zero under CR0 and includes it under CR2 with 14 clusters has not been shown to

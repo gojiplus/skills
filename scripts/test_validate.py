@@ -81,7 +81,7 @@ class CheckSkillTest(unittest.TestCase):
 
     def test_description_too_long(self) -> None:
         path = self.skill("wordy", description="x" * (DESCRIPTION_MAX + 1))
-        self.assertTrue(any("max 1024" in e for e in check_skill(path)))
+        self.assertTrue(any(f"max {DESCRIPTION_MAX}" in e for e in check_skill(path)))
 
     def test_description_empty(self) -> None:
         path = self.skill("silent", description="")
@@ -120,6 +120,13 @@ class ParseFrontmatterTest(unittest.TestCase):
         )
         assert fields is not None
         self.assertEqual(fields["description"], "> First line second line")
+
+    def test_quoted_description_is_decoded(self) -> None:
+        fields = parse_frontmatter(
+            '---\nname: quoted\ndescription: "Use when a label contains: punctuation."\n---\n'
+        )
+        assert fields is not None
+        self.assertEqual(fields["description"], "Use when a label contains: punctuation.")
 
 
 if __name__ == "__main__":

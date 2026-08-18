@@ -1,6 +1,6 @@
 ---
 name: release
-description: Use when cutting a release of a package — tagging a version, publishing to PyPI or CRAN, or merging a release branch. Runs an independent review by a second model (Codex, Gemini) as a mandatory gate before anything is tagged or published, because a release is the one action that cannot be taken back.
+description: Cut a package release, tag, or registry publication. Requires user-facing documentation review with on-writing, complete tests, and independent second-model review before release.
 ---
 
 # Releasing a Package
@@ -87,6 +87,83 @@ locally on Python 3.14 and failed CI on 3.11 and 3.12, because `ipaddress.is_glo
 changed its answer for IPv4-mapped IPv6 addresses in 3.13. Treat any local-only pass as
 provisional until gate 5.
 
+**Run each check as its own command and read its exit code.** `&&` correctly stops at the
+first failure, but a long compound command makes it easier to miss which gate failed in
+noisy output. `set -e` also has shell-specific exceptions. Neither replaces inspecting
+each result.
+
+#### Gate 2a — US spelling
+
+Assistant-written prose drifts into British spelling, and it lands in docstrings, README
+text and changelog entries where it then looks deliberate. Grep the diff, not the whole
+repo, so pre-existing text is not swept in:
+
+```bash
+git diff <base>...HEAD --name-only | grep -E '\.(py|md|rst|txt|yml)$' | while read -r f; do
+  [ -f "$f" ] || continue
+  grep -onwE 'randomis(e|ed|ing|ation)|behaviour|modelling|labelled|centred|summaris(e|ed)|analys(e|ed|ing)|generalis(e|ed)|artefact|normalis(e|ed)|initialis(e|ed)|optimis(e|ed)|whilst|favour(ite|able)?|colour|licence|catalogue|defence' "$f" | sed "s|^|$f:|"
+done
+```
+
+Note `analysis` is correct in both — match `analyse`/`analysed`/`analysing`, not `analysi`,
+or the check drowns in false positives and gets ignored.
+
+#### Gate 2b — Dead links
+
+A release publishes documentation. A README badge pointing at a renamed repo, or a
+changelog linking a moved issue, is a defect users hit immediately and the author never
+sees. Check every link in the files the release actually ships:
+
+```bash
+grep -rhoE 'https?://[^ )>"]+' README.md CHANGELOG.md docs/ 2>/dev/null \
+  | sed 's/[.,;:]$//' | sort -u | {
+      failed=0
+      while IFS= read -r url; do
+        if ! code=$(curl -sL -o /dev/null -w '%{http_code}' --max-time 10 "$url"); then
+          echo "ERROR  $url"
+          failed=1
+        elif [ "$code" -ge 400 ]; then
+          echo "$code  $url"
+          failed=1
+        fi
+      done
+      exit "$failed"
+    }
+```
+
+Anything 4xx is a blocker; a 5xx or a timeout may be the far end being down, so re-check
+before calling it. Skip `docs/_build/` and any other generated tree — scanning build
+artifacts produces noise that buries the real hits, which is exactly how `preen check`
+became unreadable on one repo.
+
+#### Gate 2c — User-facing package documentation
+
+Treat the documentation users see before installation as part of the release artifact.
+For every release, invoke the `on-writing` skill on the README and the registry landing
+text. Audit the documentation index and release notes when they carry package claims. If
+the package has no README, audit its equivalent landing page. Use Mode B by default: make
+no edit unless you can name what the existing text does wrong for the reader. A completed
+audit with no edits is a pass.
+
+Check correctness separately from prose quality:
+
+- State what the package does in the opening, then state the important limits close to the
+  claims they qualify.
+- Match the documented public API, installation commands, supported environments, and
+  examples to the release candidate. Do not advertise removed or experimental features.
+- Trace every quantitative or comparative claim to a reproducible result. Give its
+  design and scope. Remove unverified wins, even when the sentence itself is well written.
+- Keep paper plans, development history, roadmaps, and backward-compatibility promises out
+  of package documentation unless users need them to install or use the release.
+- Run the documented examples against the built package. Do not treat a documentation
+  content check as evidence that the code works.
+- Build the candidate with the project's normal packaging command, run its metadata
+  checker, and inspect the rendered long description or registry preview. Confirm that it
+  uses the audited source rather than stale or duplicated prose.
+
+Record the `on-writing` triage mode, every edit and its reader-facing reason, any structural
+suggestions not applied under Mode B, and the evidence for retained empirical claims.
+
 ### Gate 3 — Independent review (mandatory, never skipped)
 
 Pick a reviewer that is not you and run it against the release diff:
@@ -115,7 +192,6 @@ Three things about `agy` that cost a run each to discover:
   run `git diff`. Pair it with `--mode plan`, which keeps the agent read-only.
 - **The standalone `gemini` CLI may refuse individual OAuth entirely** ("no longer
   supported … migrate to the Antigravity suite"), in which case `agy` is the only way in.
-```
 
 For Codex, use `--uncommitted` for unpushed work and `--commit <sha>` for a single commit.
 For either, give the release context in the prompt when the diff alone would not convey it.

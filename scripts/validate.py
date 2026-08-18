@@ -13,18 +13,31 @@ this runs in CI and on a bare interpreter with nothing installed.
 
 from __future__ import annotations
 
+import json
 import re
 import sys
 from pathlib import Path
 
 NAME_MAX = 64
-DESCRIPTION_MAX = 1024
+DESCRIPTION_MAX = 200
 NAME_PATTERN = re.compile(r"^[a-z0-9-]+$")
 RESERVED_WORDS = ("anthropic", "claude")
 XML_TAG = re.compile(r"<[^>]+>")
 
 # Directories that sit alongside the skills and are not skills themselves.
 NOT_SKILLS = {".git", ".github", "scripts", "dist", "server"}
+
+
+def decode_scalar(value: str) -> str:
+    """Decode the quoted scalar forms used by skill frontmatter."""
+    if len(value) >= 2 and value[0] == value[-1] == '"':
+        try:
+            return json.loads(value)
+        except json.JSONDecodeError:
+            return value
+    if len(value) >= 2 and value[0] == value[-1] == "'":
+        return value[1:-1].replace("''", "'")
+    return value
 
 
 def parse_frontmatter(text: str) -> dict[str, str] | None:
@@ -46,7 +59,7 @@ def parse_frontmatter(text: str) -> dict[str, str] | None:
         match = re.match(r"^([A-Za-z0-9_-]+):\s*(.*)$", line)
         if match:
             key, value = match.group(1), match.group(2).strip()
-            fields[key] = value
+            fields[key] = decode_scalar(value)
         elif key is not None and line.strip():
             # Continuation of the previous key (folded scalar or nested block).
             fields[key] = (fields[key] + " " + line.strip()).strip()

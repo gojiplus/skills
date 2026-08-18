@@ -1,6 +1,6 @@
 ---
 name: empirical-problem-solving
-description: Use when something empirical is broken and the cause is unknown — a metric moved, a model regressed, a pipeline started producing wrong values, an experiment returned a surprising result, a job that worked last month does not now. Replaces "here is a plausible story that fits the data" with a bounded procedure — check the metric is not lying, reproduce and shrink, enumerate rivals from libraries before inventing them, order tests by probability over cost, and stop when more diagnosis cannot change what you do.
+description: Diagnose a broken empirical metric, model, experiment, or pipeline. Use to reproduce and shrink failures, enumerate rival causes, order tests, and stop on evidence.
 ---
 
 # Diagnosing an empirical problem
