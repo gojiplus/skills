@@ -70,6 +70,19 @@ Before believing a static hit, rule these out:
 
 A fix is a claim too, and mine have been wrong.
 
+### Revert-check every regression
+
+After the regression test passes with the fix, temporarily reverse only the
+production change that is supposed to make it pass. Leave the test in place,
+run that narrow test, and require it to fail for the behavior the fix addresses.
+Restore the production change immediately, rerun the narrow test, and then run
+the package's full harness. In a dirty worktree, use a targeted patch; do not
+use checkout, reset, stash, or any operation that could disturb unrelated work.
+
+Report both sides of the check: the test failed with the fix reverted and
+passed after restoration. If reverting the fix does not make the test fail,
+the test is not evidence for that fix and must be strengthened before sending.
+
 - **Is it correct, or merely different?** One patch forwarded a weight to a parameter that also reweighted the model fit, when only the aggregation should have been weighted. The discriminating test was weights varying only among units that cannot affect the estimand: the right parameter moved nothing, the wrong one moved the answer.
 - **Does it break something that worked?** One guard fired unconditionally where the relevant code path was only reachable under a flag, turning valid calls into errors.
 - **Is it complete?** Fixing a guard for one method while leaving the sibling method broken is half a fix.
