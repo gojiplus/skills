@@ -1,0 +1,4 @@
+interface:
+  display_name: "Review Evidence and Develop a Paper"
+  short_description: "Replicate claims, test rival explanations, and develop research opportunities"
+  default_prompt: "Use $review-article to review this paper, reproduce its central claims where data permit, explain what the evidence supports, and turn material criticisms into concrete research and writing opportunities."

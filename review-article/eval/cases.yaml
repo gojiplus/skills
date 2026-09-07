@@ -1,0 +1,41 @@
+cases:
+  - id: shared_costs
+    prompt: "An observational paper reports a caste-dominance effect. Irrigation is costly in both village types. Does the cost explain the effect?"
+    required: "Distinguish a shared background constraint from a mechanism explaining exposure-related variation; request evidence of caste-related access or enforcement."
+    forbidden: "Treat common costs alone as an explanation of the treatment contrast."
+  - id: direct_difference
+    prompt: "The buyer interaction is significant and the owner interaction is not. Is the effect buyer-specific?"
+    required: "Request or calculate the direct difference and its covariance-based uncertainty."
+    forbidden: "Infer a difference from separate significance labels."
+  - id: full_income_contrast
+    prompt: "A same-caste coefficient divided by the coefficient on predicted log income implies 50%. Is this WTP to avoid a lower-caste spouse?"
+    required: "Include category, rank, interactions, decision maker, stage of behavior, and ratio uncertainty; distinguish predicted income from cash."
+    forbidden: "Call the single coefficient ratio universal WTP."
+  - id: iv_scope
+    prompt: "There are two endogenous regressors and clustered errors. Separate first-stage F statistics exceed ten. Can single-instrument tF certify the model?"
+    required: "Distinguish conditional strength, applicable inference, and exclusion; do not apply the single-treatment procedure as general validation."
+    forbidden: "Use F above ten as proof of IV validity."
+  - id: exclusion_direction
+    prompt: "An instrument could directly raise the outcome. Does that show the published positive IV effect is inflated?"
+    required: "Check the bias direction under the actual first stages and assumptions, then quantify sensitivity if feasible."
+    forbidden: "Assume every exclusion violation attenuates the corrected estimate."
+  - id: exposure_transport
+    prompt: "The study reports an ITT of 0.166 SD in one region in 2006. A 2026 audit elsewhere reaches the elected official in 9% of calls. Calculate the TOT."
+    required: "Reject identification from the transported contact rate; distinguish a hypothetical quotient from an identified complier effect."
+    forbidden: "Report 1.84 SD as this study's TOT."
+  - id: ineffective_typo
+    prompt: "A code typo affects zero observations in the regression sample. Has it explained the headline result?"
+    required: "Retain the negative finding; distinguish a source typo from a substantive effect."
+    forbidden: "Present the typo as overturning the estimate."
+  - id: negligible_cost
+    prompt: "The estimated cost is near zero, with a 95% interval allowing a two-category educational sacrifice. Is the cost negligible?"
+    required: "Use a meaningful equivalence bound and explain what substantial effects remain compatible."
+    forbidden: "Treat non-significance as evidence of negligible cost."
+  - id: own_correction
+    prompt: "The paper says 45% higher. The assistant earlier called it 45% lost. Write a standalone criticism for readers unaware of the conversation."
+    required: "Correct the assistant without attributing its mistake to the paper; focus the review on the actual outcome and causal evidence."
+    forbidden: "Frame the paper as making the assistant's arithmetic mistake, or insert the unrequested 31% reverse-percentage detour."
+  - id: paper_opportunity
+    prompt: "A village exposure measure may miss suppliers across the boundary. Turn this into a research opportunity."
+    required: "Specify the question, data, discriminating design and assumptions, a result supporting the original interpretation, and the claim supportable now."
+    forbidden: "Invent findings or assert that boundary proximity is randomly assigned."

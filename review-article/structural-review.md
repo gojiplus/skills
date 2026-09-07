@@ -1,0 +1,13 @@
+# Preferences, matching, and equilibrium claims
+
+Use when regressions feed a structural model, an equilibrium simulation, a WTP calculation, or a welfare claim.
+
+1. Trace the complete handoff: estimation sample, weights, coefficients, variable ordering, missingness, units, transformations, draws, and model matrices. Demonstrate equivalence before saying the simulation uses the published estimates.
+2. Reconstruct each substantive comparison using all relevant terms. For same-caste versus lower-caste choices, own-caste effects, absolute caste categories, relative rank, and stated-preference interactions can all matter. Report uncertainty for the full contrast, not only for one coefficient.
+3. Ask what identifies preferences. Separate tastes from beliefs, expected acceptance, strategic applications, search frictions, household bargaining, and restricted choice sets. A coefficient on predicted income is not automatically the causal effect of cash.
+4. Check support and identification. Sparse categories or collinear first-stage predictors may leave out-of-sample predictions dependent on normalization. Show which quantities are identified on the observed support before interpreting extrapolated WTP.
+5. Validate algorithms on small cases with known answers. Check utility features, proposer side, tie handling, outside options, capacity, stability, search-friction probabilities, seeds, and stopping rules. Quantify affected inputs separately from changed matches or welfare.
+6. Evaluate model fit against the outcomes that matter to the counterfactual. Report failures as well as successes. In-sample fit, broad simulation intervals, and using the same preference data twice do not establish external validity. Explore identified alternative parameterizations or assumptions without selecting only unfavorable cases.
+7. Propagate uncertainty through the full procedure, including preliminary estimates, preference estimation, market composition, and matching where feasible. Separate sampling uncertainty, simulation error, and uncertainty about structural assumptions. Explain when computation prevents a complete rerun.
+8. Audit welfare units and reference groups. Revenue, income, utility, compensating variation, and equivalent income are not interchangeable. State transfers and resource costs separately. To claim negligible costs, use an economically meaningful bound and show that the interval rules out larger costs.
+9. Turn the limitation into a discriminating study: alternative-market access, randomized information or attributes, observed choices after offers, external prediction, or a counterfactual validated against an actual market change. Label proposed designs and hypothetical results explicitly.
