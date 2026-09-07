@@ -6,6 +6,8 @@ Use the moves that bear on the claim. They are questions to resolve, not twelve 
 
 Inspect the actual formula, components, weights, missing-data rules, and scaling. Do not assume all indices use the same weighting. Show whether the component closest to the headline claim changes. A summary index can be valid while a particular interpretation of it is unsupported.
 
+Decompose ratios before calling them productivity or welfare. Agricultural value per owned acre can change through operated/owned land, repeated seasonal cultivation, crop mix, physical yields, prices and the fraction sold. Compare alternative denominators on the same households to separate a changed estimand from changed sample composition. Extra cropping may be a real irrigation benefit, but its net value requires additional input and rental costs. Land-use changes can be mediators or confounders; do not automatically control them away. A denominator reversal in a newer survey does not establish the explanation for the original paper.
+
 ## 2. Establish baselines and the full contrast
 
 Name the comparison group, relevant mean, denominator, and direction. Reconstruct sums of coefficients and covariance terms for interactions. Distinguish pooled, conditional, and model-adjusted baselines. A percentage not calculated by the supplied program may still be reconstructible from the paper; missing code alone does not prove the percentage false.
@@ -16,7 +18,7 @@ Example: Anderson's buyer village contrast in Table 4(2) is the village coeffici
 
 If exposure varies, estimate and directly compare the relevant contrasts. A flat estimate followed by a positive one could reflect a threshold, noise, selection, or confounding. It does not establish that the lower dose has no effect. Examine support, precision, and alternative functional forms justified by the design; do not choose a form only because it breaks the headline result.
 
-For constructed categories such as village dominance, recover the underlying continuous measure and label-producing code before moving thresholds. Report support, classification uncertainty, and sample changes across a stated set of cutoffs, plus a continuous relationship when meaningful. Do not infer population land shares from a selected household sample. An analyst's cutoff does not create a regression-discontinuity design.
+For constructed categories such as village dominance, recover the underlying continuous measure and label-producing code before moving thresholds. Report support, classification uncertainty, and sample changes across a stated set of cutoffs, plus a continuous relationship when meaningful. Do not infer population land shares from a selected household sample. An analyst's cutoff does not create a regression-discontinuity design. A ranking does not identify the margin between groups. A participant roster does not supply independent repeated measurements when there is one collective response; audit who was represented and how disagreements were handled separately from classification sensitivity.
 
 ## 4. Distinguish mechanisms from background conditions
 
@@ -42,7 +44,7 @@ Translate effects into the measured outcome's units and meaningful contrasts. Us
 
 ## 8. Check inference, influence, and multiplicity
 
-Explain the dependence structure and survey/assignment design. Report cluster counts, sizes, and concentration by comparison group. Check influence and suitable robust inference when warranted, including larger cluster counts if leverage or imbalance is substantial. Randomization inference requires an actual assignment mechanism. Define the outcome/contrast family for multiplicity adjustment; report exploration honestly. Show estimates and intervals across defensible choices, including choices that preserve the result.
+Explain the dependence structure and survey/assignment design. Report cluster counts, sizes, and concentration by comparison group. For interactions, count the clusters in each relevant exposure-by-status cell and the geographic strata with overlap. A large overall cluster count can conceal a contrast supported by only a few villages. Check influence and suitable robust inference when warranted, including larger cluster counts if leverage or imbalance is substantial. Randomization inference requires an actual assignment mechanism. Define the outcome/contrast family for multiplicity adjustment; report exploration honestly. Show estimates and intervals across defensible choices, including choices that preserve the result.
 
 Balance and placebos must have a causal interpretation. Earlier than the survey is not necessarily earlier than treatment, especially for longstanding institutions. Historical literacy, irrigation or population can diagnose persistent differences without being unaffected outcomes. Report raw differences, intervals, overlap and economically meaningful equivalence bounds where justified; neither all p-values above .05 nor a rejected omnibus test determines causality. Geographic external-data checks require a verified crosswalk and an audit of changing boundaries, not a join on coincidentally similar serial numbers.
 

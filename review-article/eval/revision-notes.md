@@ -39,3 +39,8 @@ Added threshold provenance and continuous-exposure checks; historical-treatment 
 ## 2026-09-07: identification, reference groups and independent samples
 
 Added concrete checks for normalization-dependent predictions despite exact numerical reproduction; outcome-specific omitted-group composition and estimability; original survey provenance versus author collection; questionnaire versus released-variable availability; and bounded dominance classification with incomplete caste shares. Added independent-audit adjudication rather than accepting a reviewer's confident denominator or causal attribution. Motivated by the tested bride-income normalization audit, selected Table8 reference counts, and IHDS/land-record feasibility inventory. These reference edits received schema/link checks; no new behavioral model evaluation is claimed.
+
+
+## 2026-09-07: IHDS denominator and measurement lessons
+
+Added same-sample ratio decomposition, distinguishing physical yield, repeated cropping, operated versus owned land, and net benefits. A mediator is not automatically a confounder to control away. Added independent-agreement versus participant-roster distinctions and exposure-by-status/within-geography support checks. These changes follow an independently reviewed IHDS analysis: negative primary value/owned-acre point estimate, wide relative uncertainty including a 45% advantage, and an opposite direction with crop-season acreage on the same sample. No claim that these results explain Anderson’s original coefficient. Skill validation and substantive review of the added instructions were completed; no new model-based skill evaluation was run.
