@@ -30,7 +30,7 @@ Each move: what to check, how, and a worked example from the review of Beaman, D
 
 **Check:** Is the asserted causal channel empirically live? Exposure stories require measured exposure: do subjects perceive the treatment, and are effects gated on that perception?
 
-**How:** Look for awareness/exposure measures in the paper, its supplement, and companion papers on the same data.
+**How:** Look for awareness/exposure measures in the paper, its supplement, and companion papers on the same data. Distinguish background constraints common to both comparison groups from a mechanism that explains variation caused by the treatment or exposure. When the claim involves large foregone economic gains, examine entry, bargaining, substitution, and the obstruction to those responses. Separate revenue from profit and an observed cross-group gap from recoverable gains. Quantify a break-even scenario when useful, label hypothetical quantities and prices, and identify what evidence would show that the proposed treatment causes the obstruction.
 
 **Example:** The companion QJE 2009 paper, same villages and survey wave: 33% of women could name the current pradhan (67% of men); reservation *lowers* name recognition by 10–14 points; attitudinal effects are "concentrated among those who know the Pradhan's name"; and for women the attitudinal effect of reservation is absent — women are described as too unaware of local politics for exposure to operate. The 2012 paper's channel is the one its own companion documented as gated and null for women.
 
