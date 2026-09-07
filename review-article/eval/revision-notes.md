@@ -34,3 +34,8 @@ These are bounded synthetic behavior checks and configuration validation, not ev
 ## Follow-up from village and marriage interpretation audits
 
 Added threshold provenance and continuous-exposure checks; historical-treatment timing and geographic-crosswalk requirements; ownership, migration and settlement as possible outcomes; resource heterogeneity in money-equivalent preferences; and explicit credit for authors' own tests of cultural explanations. These are workflow instructions, not claims that the new historical or income-heterogeneity checks have already succeeded. Validation for this amendment: skill schema and local Markdown link targets; no new behavioral model evaluation was run.
+
+
+## 2026-09-07: identification, reference groups and independent samples
+
+Added concrete checks for normalization-dependent predictions despite exact numerical reproduction; outcome-specific omitted-group composition and estimability; original survey provenance versus author collection; questionnaire versus released-variable availability; and bounded dominance classification with incomplete caste shares. Added independent-audit adjudication rather than accepting a reviewer's confident denominator or causal attribution. Motivated by the tested bride-income normalization audit, selected Table8 reference counts, and IHDS/land-record feasibility inventory. These reference edits received schema/link checks; no new behavioral model evaluation is claimed.

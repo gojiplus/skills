@@ -56,7 +56,7 @@ Read the authors' explicit discussion of rival explanations before saying they i
 
 ## 10. Triangulate without pretending to have independent evidence
 
-Read available appendices, companion studies, and later evidence within the permitted access scope. State when evidence uses the same sample, a selected subset, another period, or another population. An in-sample predicted-quality index or a ranking from the same interview is not independent validation. Describe what the comparator actually rules out.
+Read available appendices, companion studies, and later evidence within the permitted access scope. State when evidence uses the same sample, a selected subset, another period, or another population. An in-sample predicted-quality index or a ranking from the same interview is not independent validation. Describe what the comparator actually rules out. Identify the original data producer before attributing collection choices to the paper authors. A questionnaire item is not proof that its raw responses were released. For an independent replication, audit the new sample, outcome units, exposure definition and timing before estimating; a later title register is not a baseline for an earlier survey. Keep landless households, recorded owners, residents and actual cultivators distinct. Bound exposure classifications when listed groups leave part of the denominator unreported instead of renormalizing that part away.
 
 ## 11. Audit emphasis and strength of claims
 
@@ -65,3 +65,5 @@ Compare the narrative with all relevant estimates and direct contrasts, not just
 ## 12. Bound generalization and develop the next study
 
 Name the actual sites, period, sample selection, decision makers, and target population. Distinguish a local treatment effect from an average effect and a fitted equilibrium counterfactual from observed welfare. Turn the unresolved issue into a testable research opportunity using [research-opportunities.md](research-opportunities.md), without claiming novelty or results before checking them.
+
+Independent audit reports also require adjudication. Re-derive consequential findings; a numerical coincidence suggesting a denominator is not proof of the authors' calculation. Preserve the auditor's inspected-versus-executed scope and reject unsupported causal explanations or certainty even when they reinforce the critique.
