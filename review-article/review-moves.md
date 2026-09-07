@@ -16,11 +16,15 @@ Example: Anderson's buyer village contrast in Table 4(2) is the village coeffici
 
 If exposure varies, estimate and directly compare the relevant contrasts. A flat estimate followed by a positive one could reflect a threshold, noise, selection, or confounding. It does not establish that the lower dose has no effect. Examine support, precision, and alternative functional forms justified by the design; do not choose a form only because it breaks the headline result.
 
+For constructed categories such as village dominance, recover the underlying continuous measure and label-producing code before moving thresholds. Report support, classification uncertainty, and sample changes across a stated set of cutoffs, plus a continuous relationship when meaningful. Do not infer population land shares from a selected household sample. An analyst's cutoff does not create a regression-discontinuity design.
+
 ## 4. Distinguish mechanisms from background conditions
 
 State how the treatment changes the proposed mediator and how that mediator changes the outcome. Which link is measured? What rival mechanism predicts the same association? Common transport costs may restrict alternatives in both groups but cannot alone explain why caste dominance changes outcomes. For economic claims, examine entry, bargaining, substitution, and the obstruction to these responses. Distinguish gain in sales from net surplus that could finance an alternative.
 
 Example: irrigation-water delivery distance may restrict suppliers. Establishing caste as the obstacle also requires evidence about actual feasible suppliers, transaction terms, or enforcement across caste groups. Village boundaries need not coincide with water markets.
+
+A persistent agricultural advantage may change land values, ownership, tenancy, investment, migration and settlement. These can be consequences as well as causes of the observed gap. State the assumptions under which an adjustment or absent response is informative; do not automatically control away these margins or insist that every equilibrium must adjust in the same way.
 
 ## 5. Check implementation and data provenance
 
@@ -40,9 +44,15 @@ Translate effects into the measured outcome's units and meaningful contrasts. Us
 
 Explain the dependence structure and survey/assignment design. Report cluster counts, sizes, and concentration by comparison group. Check influence and suitable robust inference when warranted, including larger cluster counts if leverage or imbalance is substantial. Randomization inference requires an actual assignment mechanism. Define the outcome/contrast family for multiplicity adjustment; report exploration honestly. Show estimates and intervals across defensible choices, including choices that preserve the result.
 
+Balance and placebos must have a causal interpretation. Earlier than the survey is not necessarily earlier than treatment, especially for longstanding institutions. Historical literacy, irrigation or population can diagnose persistent differences without being unaffected outcomes. Report raw differences, intervals, overlap and economically meaningful equivalence bounds where justified; neither all p-values above .05 nor a rejected omnibus test determines causality. Geographic external-data checks require a verified crosswalk and an audit of changing boundaries, not a join on coincidentally similar serial numbers.
+
 ## 9. Identify whose behavior is observed
 
 Separate intentions, reported plans, observed actions, and final outcomes. Identify the decision maker and the choice set available to them. A relative shortlisting marriage letters does not directly reveal the prospective spouse's willingness to surrender income after marriage. Behavioral outcomes can also reflect beliefs, constraints, and selection, rather than pure taste.
+
+For money-equivalent preferences, inspect whose resources are measured and the income distribution behind the conversion. Self-described economic class, the prospective spouse's earnings, and household wealth are different measures. Probe income responsiveness across adequately supported resource groups and test differences directly, propagating uncertainty in ratios and preliminary estimates. A large willingness to sacrifice can coexist with a small realized sacrifice if similar partners are available within groups.
+
+Read the authors' explicit discussion of rival explanations before saying they ignored one. A social-group label can carry beliefs about customs, acceptance and compatibility; controls for some observed cultural traits do not isolate pure prejudice. Equally, an unmeasured custom is only a possible explanation until evidence shows that it accounts for the association. Document the authors' caveats and what their actual checks exclude.
 
 ## 10. Triangulate without pretending to have independent evidence
 

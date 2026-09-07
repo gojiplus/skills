@@ -29,3 +29,8 @@ The review now routes to empirical-problem-solving for discrepancies, design-ana
 - The instruction and that case's criterion were tightened. A targeted second run replied: “No error in the paper has been established. The statement ‘45% higher’ does not, by itself, warrant criticism; assessing it requires the comparison, outcome, and supporting evidence.” It omitted the unwanted arithmetic detour.
 
 These are bounded synthetic behavior checks and configuration validation, not evidence of reliability across all papers. The first income-case prompt was subsequently clarified to specify the coefficient on predicted log income; the original response already distinguished a coefficient ratio from division by an income level. The evaluation used the default configured Codex model and did not browse, alter research files, or launch subagents.
+
+
+## Follow-up from village and marriage interpretation audits
+
+Added threshold provenance and continuous-exposure checks; historical-treatment timing and geographic-crosswalk requirements; ownership, migration and settlement as possible outcomes; resource heterogeneity in money-equivalent preferences; and explicit credit for authors' own tests of cultural explanations. These are workflow instructions, not claims that the new historical or income-heterogeneity checks have already succeeded. Validation for this amendment: skill schema and local Markdown link targets; no new behavioral model evaluation was run.
