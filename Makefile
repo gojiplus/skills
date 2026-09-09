@@ -5,10 +5,10 @@ REPO := $(shell pwd)
 .PHONY: check test index hooks dist clean link help
 
 help:
-	@echo "check  validate every SKILL.md, and confirm index.json is current"
+	@echo "check  validate skills and confirm both catalogs are current"
 	@echo "test   run the repository unit tests"
-	@echo "index  regenerate index.json (the catalog the MCP server serves)"
-	@echo "hooks  install the pre-commit hook that keeps index.json current"
+	@echo "index  regenerate index.json and the README skill catalog"
+	@echo "hooks  install the pre-commit hook that refreshes both catalogs"
 	@echo "dist   build dist/<skill>.zip for upload to Claude"
 	@echo "link   per-skill symlinks, only if a directory symlink is not followed"
 	@echo "clean  remove dist/"
@@ -22,7 +22,7 @@ index:
 
 hooks:
 	@git config core.hooksPath .githooks
-	@echo "pre-commit hook installed: index.json now regenerates on commit"
+	@echo "pre-commit hook installed: generated catalog changes require review and staging"
 
 test:
 	@cd scripts && python3 -m unittest discover -p 'test_*.py'

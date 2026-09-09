@@ -1,6 +1,6 @@
 ---
 name: review-article
-description: Review quantitative empirical social-science papers, reproduce their central claims, diagnose inferential or economic weaknesses, and develop evidence-backed research and writing opportunities. Use for experiments, observational designs, IV, matching models, replication packages, referee reports, or critical essays.
+description: Review empirical papers, reproduce central claims, assess causal and economic interpretations, and develop evidence-backed critiques or research opportunities.
 ---
 
 # Review an empirical paper

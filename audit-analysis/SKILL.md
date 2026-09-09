@@ -45,9 +45,61 @@ Package reproduction is necessary but insufficient. Audit whether each artifact 
 
 10. **Verify every surviving finding yourself.** A confirmed number-changing finding needs a runnable reproduction with the published and corrected values. A design limitation needs the exact claim it weakens and the identified set or alternative estimand when possible.
 
-11. **Report, then fix.** Rank: number-changing defects, inferential changes, identification failures, robustness failures, reproducibility defects, editorial or construct errors, rejected candidates, untestable checks. Show the list before changing published numbers.
+11. **Work every headline claim through the four questions above** before
+    reporting it as clean.
 
-12. **Gate every repair.** Use `scripts/gates.py` where helpful. Gate row conservation, schemas, sample counts, headline estimates, prose provenance, bootstrap settings, and generated artifacts.
+12. **Report, then fix.** Rank: number-changing defects, inferential changes, identification failures, robustness failures, reproducibility defects, editorial or construct errors, rejected candidates, untestable checks. Show the list before changing published numbers.
+
+13. **Gate every repair.** Use `scripts/gates.py` where helpful. Gate row conservation, schemas, sample counts, headline estimates, prose provenance, bootstrap settings, and generated artifacts.
+
+## Auditing a claim: the four questions
+
+Work every substantive claim through these, in order, and report all four. They
+separate failures that look alike in a results table and are fixed differently.
+
+1. **What are we doing, and why?** State the quantity being computed and the
+   question it answers, in one or two sentences, without jargon. A claim whose
+   purpose cannot be stated plainly is usually a claim whose estimand is not
+   pinned down.
+
+2. **Why is this a reasonable design for that question?** Name the assumptions
+   the design needs and check the ones that are checkable. Ask what the
+   procedure would do if the hypothesis were false. The most common failure
+   here is not a wrong assumption but a mismatch: a calculation that
+   characterizes a different estimator, sample, or population than the one the
+   claim is about.
+
+3. **Did we implement it correctly?** Read the code that produced the number
+   rather than the description of it. Re-derive the number independently.
+   Check the inference machinery specifically: degrees of freedom, critical
+   values, whether a variance was treated as known when it was estimated,
+   whether a control that was requested was actually included.
+
+3b. **Is the limitation in the world, or in our extraction?** Every stated
+   limitation is a claim, and claims get checked. Before writing that data is
+   unavailable, a sample is small, or a variable is missing, establish which it
+   is: a fact about the phenomenon, or a fact about which file was read. The
+   test is cheap and the failure is common. In the motivating case a mechanism
+   test was reported at n = 2 because a column left one file after 2020, while
+   the same information sat in another file inside archives already downloaded;
+   and a paper asserted that data "could not be obtained" when the obstacle was
+   a login and public mirrors existed.
+
+   Watch for principled-sounding rules deployed where a diagnostic belongs.
+   "We do not delete results that turned out weak" is a good rule and a bad
+   reason not to ask why a result is weak. A rule that ends inquiry is doing
+   the opposite of its job.
+
+4. **Did we interpret it reasonably?** Ask what the result does *not* establish.
+   State which other claim the interpretation is silently leaning on, and
+   whether that claim is carried by this exercise or by a different one. A
+   design calculation showing low power, for instance, establishes that the
+   estimate is uninformative about magnitude; it does not by itself establish
+   that the true effect is small. Something else has to supply that.
+
+Report the answers even when they are all clean. "Implemented correctly and
+interpreted reasonably" is a finding, and recording it stops the same check
+being reopened next time.
 
 ## Evidence rules
 

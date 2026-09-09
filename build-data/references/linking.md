@@ -29,7 +29,7 @@ unexplainable N.
 | `1:1` | key unique on both sides | duplicate rows on either side; the result is longer than both inputs |
 | `m:1` | key unique on the **right** | the canonical lookup join; a duplicate on the right multiplies left rows |
 | `1:m` | key unique on the **left** | expansion is intended; the result is longer than the left and that is fine |
-| `m:m` | — | **never a plan.** It is an undiscovered key. Find it. |
+| `m:m` | multiple rows on both sides | requires an explicit output unit and expected multiplicity; investigate unintended expansion |
 
 `m:m` produces a cross-product within each key value. A key with 4 rows on each side yields 16.
 The row count usually still looks plausible, which is why it survives. In dplyr, an unexpected

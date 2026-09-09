@@ -66,14 +66,14 @@ bound confounding rather than only detect it. The source of the placebo taxonomy
 ## Inference
 
 **Abadie, Athey, Imbens and Wooldridge, "When Should You Adjust Standard Errors for Clustering?"
-(*QJE* 138(1), 2023).** The paper that settles the question this skill treats as settled:
-clustering is a **design** problem — either two-stage sampling or correlated assignment — not a
-response to suspected error correlation. It is also the reason "do not cluster in a completely
-randomised individual-level experiment" is a rule rather than a preference.
+(*QJE* 138(1), 2023).** A design-based treatment of clustering through sampling
+and assignment. Apply its conditions to the study's estimand and population;
+individual randomization alone is not a universal prohibition on every clustered
+variance estimator.
 
 **MacKinnon, Nielsen and Webb, "Cluster-robust inference: A guide to empirical practice"
 (*Journal of Econometrics* 232(2), 2023)** and **"Fast and reliable jackknife and bootstrap methods
-for cluster-robust inference" (*JAE* 2023).** The source of the few-cluster threshold, of the
+for cluster-robust inference" (*JAE* 2023).** Guidance on finite-sample cluster inference, the
 argument for the "31" wild-bootstrap variant, and of the finding that unbalanced cluster sizes
 break the usual asymptotics well before the cluster count alone would suggest.
 

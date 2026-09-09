@@ -54,6 +54,10 @@ Record conflicts. Treat manuscript prose, tables, figures, README text, and supp
 
 Prefer a standard build target over a one-off repair script.
 
+For a new R/LaTeX repository, [this layout example](references/repo-layout.md)
+provides optional templates. Preserve the current language, layout, and build
+system when revising an existing project.
+
 ## Keep the numerical language stable
 
 - Use the same name for the same construct everywhere.
@@ -65,6 +69,43 @@ Prefer a standard build target over a one-off repair script.
 - Do not call top-coded or repeated sightings an exact count of unique people.
 
 Automate headline values where the document system permits it. Leave explanatory prose human-readable rather than turning whole sentences into macros.
+
+## Never type a computed number into the manuscript
+
+A number that an analysis produced must reach the page from the file that
+produced it. Typing it in creates a second copy that nothing keeps in sync, and
+the copy is silently wrong from the first time the analysis is re-run.
+
+This is not hypothetical bookkeeping. On one paper, six rows of the headline
+table had been maintained by hand: the owner shares had drifted from the table
+that computes them by up to eight percentage points, one group's share was off
+by 2.6 points in the abstract's direction of argument, and the rows were still
+sorted by the superseded ratios, so the ordering itself asserted a ranking the
+current numbers contradicted. Every individual number looked plausible. Nothing
+failed. The only way to catch it was to compare each one against its source.
+
+- **Table bodies are generated fragments.** The document supplies the wrapper
+  and `\input`s a body written by the analysis. If a table mixes sources, write
+  a small script that assembles the fragment from the generated artifacts rather
+  than letting a person merge them by eye.
+- **Inline prose numbers come from macros.** Emit a generated file of
+  `\newcommand` definitions and use the macro in the sentence. A share quoted in
+  three sections should be one macro used three times, not three numerals.
+- **Rounding and ordering are computed too.** Sorting a table by a quantity means
+  re-sorting when the quantity changes. A hand-kept row order encodes a stale
+  claim just as a hand-kept number does.
+- **When a number cannot be generated, mark it.** A comment naming the producing
+  script next to the literal is the minimum. It converts a silent drift into a
+  findable one.
+
+Verify rather than assume. Extract every numeral from the manuscript and account
+for each one: generated, a macro, a citation year, or a deliberate literal with a
+stated source. Anything left over is a defect until traced. Do this as its own
+pass, because it finds errors that reading for sense does not: a wrong number
+reads exactly like a right one.
+
+When a hand-typed number is found, fix the mechanism and not just the value.
+Correcting the digits leaves the next re-run free to break it again.
 
 ## Revise the argument
 
@@ -95,7 +136,8 @@ Before reporting completion:
 1. Run formatting, linting, tests, and the complete analysis target.
 2. Compile without unresolved citations, references, missing assets, or overfull content.
 3. Render every PDF page and inspect it at delivery size.
-4. Check every headline number against generated output.
+4. Check every headline number against generated output, and account for every
+   numeral in the prose as generated, a macro, or a marked literal.
 5. Check that captions match marks, intervals, samples, and notes.
 6. List unresolved substantive decisions separately from completed fixes.
 

@@ -6,18 +6,16 @@ escalation rule, and the code.
 
 ## The decision procedure
 
-**1. What varies?** Clustering is a design question, not a robustness knob. Abadie, Athey, Imbens
-and Wooldridge: there are exactly two justifications.
+**1. What varies?** Match uncertainty to assignment, sampling, the estimand, and
+the dependence assumptions. Abadie, Athey, Imbens and Wooldridge provide a
+design-based account of clustering. State which population and assignment process
+justify the proposed variance; do not choose a cluster merely because it gives a
+preferred interval. Individual random assignment alone does not settle every
+sampling or dependence question.
 
-- **Sampling design.** Clusters were sampled from a population of clusters, and you want to
-  generalise to the clusters you did not see. Cluster at the sampling stage.
-- **Experimental design.** Assignment is correlated within a group — treatment was assigned to
-  villages, schools, districts. Cluster at the assignment level.
-
-If neither applies, do not cluster. In a completely randomised individual-level experiment,
-clustering on anything is a mistake that inflates the interval for no design reason. "There might
-be correlated shocks" is not one of the two justifications; if it were, you would have to cluster
-on every observable grouping, including the ones nobody clusters on.
+These R examples are implementation options. Verify package behavior for the
+installed version and adapt them to the design rather than imposing a universal
+estimator or cluster-count cutoff.
 
 **2. Write `vcov` explicitly, always.** Even when it matches the default.
 
@@ -64,12 +62,12 @@ for it.
 | situation | estimator | why |
 |---|---|---|
 | no clustering justified | `lm_robust(se_type = "HC2")` | HC2 is `estimatr`'s default and is less biased than HC1 in small samples |
-| clustering justified, ≥ ~40 clusters, roughly balanced | `lm_robust(clusters = g, se_type = "CR2")` | CR2 with Bell–McCaffrey dof; the default in `estimatr` |
+| clustering justified, with adequate effective information | `lm_robust(clusters = g, se_type = "CR2")` | CR2 with Bell–McCaffrey dof; the default in `estimatr` |
 | experiment with covariates | `lm_lin(y ~ d, covariates = ~ x1 + x2)` | Lin (2013): full treatment × covariate interaction cannot hurt asymptotic precision |
-| known assignment mechanism | randomisation inference (`ri2`, `randomizr`) | correct by construction; reuses the actual assignment |
-| < ~40 clusters, or few treated clusters | wild cluster bootstrap, `fwildclusterboot::boottest` | CR2 undercovers badly here |
+| known assignment mechanism | randomisation inference (`ri2`, `randomizr`) | requires the actual assignment mechanism and a specified null |
+| few effective or treated clusters | compare suitable CR2, wild bootstrap, or randomization methods | assess finite-sample behavior under the actual design |
 | many high-dimensional FE | `feols(..., vcov = ~cluster)` | speed; write the vcov out |
-| two nested sources of correlation | `vcov = ~state + year` (two-way) | only when both are design justifications, not both plausible |
+| two non-nested dependence dimensions | `vcov = ~state + year` (two-way) | only when both are design justifications, not both plausible |
 | spatial correlation with no natural cluster | Conley, `vcov = vcov_conley(lat, lon, cutoff)` | requires a defensible distance cutoff, reported |
 | serially correlated panel outcomes | cluster on the unit, not the unit-year | Bertrand–Duflo–Mullainathan |
 
@@ -108,16 +106,14 @@ stopifnot(within_share > 0.01)   # else the FE and the clustering are at odds
 fixed effects are at the wrong level or the clustering is — and deciding which is a stage-1
 question, not a variance question.
 
-**5. Escalate on the effective count, not the nominal one.** Below roughly 40 clusters — or with
-few treated clusters at any total — CR2 undercovers and you need the wild cluster bootstrap or
-randomization inference.
-
-Above 40, the bootstrap usually buys runtime rather than coverage — but "usually" is doing real
-work in that sentence, and it is governed by step 4 above, not by the nominal count. Three hundred
-clusters with one holding most of the sample, or with the treated ones concentrated in a handful,
-has a small *effective* count and needs the bootstrap exactly as much as thirty balanced ones do.
-Let the Satterthwaite degrees of freedom decide: when it comes back far below the cluster count,
-escalate regardless of how many clusters you nominally have.
+**5. Assess finite-sample performance.** Few treated clusters, imbalance, and high
+leverage can undermine an apparently large cluster count. Inspect effective
+degrees of freedom and compare suitable small-sample corrections, bootstrap, or
+randomization procedures under the actual design. Forty clusters is not a boundary
+that proves one procedure valid or invalid. Use a design simulation when the choice
+can change the conclusion; no method automatically solves very weak information. See
+[Pustejovsky’s worked examples](https://jepusto.com/posts/clubSandwich-for-CRVE-FE/index.html)
+for why effective information depends on the covariate and weight configuration.
 
 ```r
 # the "31" variant: WCR with the CRVE3 (jackknife) numerator and a CRVE1 bootstrap DGP.

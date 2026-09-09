@@ -1,6 +1,6 @@
 ---
 name: web-perf
-description: Audit or optimize web performance with Chrome DevTools MCP. Use for Core Web Vitals, load speed, render blocking, network chains, layout shifts, caching, or accessibility.
+description: Measure and improve website loading speed, rendering, layout stability, and resource use. Use for performance audits or slow pages on any hosting platform.
 ---
 
 # Web Performance Audit
@@ -15,18 +15,18 @@ Your knowledge of web performance metrics, thresholds, and tooling APIs may be o
 | Chrome DevTools docs | `https://developer.chrome.com/docs/devtools/performance` | Tooling APIs, trace analysis |
 | Lighthouse scoring | `https://developer.chrome.com/docs/lighthouse/performance/performance-scoring` | Score weights, metric thresholds |
 
-## FIRST: Verify MCP Tools Available
+## Select available measurement tools
 
-**Run this before starting.** Try calling `navigate_page` or `performance_start_trace`. If unavailable, STOP—the chrome-devtools MCP server isn't configured.
+Discover available browser and performance tools before calling them. Use Chrome
+DevTools tracing when exposed; the workflow below describes that path. Otherwise
+use an available Lighthouse installation or another supported browser profiler,
+checking its current official documentation. Tool schemas and insight names vary.
 
-Ask the user to add this to their MCP config:
-
-```json
-"chrome-devtools": {
-  "type": "local",
-  "command": ["npx", "-y", "chrome-devtools-mcp@latest"]
-}
-```
+Continue source and asset inspection when measurement tools are unavailable, but
+label resulting savings as hypotheses. Ask for missing access when it prevents the
+requested measurement. Do not force an MCP installation or stop all useful work
+because one named tool is missing. Report lab measurements separately from real-user
+field data, and do not infer interactive latency from a page-load trace alone.
 
 ## Key Guidelines
 

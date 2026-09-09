@@ -21,16 +21,21 @@ The economics are unforgiving. Across ~27 R packages by prominent methodologists
 
 **upstream** — the deliverable is a PR or issue in someone else's repository, under their name and yours. The bar is higher because a wrong claim is public and attributed.
 
+For a package-wide, release-readiness, or explicitly function-by-function audit,
+read [references/function-by-function.md](references/function-by-function.md) and
+apply its review contract to every public callable in scope.
+
 ## The bug classes that actually pay
 
 Ordered by how often they turned up real defects.
 
 1. **Documented argument silently ignored.** The formal exists, the docs describe behaviour, the body never reads it. Detect by comparing a function's formals to the symbols in its body, then keeping only *exported and documented* hits.
-2. **Wrong variable in a forwarding call.** `f(a = a, b = a)` where `b = b` was meant. Grep-able, but see the false-positive trap below.
-3. **Index/space mismatch.** Values computed in one representation and written at positions valid only in another — raw input columns versus a processed design matrix, say. Symptom: results depend on input *column order*.
-4. **Asymmetric treatment of groups.** An operator applied to one arm and hard-coded for the other. The tell is a sibling code path that does it symmetrically.
-5. **Front-end validates what the back-end cannot honour.** An option passes validation, then reaches an implementation with no branch for it, and dies on an unassigned internal variable.
-6. **Order dependence.** Names assigned in one ordering while a mapping assumes another. Everything is labelled, nothing is right.
+2. **Out-of-domain argument silently accepted.** A probability outside ``[0, 1]``, negative scale, invalid covariance, impossible iteration count, non-finite threshold, or incompatible option combination returns plausible output, NaNs, or a fallback instead of failing at the public boundary. Derive each domain from the method, not from whichever values existing tests happen to use.
+3. **Wrong variable in a forwarding call.** `f(a = a, b = a)` where `b = b` was meant. Grep-able, but see the false-positive trap below.
+4. **Index/space mismatch.** Values computed in one representation and written at positions valid only in another — raw input columns versus a processed design matrix, say. Symptom: results depend on input *column order*.
+5. **Asymmetric treatment of groups.** An operator applied to one arm and hard-coded for the other. The tell is a sibling code path that does it symmetrically.
+6. **Front-end validates what the back-end cannot honour.** An option passes validation, then reaches an implementation with no branch for it, and dies on an unassigned internal variable.
+7. **Order dependence.** Names assigned in one ordering while a mapping assumes another. Everything is labelled, nothing is right.
 
 ## Identities that catch them
 
@@ -45,6 +50,8 @@ Prefer checks with an exactly right answer. A violation is then a bug, not a jud
 - **Determinism.** Same seed twice, bit-identical.
 - **Self-consistency.** The reported objective must equal the objective recomputed by hand from the returned parameters. `fit` then `transform` must equal `fit_transform`.
 - **Documented return values exist.** Compare the documented value section against `names()` of a real fitted object, across a grid of configurations — many slots are conditional, and one fit proves nothing.
+- **Argument-domain matrix.** For every public argument with a mathematical, statistical, structural, or categorical domain, test values below, at, and above its boundaries; NaN and infinity where numeric; malformed shapes; unknown categories; and incompatible combinations. Out-of-domain values must fail clearly at the public boundary unless behavior outside the usual range is intentional and documented. Silent clipping, ignored options, NaN output, and fallback defaults are failures, not validation.
+- **Package vocabulary.** Inventory public signatures together, not one at a time. The same concept should use the same name, order, default, unit, and interpretation across sibling callables; different concepts should not share a misleading name. Compare with mature ecosystem conventions, and remove compatibility-only aliases unless compatibility was requested.
 
 ## Verification discipline
 
