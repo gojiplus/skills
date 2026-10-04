@@ -38,11 +38,26 @@ Use the user's language preference and existing project conventions. For R, use 
 
 Generate repeated numbers, tables, figures, and prose values from the analysis outputs. Follow `write-empirical-paper` for manuscript synchronization and rendering. Explanations should stand alone for a reader who has not seen the conversation. Lead with the concrete issue and its implication, not methodological shorthand or a list of vague caveats.
 
+## Public presentation
+
+For public replication repositories, state the measured findings, their uncertainty and their
+interpretation limits directly. Avoid adversarial headings such as “what survives,” verdicts,
+rejected criticisms or defenses, and avoid speculation about authors' motives. Apply the same
+standard to READMEs, linked reports, generated prose, repository descriptions, release notes
+and new commit messages. Preserve original source materials and historical records.
+
+Conciseness must not remove the substantive argument. Keep the main numerical comparisons,
+control-group context and the reason each measurement or design limitation matters visible in
+the summary; link to the complete diagnostics. List findings consistent with the publication
+directly, without a separate acquittal section. Distinguish verified errors from measurement
+limits, assumptions and untested explanations. Check a shortened summary against the original
+point list before publishing.
+
 ## Deliverables
 
 Scale these to the request; a focused question does not need a full dossier:
 
-- A plain-language verdict with the strongest supporting evidence, strongest unresolved challenge, and limits of completed work.
+- A plain-language account of the main findings, their evidence, unresolved questions and limits of completed work.
 - A compact claim-to-evidence record and reproducible numerical artifacts for the claims audited.
 - A review or referee report ordered by substantive importance, with confirmed errors distinguished from interpretation and identification questions.
 - Research opportunities tied to the findings, including needed data and discriminating tests.

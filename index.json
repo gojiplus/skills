@@ -5,8 +5,8 @@
       "files": [
         {
           "path": "SKILL.md",
-          "digest": "sha256:87d0dd612682965327e41b5ceb76301721eae6cef51789319ba25e54fe11fc1b",
-          "size": 11853
+          "digest": "sha256:ffd00995fd908082e8b5edefdeb7bccf5d545d9c989da8be9398c4f41f753543",
+          "size": 13046
         },
         {
           "path": "agents/openai.yaml",
@@ -368,8 +368,8 @@
       "files": [
         {
           "path": "SKILL.md",
-          "digest": "sha256:7c2e632d3cac9b334c0d45a3289358a1a2112b0851f07fb1e8407ae4613c2d96",
-          "size": 7447
+          "digest": "sha256:0fd1eadc025645bbd24d12e90b58a38c07b71073c2c9e34b05be810f6183b89f",
+          "size": 8418
         },
         {
           "path": "agents/empirical-reviewer.toml",

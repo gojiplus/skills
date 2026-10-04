@@ -119,14 +119,29 @@ This is the part that separates an audit from a list of worries.
 - **Fix the definition, not the call site.** If two quantities were confused once, route both through one function so they cannot be confused again.
 - **Never commit before the verification finishes running.** Committing and then discovering the build fails is a self-inflicted second commit.
 
+## Public presentation
+
+For public replication repositories, state the measured findings, their uncertainty and their
+interpretation limits directly. Avoid adversarial headings such as “what survives,” verdicts,
+rejected criticisms or defenses, and avoid speculation about authors' motives. Apply the same
+standard to READMEs, linked reports, generated prose, repository descriptions, release notes
+and new commit messages. Preserve original source materials and historical records.
+
+Conciseness must not remove the substantive argument. Keep the main numerical comparisons,
+control-group context and the reason each measurement or design limitation matters visible in
+the summary; link to the complete diagnostics. List findings consistent with the publication
+directly, without a separate acquittal section. Distinguish verified errors from measurement
+limits, assumptions and untested explanations. Check a shortened summary against the original
+point list before publishing.
+
 ## Output contract
 
-Start with the verdict. Then provide:
+Start with the main finding and its scope. Scale the following detail to the audience:
 
 1. A claim-to-estimand table.
 2. Ranked findings with published and corrected values.
 3. A check matrix covering every tier and paper-audit move.
-4. Rejected candidates and why they failed verification.
+4. Diagnostic results that constrain the interpretation, including checks consistent with the publication. Keep internal rejected-candidate notes out of the public summary unless the diagnostic itself is informative.
 5. Untestable checks and the missing artifact.
 6. Repairs and permanent gates, in dependency order.
 
