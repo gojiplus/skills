@@ -9,7 +9,7 @@ description: Audit a software package for correctness defects and prepare an ups
 
 An analysis is wrong when a number does not mean what the prose says. A *library* is wrong in a narrower, more mechanical way: a function does not do what its own documentation says, and nothing complains. The failure that matters is not a crash — crashes get reported. It is the silent one: an argument accepted and never read, a value written to the wrong column, an operator applied to one group and not the other. Individually plausible numbers, wrong.
 
-Division of labour: use `audit-analysis` when the question is whether an empirical result means what it claims. Use this when the question is whether a package computes what it documents, and when the deliverable is a pull request to a stranger.
+Division of labor: use `audit-analysis` when the question is whether an empirical result means what it claims. Use this when the question is whether a package computes what it documents, and when the deliverable is a pull request to a stranger.
 
 The economics are unforgiving. Across ~27 R packages by prominent methodologists, a static detector produced 2 real bugs and a long tail of false positives; close reading of estimator code against its documentation produced the rest. Roughly **half of all agent-reported findings did not survive verification**. Budget accordingly: finding is cheap, confirming is the work.
 
@@ -29,20 +29,31 @@ apply its review contract to every public callable in scope.
 
 Ordered by how often they turned up real defects.
 
-1. **Documented argument silently ignored.** The formal exists, the docs describe behaviour, the body never reads it. Detect by comparing a function's formals to the symbols in its body, then keeping only *exported and documented* hits.
+1. **Documented argument silently ignored.** The formal exists, the docs describe behavior, the body never reads it. Detect by comparing a function's formals to the symbols in its body, then keeping only *exported and documented* hits.
 2. **Out-of-domain argument silently accepted.** A probability outside ``[0, 1]``, negative scale, invalid covariance, impossible iteration count, non-finite threshold, or incompatible option combination returns plausible output, NaNs, or a fallback instead of failing at the public boundary. Derive each domain from the method, not from whichever values existing tests happen to use.
 3. **Wrong variable in a forwarding call.** `f(a = a, b = a)` where `b = b` was meant. Grep-able, but see the false-positive trap below.
 4. **Index/space mismatch.** Values computed in one representation and written at positions valid only in another — raw input columns versus a processed design matrix, say. Symptom: results depend on input *column order*.
 5. **Asymmetric treatment of groups.** An operator applied to one arm and hard-coded for the other. The tell is a sibling code path that does it symmetrically.
-6. **Front-end validates what the back-end cannot honour.** An option passes validation, then reaches an implementation with no branch for it, and dies on an unassigned internal variable.
-7. **Order dependence.** Names assigned in one ordering while a mapping assumes another. Everything is labelled, nothing is right.
+6. **Front-end validates what the back-end cannot honor.** An option passes validation, then reaches an implementation with no branch for it, and dies on an unassigned internal variable.
+7. **Order dependence.** Names assigned in one ordering while a mapping assumes another. Everything is labeled, nothing is right.
+
+## Hand-rolled numerics, solvable programs, copies
+
+A private copy of a classical algorithm, or a loop standing in for an
+optimization a solver could take whole, is where silent defects concentrate.
+Its tests usually compare the code with itself. Inventory every algorithm the
+package computes with its own loop, check each against a maintained
+implementation or a solver, and settle it with an independent oracle, a
+profile, and the iteration cap. Run pylint's duplicate-code check over package
+code. Read [references/numerics.md](references/numerics.md) for the checklist,
+the evidence protocol, and the legitimate reasons to keep a private version.
 
 ## Identities that catch them
 
-Prefer checks with an exactly right answer. A violation is then a bug, not a judgement call.
+Prefer checks with an exactly right answer. A violation is then a bug, not a judgment call.
 
 - **Reference equivalence.** A pre-filter or fast path must return exactly what the slow path returns. A Bloom-filter join has false positives but never false negatives, so it must equal the plain join, row for row.
-- **Limiting case.** As a smoothing or regularisation parameter goes to its extreme, the method must collapse to a known one — adaptive nearest neighbours to ordinary k-NN, linear tied-weight reconstruction to PCA. Compare subspaces by principal angles, not loadings; sign and rotation are free.
+- **Limiting case.** As a smoothing or regularization parameter goes to its extreme, the method must collapse to a known one — adaptive nearest neighbors to ordinary k-NN, linear tied-weight reconstruction to PCA. Compare subspaces by principal angles, not loadings; sign and rotation are free.
 - **Unit-weight identity.** `weights = rep(1, n)` must reproduce the unweighted fit bit-for-bit.
 - **Duplication identity.** Duplicating a row must equal giving it weight 2. Catches weights entering the point estimate but not the variance, or the reverse.
 - **Group-restricted weights.** Weights that vary only within a group that cannot affect the estimand must not move it. This is what distinguishes an aggregation weight from a fitting weight.
@@ -94,7 +105,7 @@ the test is not evidence for that fix and must be strengthened before sending.
 - **Does it break something that worked?** One guard fired unconditionally where the relevant code path was only reachable under a flag, turning valid calls into errors.
 - **Is it complete?** Fixing a guard for one method while leaving the sibling method broken is half a fix.
 - **Does the test pass for the right reason?** Revert the fix and confirm the test fails.
-- **Does the documentation settle the intended behaviour?** A vignette sentence resolved one design question outright, and the resulting fix was simpler *and* more complete than the one it replaced.
+- **Does the documentation settle the intended behavior?** A vignette sentence resolved one design question outright, and the resulting fix was simpler *and* more complete than the one it replaced.
 
 ## Deciding not to file
 
@@ -114,7 +125,7 @@ Do not file when:
 - Minimal diff. No reformatting, no drive-by fixes, no version bumps.
 - Lead with the runnable reproduction and observed-versus-expected. The maintainer should be able to confirm in a minute.
 - State plainly what you could not verify. If semantic equivalence with an older implementation is unchecked, say that.
-- Neutral register. Describe behaviour; never impute carelessness. "The docs describe X; the body does Y" is enough.
+- Neutral register. Describe behavior; never impute carelessness. "The docs describe X; the body does Y" is enough.
 - Note related defects you deliberately did not touch, and offer.
 - **Correct publicly and promptly when wrong.** Comment on the PR; do not quietly edit the body.
 
