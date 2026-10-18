@@ -33,6 +33,13 @@ examples against the built package. For a new regression test, confirm it fails
 without the relevant fix and passes with it. Use an isolated checkout or targeted
 patch; do not stash or reset unrelated work.
 
+Run the project's linters at the versions CI pins; an unpinned local run can
+miss a check CI enforces. Check spelling as US English, for example with
+codespell's `en-GB_to_en-US` dictionary over code, docs, the README and release
+notes, but not data. New or changed numerical code needs a test against an
+independent oracle and a clean duplicate-code check; see `audit-package`'s
+section on hand-rolled numerics.
+
 ## Review user-facing documentation
 
 Use `on-writing` on the README, registry landing text, and substantive release

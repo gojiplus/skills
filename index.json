@@ -79,13 +79,18 @@
       "files": [
         {
           "path": "SKILL.md",
-          "digest": "sha256:5716e6e773c086f72651a6118542145c9380270c0e0a8dcb15e6606494016e68",
-          "size": 12146
+          "digest": "sha256:d2d7d7f768edc7c402639cbfe19e3278d0c949d7eaf4da9bc92f5beded7dd093",
+          "size": 12791
         },
         {
           "path": "references/function-by-function.md",
           "digest": "sha256:5d88251392d8c3f447e1ad192b6b1e44759c41021267f27bc0c2aca3979714de",
           "size": 3640
+        },
+        {
+          "path": "references/numerics.md",
+          "digest": "sha256:64e1ce09c84e96069877bc687e40f6c12c57593a8d18ad291faa4b5d94c1b691",
+          "size": 5070
         }
       ],
       "frontmatter": {
@@ -349,8 +354,8 @@
       "files": [
         {
           "path": "SKILL.md",
-          "digest": "sha256:c3f53025abca27038a60912fcba805364964de05f46c3bf8b3824f6d0a974698",
-          "size": 4843
+          "digest": "sha256:36dfe8e80243c0b998c657d728fcbf1bf3f65920df4329292ff41840142fbd94",
+          "size": 5257
         },
         {
           "path": "references/reviewers.md",
