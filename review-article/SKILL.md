@@ -1,11 +1,11 @@
 ---
 name: review-article
-description: Review empirical papers, reproduce central claims, assess causal and economic interpretations, and develop evidence-backed critiques or research opportunities.
+description: Evaluate what an existing empirical article's evidence supports. Use for critical appraisal, reproduction of central results when possible, and follow-up research questions.
 ---
 
-# Review an empirical paper
+# Investigate an empirical article
 
-Determine what the evidence supports, what would change that conclusion, and what research could resolve the uncertainty. A strong result surviving a serious challenge is a finding. Apply the same evidentiary standard regardless of the authors' reputation or politics.
+Determine what an existing empirical article's evidence supports and what would change that conclusion. A strong result surviving a serious challenge is a finding. Apply the same evidentiary standard regardless of the authors' reputation or politics. For an author-facing publication-readiness report on a draft, use `peer-review-manuscript`.
 
 ## Scope and sources
 
@@ -21,7 +21,7 @@ Answer focused questions directly while continuing an authorized audit. Ask for 
 4. **Challenge the interpretation.** Use [review-moves.md](review-moves.md). Prioritize checks capable of changing the claim; briefly mark irrelevant or unavailable checks rather than manufacturing twelve concerns. For each challenge, consider a rival explanation and a result that would support the paper. Preserve negative findings and record why analyses were added after seeing results.
 5. **Apply conditional methods.** Use [iv-review.md](iv-review.md) for IV, including Lal and coauthors and Mellon. Use [structural-review.md](structural-review.md) for matching, estimated preferences, equilibrium simulations, or welfare claims. Do not apply diagnostics beyond their supported design.
 6. **Write the finding and its consequence.** State what was checked, the numerical result and uncertainty, and how interpretation changes. Name assumptions and unmeasured quantities concretely. Distinguish confirmed errors, plausible but untested mechanisms, alternative estimands, and unresolved access limits. Prioritize identification and substantive magnitude over small reporting defects.
-7. **Develop the research opportunity.** Follow [research-opportunities.md](research-opportunities.md). For each material criticism, identify the question, decisive test or new data, possible contribution, and a finding that would overturn the critique. Route a chosen new study to `design-analysis` and a manuscript to `write-empirical-paper`, using `on-writing` and `visualize-evidence` as appropriate. Do not invent results to complete a paper outline.
+7. **Develop a research opportunity when requested.** Follow [research-opportunities.md](research-opportunities.md). For each material criticism, identify the question, decisive test or new data, possible contribution, and a finding that would overturn the critique. Route a chosen new study to `design-analysis` and a manuscript to `write-empirical-paper`, using `on-writing` and `visualize-evidence` as appropriate. Do not invent results to complete a paper outline.
 
 ## Interpretation rules
 
@@ -59,6 +59,6 @@ Scale these to the request; a focused question does not need a full dossier:
 
 - A plain-language account of the main findings, their evidence, unresolved questions and limits of completed work.
 - A compact claim-to-evidence record and reproducible numerical artifacts for the claims audited.
-- A review or referee report ordered by substantive importance, with confirmed errors distinguished from interpretation and identification questions.
-- Research opportunities tied to the findings, including needed data and discriminating tests.
+- An evidence review ordered by substantive importance, with confirmed errors distinguished from interpretation and identification questions.
+- Research opportunities tied to the findings, including needed data and discriminating tests, when requested.
 - Tests run, checks not run, and why those limits matter.

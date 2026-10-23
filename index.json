@@ -330,13 +330,13 @@
       "files": [
         {
           "path": "SKILL.md",
-          "digest": "sha256:0cc1682551462812e2d736ba3a22a4482de16fefcc47c83afa3c551e63941ac9",
-          "size": 1888
+          "digest": "sha256:82137ab2d1aeb22a43e2dc197b80a9ad078fa8e8ac5f48b730384d83982f085c",
+          "size": 1999
         }
       ],
       "frontmatter": {
         "name": "peer-review-manuscript",
-        "description": "Assess a complete scholarly manuscript for publication readiness with a concise, evidence-backed referee report. Use when asked to act as a reviewer, not for prose editing."
+        "description": "Review a draft scholarly manuscript for its author. Judge correctness, novelty, and publication fit in an evidence-backed referee report on methods, theory, or empirical work."
       }
     },
     {
@@ -387,8 +387,8 @@
       "files": [
         {
           "path": "SKILL.md",
-          "digest": "sha256:0fd1eadc025645bbd24d12e90b58a38c07b71073c2c9e34b05be810f6183b89f",
-          "size": 8418
+          "digest": "sha256:103428e754defd11f49b59b8764d2e8e994177a1dde0f3b96c48107f49df28fc",
+          "size": 8534
         },
         {
           "path": "agents/empirical-reviewer.toml",
@@ -433,7 +433,7 @@
       ],
       "frontmatter": {
         "name": "review-article",
-        "description": "Review empirical papers, reproduce central claims, assess causal and economic interpretations, and develop evidence-backed critiques or research opportunities."
+        "description": "Evaluate what an existing empirical article's evidence supports. Use for critical appraisal, reproduction of central results when possible, and follow-up research questions."
       }
     },
     {

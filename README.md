@@ -24,10 +24,10 @@ up a website. Each entry below comes from its skill's own description.
 | [metered-runs](metered-runs/) | Plan and run paid API batches with measured costs, small pilots, quality checks, and an authorized spending limit. Use for LLM inference, OCR, embeddings, or other metered jobs. |
 | [ocr-error-triage](ocr-error-triage/) | Diagnose and improve OCR or document extraction. Use to measure error without full ground truth, localize failures, test repairs out of sample, and gate regressions and cost. |
 | [on-writing](on-writing/) | Edit prose for organization, clarity, voice, and AI-writing tells. Use for papers, documentation, memos, emails, reports, reviews, humanization, or matching an author's voice. |
-| [peer-review-manuscript](peer-review-manuscript/) | Assess a complete scholarly manuscript for publication readiness with a concise, evidence-backed referee report. Use when asked to act as a reviewer, not for prose editing. |
+| [peer-review-manuscript](peer-review-manuscript/) | Review a draft scholarly manuscript for its author. Judge correctness, novelty, and publication fit in an evidence-backed referee report on methods, theory, or empirical work. |
 | [pruning-repo-history](pruning-repo-history/) | Collapse Git history to selected release commits or one commit, or recover release tags. Use only when the user requests history rewriting or tag reconstruction. |
 | [release](release/) | Release a package after local checks, documentation review, independent model review, CI verification, and validation of the published artifact. |
-| [review-article](review-article/) | Review empirical papers, reproduce central claims, assess causal and economic interpretations, and develop evidence-backed critiques or research opportunities. |
+| [review-article](review-article/) | Evaluate what an existing empirical article's evidence supports. Use for critical appraisal, reproduction of central results when possible, and follow-up research questions. |
 | [scrape-and-parse](scrape-and-parse/) | Build or fix a scraper and its parser. Use for government portals, ASP.NET postbacks, REST behind maps, PDF harvests, retries, checkpoints, resume, throughput diagnosis, and typed outputs. |
 | [todo](todo/) | Read and write the user's Obsidian TaskNotes todo list. Use when asked to add, track, complete, or show tasks, preserving enough context for the task to be resumed later. |
 | [visualize-evidence](visualize-evidence/) | Design or audit empirical figures, tables, and maps. Use for comparisons, uncertainty, units, captions, visual consistency, generated exhibits, or rendered-page quality assurance. |
@@ -38,10 +38,17 @@ up a website. Each entry below comes from its skill's own description.
 
 `web-perf` measures and improves website performance on any host.
 
-For research, `build-data` prepares the data, `design-analysis` plans the study,
-`audit-analysis` checks an existing analysis, `review-article` evaluates a paper,
-and `write-empirical-paper` coordinates manuscript production. Use the stage that
-matches the request; a focused question does not require the whole sequence.
+For research reviews, choose the job the user needs:
+
+| Job | Skill |
+|---|---|
+| Advise an author what to fix in a draft before submission | `peer-review-manuscript` |
+| Determine what an existing empirical article's evidence supports | `review-article` |
+| Check the data, code, estimates, and claims in an analysis | `audit-analysis` |
+
+`review-article` can call for a deeper `audit-analysis` when the evidence needs
+reproduction. `build-data` prepares data, `design-analysis` plans a study, and
+`write-empirical-paper` coordinates manuscript production.
 
 The generated [`index.json`](index.json) is the complete machine-readable catalog,
 including supporting references and scripts.
