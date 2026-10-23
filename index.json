@@ -330,13 +330,13 @@
       "files": [
         {
           "path": "SKILL.md",
-          "digest": "sha256:39d55c56ded6e3106b1f7b6fd8fdc1851a5cb40bceabb2958b1268da9faaadf0",
-          "size": 4613
+          "digest": "sha256:0cc1682551462812e2d736ba3a22a4482de16fefcc47c83afa3c551e63941ac9",
+          "size": 1888
         }
       ],
       "frontmatter": {
         "name": "peer-review-manuscript",
-        "description": "Write an independent, source-checked peer review of a complete scholarly manuscript. Use for referee reports, publication-readiness assessments, or synthesis of separate reviews; not prose editing."
+        "description": "Assess a complete scholarly manuscript for publication readiness with a concise, evidence-backed referee report. Use when asked to act as a reviewer, not for prose editing."
       }
     },
     {
