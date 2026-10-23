@@ -1,11 +1,11 @@
 ---
-name: review-article
-description: Assess what an existing empirical article's evidence establishes for a reader. Check estimates and interpretation; develop critiques or follow-up questions.
+name: assess-empirical-claims
+description: Assess the claims in an existing empirical study for a reader. Trace evidence, check decisive results when possible, and explain which conclusions hold.
 ---
 
-# Investigate an empirical article
+# Assess empirical claims
 
-Determine what an existing empirical article's evidence supports and what would change that conclusion. A strong result surviving a serious challenge is a finding. Apply the same evidentiary standard regardless of the authors' reputation or politics. For an author-facing report on a draft, use `review-manuscript`; for a data-and-code audit of an analysis package, use `audit-analysis`.
+Determine what an existing empirical study's evidence supports and what would change that conclusion. A strong result surviving a serious challenge is a finding. Apply the same evidentiary standard regardless of the authors' reputation or politics. For an author-facing report on a draft, use `write-referee-report`; for a data-and-code audit of an analysis package, use `audit-analysis`.
 
 ## Scope and sources
 

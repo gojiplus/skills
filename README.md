@@ -16,6 +16,7 @@ up a website. Each entry below comes from its skill's own description.
 
 | Skill | When to use it |
 |---|---|
+| [assess-empirical-claims](assess-empirical-claims/) | Assess the claims in an existing empirical study for a reader. Trace evidence, check decisive results when possible, and explain which conclusions hold. |
 | [audit-analysis](audit-analysis/) | Audit an empirical analysis from its data, code, and outputs. Verify construction, estimands, inference, and manuscript claims. |
 | [audit-package](audit-package/) | Audit a software package for correctness defects and prepare an upstream-quality fix. Use for maintained libraries, dependencies, regression tests, and reproducible bug reports. |
 | [build-data](build-data/) | Prepare an analysis-ready dataset with documented columns, recodes, missing values, and verified joins. Use for unfamiliar data or unreliable data handoffs. |
@@ -26,13 +27,12 @@ up a website. Each entry below comes from its skill's own description.
 | [on-writing](on-writing/) | Edit prose for organization, clarity, voice, and AI-writing tells. Use for papers, documentation, memos, emails, reports, reviews, humanization, or matching an author's voice. |
 | [pruning-repo-history](pruning-repo-history/) | Collapse Git history to selected release commits or one commit, or recover release tags. Use only when the user requests history rewriting or tag reconstruction. |
 | [release](release/) | Release a package after local checks, documentation review, independent model review, CI verification, and validation of the published artifact. |
-| [review-article](review-article/) | Assess what an existing empirical article's evidence establishes for a reader. Check estimates and interpretation; develop critiques or follow-up questions. |
-| [review-manuscript](review-manuscript/) | Advise an author on a draft manuscript's publication readiness. Check correctness, originality, and value; give prioritized referee comments. |
 | [scrape-and-parse](scrape-and-parse/) | Build or fix a scraper and its parser. Use for government portals, ASP.NET postbacks, REST behind maps, PDF harvests, retries, checkpoints, resume, throughput diagnosis, and typed outputs. |
 | [todo](todo/) | Read and write the user's Obsidian TaskNotes todo list. Use when asked to add, track, complete, or show tasks, preserving enough context for the task to be resumed later. |
 | [visualize-evidence](visualize-evidence/) | Design or audit empirical figures, tables, and maps. Use for comparisons, uncertainty, units, captions, visual consistency, generated exhibits, or rendered-page quality assurance. |
 | [web-perf](web-perf/) | Measure and improve website loading speed, rendering, layout stability, and resource use. Use for performance audits or slow pages on any hosting platform. |
 | [write-empirical-paper](write-empirical-paper/) | Coordinate revision of a quantitative empirical paper and repository. Use for analysis audits, prose, figures, tables, citations, compilation, rendered-page checks, and claim validation. |
+| [write-referee-report](write-referee-report/) | Write an author-facing referee report on a draft scholarly paper. Assess correctness, originality, and value; prioritize revisions for publication. |
 
 <!-- skills:end -->
 
@@ -42,11 +42,11 @@ For research reviews, choose the job the user needs:
 
 | Job | Skill |
 |---|---|
-| Advise an author what to fix in a draft before submission | `review-manuscript` |
-| Determine what an existing empirical article's evidence supports | `review-article` |
+| Give an author or editor a referee report on a draft | `write-referee-report` |
+| Determine what an existing empirical study's evidence supports | `assess-empirical-claims` |
 | Check the data, code, estimates, and claims in an analysis | `audit-analysis` |
 
-`review-article` can call for a deeper `audit-analysis` when claims require
+`assess-empirical-claims` can call for a deeper `audit-analysis` when claims require
 checking data or code. `build-data` prepares data, `design-analysis` plans a study, and
 `write-empirical-paper` coordinates manuscript production.
 

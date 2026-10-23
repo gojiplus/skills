@@ -1,4 +1,0 @@
-interface:
-  display_name: "Assess Article Evidence"
-  short_description: "Assess an empirical article's claims"
-  default_prompt: "Use $review-article to assess this empirical article's claims, estimates, and interpretation for a reader."

@@ -84,9 +84,9 @@ check("resources/list covers every indexed file", resources.length === FILE_COUN
 check("SKILL.md resources are text/markdown",
   resources.filter((r) => r.uri.endsWith("SKILL.md")).every((r) => r.mimeType === "text/markdown"));
 
-const read = await rpc("resources/read", { uri: "skill://review-article/SKILL.md" });
+const read = await rpc("resources/read", { uri: "skill://assess-empirical-claims/SKILL.md" });
 check("resources/read returns content",
-  (read.result?.contents?.[0]?.text ?? "").includes("name: review-article"));
+  (read.result?.contents?.[0]?.text ?? "").includes("name: assess-empirical-claims"));
 
 const skills = (await rpc("skills/list")).result?.skills ?? [];
 check("skills/list returns every skill", skills.length === SKILL_COUNT, `got ${skills.length}`);

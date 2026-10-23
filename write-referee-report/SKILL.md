@@ -1,11 +1,11 @@
 ---
-name: review-manuscript
-description: Advise an author on a draft manuscript's publication readiness. Check correctness, originality, and value; give prioritized referee comments.
+name: write-referee-report
+description: Write an author-facing referee report on a draft scholarly paper. Assess correctness, originality, and value; prioritize revisions for publication.
 ---
 
-# Peer review a manuscript
+# Write a referee report
 
-Help the author decide what the draft establishes and what most needs to change before submission. Follow the requested journal, scope, and report format when given. For a reader's assessment of an existing empirical article, use `review-article`.
+Help the author decide what the draft establishes and what most needs to change before submission. Follow the requested journal, scope, and report format when given. For a reader's assessment of an existing study, use `assess-empirical-claims`.
 
 Read the manuscript and available supplements, including the exhibits and central derivations. Identify its question, main claim, evidence, and intended audience. State any access limit that narrows the review.
 

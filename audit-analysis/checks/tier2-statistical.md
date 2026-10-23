@@ -92,7 +92,7 @@ believed.
   an estimate changes the estimate. Trimming changes the population, not just
   the tail.
 - **Indices.** Decompose. Which components moved, and is the component that maps
-  most literally onto the claim among them? (This is where `review-article`'s
+  most literally onto the claim among them? (This is where `assess-empirical-claims`'s
   move 1 and this skill meet.)
 - Verify that a "rate" is the ratio its name implies and not a differently
   constructed quantity that happens to be on a similar scale.

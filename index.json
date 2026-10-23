@@ -1,12 +1,66 @@
 {
   "skills": [
     {
+      "name": "assess-empirical-claims",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "digest": "sha256:6aa50d9ce7cf30a38d8b624a428735ad0c8150569c6df09462e0bfb9ebe57b48",
+          "size": 8559
+        },
+        {
+          "path": "agents/empirical-reviewer.toml",
+          "digest": "sha256:ac7345b688de96693855707b02d6338bee4bea1519fc43514f4257f3cdc670f7",
+          "size": 3116
+        },
+        {
+          "path": "agents/openai.yaml",
+          "digest": "sha256:badcb524ae0b6c36d0d520a47e3e40e561d9ae5978338918a0a9d0719f52e795",
+          "size": 223
+        },
+        {
+          "path": "eval/cases.yaml",
+          "digest": "sha256:6ab7221e338ed47c07f91a77db40c900cce6f9fa392cd0b2d30e5d288131fbda",
+          "size": 3775
+        },
+        {
+          "path": "eval/revision-notes.md",
+          "digest": "sha256:5df2f88a6d3d2dcab1a4c5b9e3ed26e9f89fc0281367465136fe125841cc9460",
+          "size": 6330
+        },
+        {
+          "path": "iv-review.md",
+          "digest": "sha256:dc840cce7618ea81b1047e779c79a8fcc8ea3b305b32e7b930c8884d279a564b",
+          "size": 5936
+        },
+        {
+          "path": "research-opportunities.md",
+          "digest": "sha256:35004ab7950d2afdd301d4ac9becfc6682bcee0eb252e67c0ff10cc8d7d55ad1",
+          "size": 4152
+        },
+        {
+          "path": "review-moves.md",
+          "digest": "sha256:06cf3f730c5880ab82c4e1b03567d2990f8853747faa2e1cd6b0c8cd38a42100",
+          "size": 10910
+        },
+        {
+          "path": "structural-review.md",
+          "digest": "sha256:5b5e57b2ff70c42a7061778e31ab308e9cf664d7b940a6272257928ed29395a8",
+          "size": 4206
+        }
+      ],
+      "frontmatter": {
+        "name": "assess-empirical-claims",
+        "description": "Assess the claims in an existing empirical study for a reader. Trace evidence, check decisive results when possible, and explain which conclusions hold."
+      }
+    },
+    {
       "name": "audit-analysis",
       "files": [
         {
           "path": "SKILL.md",
-          "digest": "sha256:63a74031386df1020d8d37397df3d916b02647d394ec07b74eef7ef4f6e15e78",
-          "size": 12985
+          "digest": "sha256:1fd4d62c67b85a5c98285e4dda048e24efc2ebdb38e59ae8871eaed419854b1c",
+          "size": 12994
         },
         {
           "path": "agents/openai.yaml",
@@ -25,8 +79,8 @@
         },
         {
           "path": "checks/tier2-statistical.md",
-          "digest": "sha256:3fa848e10d031884f505f5af11e53d22af4bc8c79cd81e5e7a5680f3fe2f3d45",
-          "size": 11172
+          "digest": "sha256:da6fc967c6c5b9940c9fdbcfe0f4d47d2c4516a5deac7b169f7b2fdc92116a2c",
+          "size": 11181
         },
         {
           "path": "checks/tier3-design.md",
@@ -369,74 +423,6 @@
       }
     },
     {
-      "name": "review-article",
-      "files": [
-        {
-          "path": "SKILL.md",
-          "digest": "sha256:574470383cc74ec3735cdf03e33e1338ed1fc1d09a0df35d63cd60325b684c72",
-          "size": 8562
-        },
-        {
-          "path": "agents/empirical-reviewer.toml",
-          "digest": "sha256:762db88b9c7a79715de7cdc6ee6a2f1770eb2c4ff653b071c2fb3bbe863cbf0f",
-          "size": 3371
-        },
-        {
-          "path": "agents/openai.yaml",
-          "digest": "sha256:a8827e097e5214512f24e37f4c24daeafd8f054915ac516499c6d13969ff0255",
-          "size": 240
-        },
-        {
-          "path": "eval/cases.yaml",
-          "digest": "sha256:6ab7221e338ed47c07f91a77db40c900cce6f9fa392cd0b2d30e5d288131fbda",
-          "size": 3775
-        },
-        {
-          "path": "eval/revision-notes.md",
-          "digest": "sha256:5df2f88a6d3d2dcab1a4c5b9e3ed26e9f89fc0281367465136fe125841cc9460",
-          "size": 6330
-        },
-        {
-          "path": "iv-review.md",
-          "digest": "sha256:dc840cce7618ea81b1047e779c79a8fcc8ea3b305b32e7b930c8884d279a564b",
-          "size": 5936
-        },
-        {
-          "path": "research-opportunities.md",
-          "digest": "sha256:35004ab7950d2afdd301d4ac9becfc6682bcee0eb252e67c0ff10cc8d7d55ad1",
-          "size": 4152
-        },
-        {
-          "path": "review-moves.md",
-          "digest": "sha256:06cf3f730c5880ab82c4e1b03567d2990f8853747faa2e1cd6b0c8cd38a42100",
-          "size": 10910
-        },
-        {
-          "path": "structural-review.md",
-          "digest": "sha256:5b5e57b2ff70c42a7061778e31ab308e9cf664d7b940a6272257928ed29395a8",
-          "size": 4206
-        }
-      ],
-      "frontmatter": {
-        "name": "review-article",
-        "description": "Assess what an existing empirical article's evidence establishes for a reader. Check estimates and interpretation; develop critiques or follow-up questions."
-      }
-    },
-    {
-      "name": "review-manuscript",
-      "files": [
-        {
-          "path": "SKILL.md",
-          "digest": "sha256:95d5bfdf58ff2a59e21b73eddac23ba839adf5988593f3553228cde0396f6e08",
-          "size": 1955
-        }
-      ],
-      "frontmatter": {
-        "name": "review-manuscript",
-        "description": "Advise an author on a draft manuscript's publication readiness. Check correctness, originality, and value; give prioritized referee comments."
-      }
-    },
-    {
       "name": "scrape-and-parse",
       "files": [
         {
@@ -554,6 +540,20 @@
       "frontmatter": {
         "name": "write-empirical-paper",
         "description": "Coordinate revision of a quantitative empirical paper and repository. Use for analysis audits, prose, figures, tables, citations, compilation, rendered-page checks, and claim validation."
+      }
+    },
+    {
+      "name": "write-referee-report",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "digest": "sha256:d9217794d8ed98f35492df36e7c280b5374a30815067636dada310255d76be77",
+          "size": 1959
+        }
+      ],
+      "frontmatter": {
+        "name": "write-referee-report",
+        "description": "Write an author-facing referee report on a draft scholarly paper. Assess correctness, originality, and value; prioritize revisions for publication."
       }
     }
   ]

@@ -39,7 +39,7 @@ Package reproduction is necessary but insufficient. Audit whether each artifact 
 
 7. **Work Tier 4** ([tier4-econometric.md](checks/tier4-econometric.md)). Select every relevant design branch. Check identification before estimator choice, then check whether the standard errors correspond to the actual source of variation.
 
-8. **Audit the paper when one exists.** Run [paper-audit.md](checks/paper-audit.md). Read the full manuscript, appendix, exhibits, and registration or analysis plan. Search primary sources for construct definitions and external benchmarks. Use `review-article` alongside this skill when it is available.
+8. **Audit the paper when one exists.** Run [paper-audit.md](checks/paper-audit.md). Read the full manuscript, appendix, exhibits, and registration or analysis plan. Search primary sources for construct definitions and external benchmarks. Use `assess-empirical-claims` alongside this skill when it is available.
 
 9. **Run an adversarial pass, then a validation pass.** Try to break each headline result using unit arithmetic, alternative denominators, negative controls, influence checks, external benchmarks, and the strongest plausible rival explanation. Then try to disprove every criticism. Keep only findings that survive both passes.
 

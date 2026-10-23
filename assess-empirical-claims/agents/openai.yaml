@@ -1,0 +1,4 @@
+interface:
+  display_name: "Assess Empirical Claims"
+  short_description: "Check what a study's evidence supports"
+  default_prompt: "Use $assess-empirical-claims to evaluate what this empirical study's evidence supports."
