@@ -16,7 +16,7 @@ up a website. Each entry below comes from its skill's own description.
 
 | Skill | When to use it |
 |---|---|
-| [audit-analysis](audit-analysis/) | Audit empirical social-science analyses for data integrity, identification, inference, robustness, and claim validity. Use for experiments, panels, causal designs, or replication packages. |
+| [audit-analysis](audit-analysis/) | Audit an empirical analysis from its data, code, and outputs. Verify construction, estimands, inference, and manuscript claims. |
 | [audit-package](audit-package/) | Audit a software package for correctness defects and prepare an upstream-quality fix. Use for maintained libraries, dependencies, regression tests, and reproducible bug reports. |
 | [build-data](build-data/) | Prepare an analysis-ready dataset with documented columns, recodes, missing values, and verified joins. Use for unfamiliar data or unreliable data handoffs. |
 | [design-analysis](design-analysis/) | Plan an empirical study before estimation, defining the question, identification assumptions, outcomes, inference, falsification checks, and pre-analysis plan. |
@@ -24,10 +24,10 @@ up a website. Each entry below comes from its skill's own description.
 | [metered-runs](metered-runs/) | Plan and run paid API batches with measured costs, small pilots, quality checks, and an authorized spending limit. Use for LLM inference, OCR, embeddings, or other metered jobs. |
 | [ocr-error-triage](ocr-error-triage/) | Diagnose and improve OCR or document extraction. Use to measure error without full ground truth, localize failures, test repairs out of sample, and gate regressions and cost. |
 | [on-writing](on-writing/) | Edit prose for organization, clarity, voice, and AI-writing tells. Use for papers, documentation, memos, emails, reports, reviews, humanization, or matching an author's voice. |
-| [peer-review-manuscript](peer-review-manuscript/) | Review a draft scholarly manuscript for its author. Judge correctness, novelty, and publication fit in an evidence-backed referee report on methods, theory, or empirical work. |
 | [pruning-repo-history](pruning-repo-history/) | Collapse Git history to selected release commits or one commit, or recover release tags. Use only when the user requests history rewriting or tag reconstruction. |
 | [release](release/) | Release a package after local checks, documentation review, independent model review, CI verification, and validation of the published artifact. |
-| [review-article](review-article/) | Evaluate what an existing empirical article's evidence supports. Use for critical appraisal, reproduction of central results when possible, and follow-up research questions. |
+| [review-article](review-article/) | Assess what an existing empirical article's evidence establishes for a reader. Check estimates and interpretation; develop critiques or follow-up questions. |
+| [review-manuscript](review-manuscript/) | Advise an author on a draft manuscript's publication readiness. Check correctness, originality, and value; give prioritized referee comments. |
 | [scrape-and-parse](scrape-and-parse/) | Build or fix a scraper and its parser. Use for government portals, ASP.NET postbacks, REST behind maps, PDF harvests, retries, checkpoints, resume, throughput diagnosis, and typed outputs. |
 | [todo](todo/) | Read and write the user's Obsidian TaskNotes todo list. Use when asked to add, track, complete, or show tasks, preserving enough context for the task to be resumed later. |
 | [visualize-evidence](visualize-evidence/) | Design or audit empirical figures, tables, and maps. Use for comparisons, uncertainty, units, captions, visual consistency, generated exhibits, or rendered-page quality assurance. |
@@ -42,12 +42,12 @@ For research reviews, choose the job the user needs:
 
 | Job | Skill |
 |---|---|
-| Advise an author what to fix in a draft before submission | `peer-review-manuscript` |
+| Advise an author what to fix in a draft before submission | `review-manuscript` |
 | Determine what an existing empirical article's evidence supports | `review-article` |
 | Check the data, code, estimates, and claims in an analysis | `audit-analysis` |
 
-`review-article` can call for a deeper `audit-analysis` when the evidence needs
-reproduction. `build-data` prepares data, `design-analysis` plans a study, and
+`review-article` can call for a deeper `audit-analysis` when claims require
+checking data or code. `build-data` prepares data, `design-analysis` plans a study, and
 `write-empirical-paper` coordinates manuscript production.
 
 The generated [`index.json`](index.json) is the complete machine-readable catalog,

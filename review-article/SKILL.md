@@ -1,11 +1,11 @@
 ---
 name: review-article
-description: Evaluate what an existing empirical article's evidence supports. Use for critical appraisal, reproduction of central results when possible, and follow-up research questions.
+description: Assess what an existing empirical article's evidence establishes for a reader. Check estimates and interpretation; develop critiques or follow-up questions.
 ---
 
 # Investigate an empirical article
 
-Determine what an existing empirical article's evidence supports and what would change that conclusion. A strong result surviving a serious challenge is a finding. Apply the same evidentiary standard regardless of the authors' reputation or politics. For an author-facing publication-readiness report on a draft, use `peer-review-manuscript`.
+Determine what an existing empirical article's evidence supports and what would change that conclusion. A strong result surviving a serious challenge is a finding. Apply the same evidentiary standard regardless of the authors' reputation or politics. For an author-facing report on a draft, use `review-manuscript`; for a data-and-code audit of an analysis package, use `audit-analysis`.
 
 ## Scope and sources
 

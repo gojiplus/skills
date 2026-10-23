@@ -5,8 +5,8 @@
       "files": [
         {
           "path": "SKILL.md",
-          "digest": "sha256:ffd00995fd908082e8b5edefdeb7bccf5d545d9c989da8be9398c4f41f753543",
-          "size": 13046
+          "digest": "sha256:63a74031386df1020d8d37397df3d916b02647d394ec07b74eef7ef4f6e15e78",
+          "size": 12985
         },
         {
           "path": "agents/openai.yaml",
@@ -71,7 +71,7 @@
       ],
       "frontmatter": {
         "name": "audit-analysis",
-        "description": "Audit empirical social-science analyses for data integrity, identification, inference, robustness, and claim validity. Use for experiments, panels, causal designs, or replication packages."
+        "description": "Audit an empirical analysis from its data, code, and outputs. Verify construction, estimands, inference, and manuscript claims."
       }
     },
     {
@@ -326,20 +326,6 @@
       }
     },
     {
-      "name": "peer-review-manuscript",
-      "files": [
-        {
-          "path": "SKILL.md",
-          "digest": "sha256:82137ab2d1aeb22a43e2dc197b80a9ad078fa8e8ac5f48b730384d83982f085c",
-          "size": 1999
-        }
-      ],
-      "frontmatter": {
-        "name": "peer-review-manuscript",
-        "description": "Review a draft scholarly manuscript for its author. Judge correctness, novelty, and publication fit in an evidence-backed referee report on methods, theory, or empirical work."
-      }
-    },
-    {
       "name": "pruning-repo-history",
       "files": [
         {
@@ -387,8 +373,8 @@
       "files": [
         {
           "path": "SKILL.md",
-          "digest": "sha256:103428e754defd11f49b59b8764d2e8e994177a1dde0f3b96c48107f49df28fc",
-          "size": 8534
+          "digest": "sha256:574470383cc74ec3735cdf03e33e1338ed1fc1d09a0df35d63cd60325b684c72",
+          "size": 8562
         },
         {
           "path": "agents/empirical-reviewer.toml",
@@ -397,8 +383,8 @@
         },
         {
           "path": "agents/openai.yaml",
-          "digest": "sha256:1766f3588939b6ffd6e1fec148fa008f2fdb0df22a55992fa367528dd63abae5",
-          "size": 363
+          "digest": "sha256:a8827e097e5214512f24e37f4c24daeafd8f054915ac516499c6d13969ff0255",
+          "size": 240
         },
         {
           "path": "eval/cases.yaml",
@@ -433,7 +419,21 @@
       ],
       "frontmatter": {
         "name": "review-article",
-        "description": "Evaluate what an existing empirical article's evidence supports. Use for critical appraisal, reproduction of central results when possible, and follow-up research questions."
+        "description": "Assess what an existing empirical article's evidence establishes for a reader. Check estimates and interpretation; develop critiques or follow-up questions."
+      }
+    },
+    {
+      "name": "review-manuscript",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "digest": "sha256:95d5bfdf58ff2a59e21b73eddac23ba839adf5988593f3553228cde0396f6e08",
+          "size": 1955
+        }
+      ],
+      "frontmatter": {
+        "name": "review-manuscript",
+        "description": "Advise an author on a draft manuscript's publication readiness. Check correctness, originality, and value; give prioritized referee comments."
       }
     },
     {

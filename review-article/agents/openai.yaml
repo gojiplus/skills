@@ -1,4 +1,4 @@
 interface:
-  display_name: "Review Evidence and Develop a Paper"
-  short_description: "Audit evidence and develop research opportunities"
-  default_prompt: "Use $review-article to review this paper, reproduce its central claims where data permit, explain what the evidence supports, and turn material criticisms into concrete research and writing opportunities."
+  display_name: "Assess Article Evidence"
+  short_description: "Assess an empirical article's claims"
+  default_prompt: "Use $review-article to assess this empirical article's claims, estimates, and interpretation for a reader."

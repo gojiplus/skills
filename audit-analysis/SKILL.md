@@ -1,6 +1,6 @@
 ---
 name: audit-analysis
-description: Audit empirical social-science analyses for data integrity, identification, inference, robustness, and claim validity. Use for experiments, panels, causal designs, or replication packages.
+description: Audit an empirical analysis from its data, code, and outputs. Verify construction, estimands, inference, and manuscript claims.
 ---
 
 # Audit an empirical analysis

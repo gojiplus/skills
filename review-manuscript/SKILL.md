@@ -1,11 +1,11 @@
 ---
-name: peer-review-manuscript
-description: Review a draft scholarly manuscript for its author. Judge correctness, novelty, and publication fit in an evidence-backed referee report on methods, theory, or empirical work.
+name: review-manuscript
+description: Advise an author on a draft manuscript's publication readiness. Check correctness, originality, and value; give prioritized referee comments.
 ---
 
 # Peer review a manuscript
 
-Help the author decide what the draft establishes and what most needs to change before submission. Follow the requested journal, scope, and report format when given. For an independent reanalysis of an empirical article's results, use `review-article`.
+Help the author decide what the draft establishes and what most needs to change before submission. Follow the requested journal, scope, and report format when given. For a reader's assessment of an existing empirical article, use `review-article`.
 
 Read the manuscript and available supplements, including the exhibits and central derivations. Identify its question, main claim, evidence, and intended audience. State any access limit that narrows the review.
 
