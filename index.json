@@ -305,6 +305,22 @@
       }
     },
     {
+      "name": "functional-form-sensitivity",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "digest": "sha256:80dc04335facc44fc79705d275871ed70617052da07272f7945118c4d907f252",
+          "size": 5109
+        }
+      ],
+      "frontmatter": {
+        "name": "functional-form-sensitivity",
+        "description": "Bound how far an estimate can move under other functional forms that fit the data as well as the assumed one, with the DirectedSensitivity workflow. Use for demand, welfare, or structural estimates.",
+        "compatibility": "Needs a local coding agent with git, Python 3.11+, and network access to github.com. Not runnable from an uploaded zip without network or over the MCP connector.",
+        "metadata": "upstream: https://github.com/JMSLab/DirectedSensitivity upstream-license: MIT"
+      }
+    },
+    {
       "name": "metered-runs",
       "files": [
         {
