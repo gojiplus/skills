@@ -52,8 +52,8 @@ environment:
 DS=~/.cache/directed-sensitivity/ebd0e8c
 test -d "$DS" || git clone https://github.com/JMSLab/DirectedSensitivity "$DS"
 git -C "$DS" checkout -q ebd0e8c3cd19b79a9090e9a97f91a788f3d8a01a
-uv pip install "$DS"   # or: python -m pip install "$DS"
-python -c "import DirectedSensitivity"
+uv pip install --python .venv/bin/python "$DS"   # the project's own venv
+.venv/bin/python -c "import DirectedSensitivity"
 ```
 
 Read every file under `$DS/workflow/` and `$DS/AGENTS.md` from that clone. The
@@ -71,26 +71,45 @@ procedure links to them by relative path; resolve those links inside `$DS`.
    slopes down, bounded because shares lie in [0, 1]) and get the user's
    agreement before running. Set section 5 limits if `c` or `q` is slow, and
    section 8 Lean to "No" unless the user wants proofs.
-2. **Run the template's section 7 checklist** and fix each failure. Confirm the
-   user's own code reproduces the baseline estimate and fit before going on.
-3. **Run the procedure.** Follow `$DS/workflow/WORKFLOW.md` on the filled
-   template, start to finish, with `sensitivity/<name>/output/` as the run
-   directory. Read `$DS/workflow/examples/` first, as it instructs.
+2. **Run the template's section 7 checklist.** Fix failures in the factual
+   sections; for a failure in an agreed section, report it and ask rather than
+   edit. A deviance or likelihood criterion that is infinite only at
+   boundary values (shares of 0 or 1) is acceptable; say so. Confirm the user's
+   code reproduces the template's baseline estimate and fit, and state the gap
+   to the published estimate if the working model differs from the paper's.
+3. **Run the procedure** in the main agent: it writes `report.md`, which some
+   harnesses block subagents from doing. Follow `$DS/workflow/WORKFLOW.md` on
+   the filled template, start to finish, with `sensitivity/<name>/output/` as
+   the run directory. Read `$DS/workflow/examples/` first, as it instructs.
+   Two additions:
+   - In `certificates.json`, store each primitive in a form the user's code
+     can evaluate without the run's code (knot values, or values on a stated
+     grid), beside the basis-model parameters.
+   - `SensitivityProblem` checks restrictions with zero tolerance, so a
+     grid-difference shape check can reject the working model itself; check
+     shape exactly where the primitive allows it. A target read off a grid is
+     a step function with zero finite-difference gradient; give the solver an
+     analytic gradient or a continuous version of the target.
 4. **Check by a second route.** Load `output/certificates.json`. Recompute `c`
    and `q` for the baseline and both certificates with the user's code from
    section 6, not the code the run wrote, and confirm each `q` is within
-   budget. Where the report claims an exact solution, check the formula on the
-   numbers. A certificate that fails here is not reported.
+   budget. Where the report claims an exact solution, recompute it: plug the
+   numbers into a closed form, or re-solve a characterization (a KKT system,
+   a root) with a different solver. Perturb one certificate so it should fail
+   and confirm the check catches it. A certificate that fails is not reported.
 5. **Present.** Open `output/certificates.png` for the user. Show the results
-   table, the second-route check beside it, every judgment call the report
-   lists, and how sensitive the answer is to the nesting restrictions.
+   table and the second-route check beside it. `REPORT.md` limits the report
+   to essential judgment calls and has no slot for sensitivity to the nesting
+   model, so give both in your reply: every choice the run made, and what
+   happens to each bound when a restriction is dropped or the cap moves.
 
 ## Reading the result
 
 The interval is a lower bound on sensitivity. The true range over the nesting
 model is at least this wide. A wide interval shows the estimate is fragile; a
 narrow one shows robustness only on sides the report marks as an exact infimum
-or supremum.
+or supremum. A side that reaches the edge of `c`'s allowed range (a cap set to
+keep `c` finite) is unbounded in substance, whatever its exactness label.
 
 ## Updating
 
