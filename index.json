@@ -261,6 +261,20 @@
       }
     },
     {
+      "name": "develop-r",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "digest": "sha256:3b5763506c236683f1c5199dd1a5e7d07f688f5632526a07eca65fdbcf5571fd",
+          "size": 3057
+        }
+      ],
+      "frontmatter": {
+        "name": "develop-r",
+        "description": "Develop or modernize R packages using established validation, vector, and condition tooling. Complements Posit's R skills with r-canon review defaults and machine-readable error contracts."
+      }
+    },
+    {
       "name": "empirical-problem-solving",
       "files": [
         {
