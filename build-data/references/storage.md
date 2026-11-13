@@ -85,7 +85,7 @@ data/<source>/<source>_<unit>_<geo>_<yearspan>[_variant].parquet
 `mnrega_elex_raj_05_10.parquet` · `shrug_gp_raj_05_10_block.parquet` · `source_2015_std.parquet`
 
 Lowercase, snake_case, no spaces, no capitals, extension always present. Variant suffixes carry
-meaning and are worth keeping — `_std` standardised names, `_strict` the tighter-match panel,
+meaning and are worth keeping — `_std` standardized names, `_strict` the tighter-match panel,
 `_block` the block-level aggregate — and each is defined in the dictionary.
 
 Three things that never belong in a filename:

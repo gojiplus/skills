@@ -4,11 +4,11 @@
 
 ## 1. Reproduce, then shrink
 
-Do not hypothesise about a failure you cannot produce on demand. Reproduction is the gate, not
+Do not hypothesize about a failure you cannot produce on demand. Reproduction is the gate, not
 the warm-up: an intermittent failure you cannot trigger will absorb unlimited diagnosis and
 confirm whatever you already believed.
 
-Once you can reproduce it, **minimise it before you theorise about it**. Shrinking collapses the
+Once you can reproduce it, **minimize it before you theorise about it**. Shrinking collapses the
 hypothesis space mechanically rather than by argument, and it is usually the highest-leverage
 single move available.
 
@@ -43,7 +43,7 @@ between the two columns is where the cause lives.
 
 Then test each candidate cause against the whole grid under one rule: **if this were the cause,
 how does it explain both the IS and the IS-NOT?** A cause that explains why it broke but not why
-the identical neighbouring case is fine is not yet a cause.
+the identical neighboring case is fine is not yet a cause.
 
 The negative space is high-information precisely because it is constraining. "Only Bengali rolls,
 only after March, only the supplement pages" eliminates more hypotheses in one line than a week
@@ -95,7 +95,7 @@ already believed, and an intervention interpreted after the fact is a story, not
 
 Everything above isolates by **removal** — ablate the component, drop the suspect input, bisect
 away the change. The converse move is to *create the problem where it does not exist*: take a case
-that works, introduce the hypothesised cause, and see whether the symptom appears.
+that works, introduce the hypothesized cause, and see whether the symptom appears.
 
 The two are not stylistic alternatives. They test different things, and only together do they
 settle a cause:
@@ -112,7 +112,7 @@ constructive answer to the Physicist's Method: an explanation that both accounts
 
 **Injection manufactures a reproducer when nature will not.** Section 1 assumes you can trigger the
 failure. Often you cannot — it happened once, in production, three weeks ago, and never since.
-Injecting the hypothesised fault into a healthy copy is then the only route to a reproducer at all.
+Injecting the hypothesized fault into a healthy copy is then the only route to a reproducer at all.
 Feedback-driven fault injection reproduced every failure in a distributed-systems benchmark by
 injecting the root-cause faults, at a median of eight minutes each.
 
@@ -192,7 +192,7 @@ Two consequences:
 - **Do not run tests with no discriminating power.** If a result is roughly equally likely under
   every live hypothesis, it will not move your beliefs, and running it feels like progress while
   producing none. Prefer the test that most nearly halves the hypothesis space over the test most
-  likely to confirm your favourite.
+  likely to confirm your favorite.
 
 **Select on inconsistency, not on support.** Evidence consistent with many hypotheses has no
 diagnostic value; the hypothesis to prefer is the one with the fewest *inconsistencies*, not the
@@ -206,7 +206,7 @@ hypothesis were true — its absence is a hoop test you get for free.
 Before an analysis method's output counts as evidence, establish that it can come back empty.
 
 Saliency maps are the cautionary case: some widely used methods produce visually compelling,
-essentially *identical* attributions from a trained model and from a randomly initialised one.
+essentially *identical* attributions from a trained model and from a randomly initialized one.
 They were edge detectors — invariant to the model and invariant to the data — and were being read
 as explanations for years.
 
@@ -214,10 +214,10 @@ So for any diagnostic instrument you rely on, whether a slice finder, an attribu
 anomaly detector or an LLM grader:
 
 1. **Plant a known cause** and confirm the instrument recovers it.
-2. **Run it on a system with no cause** — scrambled labels, randomised model, A/A split — and
+2. **Run it on a system with no cause** — scrambled labels, randomized model, A/A split — and
    confirm it reports nothing.
 
-An instrument that always returns an answer is returning noise. This is the diagnostic analogue of
+An instrument that always returns an answer is returning noise. This is the diagnostic analog of
 an A/A test, and it is the same rule as `ocr-error-triage`'s "checks that cannot fail": ask what
 input would make this come back clean, and if there isn't one, it is decoration.
 

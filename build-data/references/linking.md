@@ -89,7 +89,7 @@ This is the default for district/block/village crosswalk work and it should stay
 an administrative unit removes almost all of the false-positive surface, and the block is
 verifiable independently.
 
-Always normalise before scoring, in a named function, and record what it did:
+Always normalize before scoring, in a named function, and record what it did:
 `normalize_string()` for the permissive pass, `normalize_string_strict()` for the tight one.
 Unicode NFKC, case, whitespace collapse, punctuation, and the transliteration variants specific
 to the source ("Kamrup"/"Kamroop", "Bishwanath"/"Biswanath").
@@ -122,7 +122,7 @@ Why it is worth the language switch when it is:
   stage and you can compute a reduction ratio rather than guessing at one;
 - `decide(method="hungarian")` gives **provably optimal 1:1 assignment**, not greedy first-come;
 - `MarginFilter` drops a left record entirely when its best and second-best scores are within
-  `margin` — the precision-first behaviour you want when a false match is more costly than a
+  `margin` — the precision-first behavior you want when a false match is more costly than a
   missed one;
 - `MultiPassOrchestrator` with `strict_then_relaxed(0.95, 0.85, 0.70)` removes matched rows
   between passes and re-blocks, so the easy matches never compete with the hard ones;

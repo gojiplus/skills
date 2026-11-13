@@ -38,11 +38,11 @@ claim in the skill carries a number, the number comes from here.
   https://direct.mit.edu/books/oa-monograph/3451/Actual-Causality — which of several necessary
   conditions is called "the" cause depends on a normality baseline the analyst supplies.
 
-## Search, prioritisation, stopping
+## Search, prioritization, stopping
 
 - Heckerman, D., Breese, J. & Rommelse, K. (1995). "Decision-theoretic troubleshooting." *CACM*
   38(3). https://link.springer.com/chapter/10.1007/978-1-4615-5089-1_15 — the optimal repair order
-  is descending P(faulty)/cost. This is the prioritisation matrix done correctly.
+  is descending P(faulty)/cost. This is the prioritization matrix done correctly.
 - Howard, R. (1966). "Information Value Theory." *IEEE Trans. SSC* 2(1).
   https://ieeexplore.ieee.org/document/4082064 — value of information is zero if it cannot change
   the action.
@@ -93,8 +93,8 @@ claim in the skill carries a number, the number comes from here.
   inject: hardware, software, protocol, data.
 - Basiri, A. et al. (2016). "Chaos Engineering." *IEEE Software* 33(3):35–41.
   https://arxiv.org/pdf/1702.05843 — state the steady-state hypothesis before injecting, and
-  **minimise the blast radius**. Also the proactive framing: break things on purpose to build the
-  fault-mode catalogue before you need it.
+  **minimize the blast radius**. Also the proactive framing: break things on purpose to build the
+  fault-mode catalog before you need it.
 - Card, A. (2017), above, is the reason the whys carry guardrails rather than a bare instruction.
 
 ## Measurement and metric validity
@@ -141,7 +141,7 @@ claim in the skill carries a number, the number comes from here.
   https://arxiv.org/abs/1807.06068 — automating the slice scan required FDR control to be usable.
 - Wu, T., Ribeiro, M., Heer, J. & Weld, D. (2019). "Errudite: Scalable, Reproducible, and Testable
   Error Analysis." *ACL*. https://aclanthology.org/P19-1073/ — precise error-group definitions;
-  analyse the full population, not a sample of failures; test by counterfactual rewriting.
+  analyze the full population, not a sample of failures; test by counterfactual rewriting.
 - Dwork, C. et al. (2015). "The reusable holdout." *Science* 349(6248).
   https://www.science.org/doi/10.1126/science.aaa9375 — how to iterate against a holdout and keep it.
 
@@ -198,7 +198,7 @@ claim in the skill carries a number, the number comes from here.
   does not cost accuracy is not worth chasing.
 - D'Amour, A. et al. (2020). "Underspecification Presents Challenges for Credibility in Modern
   Machine Learning." https://arxiv.org/abs/2011.03395 — equivalent held-out performance, different
-  behaviour under shift; the random seed alone moves stress-test results.
+  behavior under shift; the random seed alone moves stress-test results.
 - Geirhos, R. et al. (2020). "Shortcut Learning in Deep Neural Networks." *Nat Mach Intell* 2.
   https://www.nature.com/articles/s42256-020-00257-z — the causal generator behind a suspiciously
   good metric.

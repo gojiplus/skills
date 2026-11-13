@@ -35,9 +35,9 @@ Every parsed row carries the unparsed text it came from (`raw_cell`, `raw_line`)
 reviewer audits a parse without the checkpoint files, and how the next shape is found: sort the
 rows where a field is `None` by `raw_line` and read the top twenty.
 
-## Normalise Unicode first, then key
+## Normalize Unicode first, then key
 
-Indic text arrives in mixed normalisation forms and with nukta variants (`ड़` as one code point
+Indic text arrives in mixed normalization forms and with nukta variants (`ड़` as one code point
 or as `ड` + `़`). `unicodedata.normalize("NFC", s)` before anything else, then a project-level
 key function for matching (drop spaces and punctuation, fold known variants such as `ङ/ड़`).
 Never strip a sex or honorific suffix in the key: dropping `देवी` matched a wife to a man with

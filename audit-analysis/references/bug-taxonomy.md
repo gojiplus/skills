@@ -97,7 +97,7 @@ staleness rather than assert it.
 
 ---
 
-## Class 5 — Estimand and labelling
+## Class 5 — Estimand and labeling
 
 **5a. Joint read off a marginal.** "Over 65% met all three" — the marginals were
 76.0 / 65.9 / 81.0, so 65% was the smallest marginal, an *upper bound* on the
@@ -107,11 +107,11 @@ joint. True joint: **59.1%**.
 "[6.20, 8.27]" and "6.2 and 8.3". The 8.4 paired one column's lower bound with
 another column's upper bound — an interval present in no column.
 
-**5c. A count labelled a share.** A table column headed "Top share (00s)"
+**5c. A count labeled a share.** A table column headed "Top share (00s)"
 regressed a visit *count*; its dependent-variable mean of 30 was 3,009 ÷ 100. A
 share expressed in hundreds cannot exist.
 
-**5d. A mean labelled a median.** 54% was the mean; the median was 56%.
+**5d. A mean labeled a median.** 54% was the mean; the median was 56%.
 
 **5e. Decomposition total ≠ paper's estimand.** A shift-share decomposition's
 total was visit-weighted while the paper's claim was person-averaged. Components

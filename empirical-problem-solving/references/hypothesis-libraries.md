@@ -31,7 +31,7 @@ it is the cheapest to rule out. Reaching for "the world changed" first is how we
 
 **Discontinuous vs. gradual is diagnostic.** A step change on a date points at rows 1–3 and 7. A
 slow drift points at rows 4, 6 and 8. If your metric fell off a cliff, a story about gradually
-changing user behaviour is the wrong shape.
+changing user behavior is the wrong shape.
 
 ---
 
@@ -40,12 +40,12 @@ changing user behaviour is the wrong shape.
 The most useful MECE cut in practice, and the one the paper leaves you to invent. Enumerate over
 stages, ask what could break at each, and ask what evidence would show it broke there:
 
-model requirements → data collection → data cleaning → labelling → feature engineering →
+model requirements → data collection → data cleaning → labeling → feature engineering →
 training → evaluation → deployment → monitoring
 
-Two stage-specific catalogues worth having memorised:
+Two stage-specific catalogs worth having memorized:
 
-**Where a broken split hides** (this is the sample-ratio-mismatch taxonomy, and it generalises to
+**Where a broken split hides** (this is the sample-ratio-mismatch taxonomy, and it generalizes to
 any "the two arms are not comparable" problem): assignment (buggy bucketing, faulty IDs, carryover
 from a previous experiment) · execution (variant-specific redirects, latency differences,
 telemetry loss in one arm) · log processing (bad joins, bot filtering that differs by arm) ·
@@ -122,7 +122,7 @@ Four guardrails make it reproducible.
   test beside it, not as a sentence that follows plausibly from the one above.
 
 The output is a small tree of candidate causes, not a single chain — which is exactly the input the
-prioritisation step wants anyway.
+prioritization step wants anyway.
 
 ## 6. Building your own signature library
 

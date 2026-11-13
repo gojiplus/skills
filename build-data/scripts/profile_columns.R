@@ -135,7 +135,7 @@ fail <- function(msg) {
 }
 
 # Delimited text is read as character on purpose, so that "" / "NA" / "-999" stay
-# distinguishable. But that would leave the numeric sentinel catalogue and the range
+# distinguishable. But that would leave the numeric sentinel catalog and the range
 # checks with nothing to run on -- and in testing they printed a reassuring
 # "none found" over a column holding 183 rows of -999. So build a numeric SHADOW of
 # every character column that is overwhelmingly numeric, run the numeric checks on
@@ -312,7 +312,7 @@ sentinels <- function(df, groups) {
             }
             # Spike detection: a value holding a share far above the median share of
             # the top values, at a round or extreme position. Catches codes not in
-            # the catalogue above.
+            # the catalog above.
             tb <- sort(table(xs), decreasing = TRUE)
             if (length(tb) > 3) {
                 top_share <- as.numeric(tb[1]) / length(xs)

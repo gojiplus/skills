@@ -212,7 +212,7 @@ exactly when the temptation not to is strongest.
 Decide before you look.
 
 - **Primary outcome, one per family**, pre-specified. Nothing adjusts this.
-- **Indices for secondary outcomes.** Anderson (2008): standardise each component, then weight by
+- **Indices for secondary outcomes.** Anderson (2008): standardize each component, then weight by
   the inverse covariance matrix so outcomes that duplicate each other are down-weighted. One test
   instead of eight, and it is more powerful than any of them when the outcomes are correlated.
 - **Family-wise error**: Romano–Wolf free step-down (`wyoung` in Stata, `rwolf`, `fwer`
@@ -227,7 +227,7 @@ Decide before you look.
   q-values can come out *below* the unadjusted p-values when many hypotheses are rejected. That is
   correct, not a bug: with many true rejections you can tolerate some false ones and still hold
   the FDR.
-- **Subgroups**: a finite list, written down. Everything not on it is exploratory and labelled as
+- **Subgroups**: a finite list, written down. Everything not on it is exploratory and labeled as
   such in the paper, not in a footnote.
 
 The adjustment matters far less than the pre-specification. A corrected p-value on a hypothesis
@@ -304,7 +304,7 @@ failed on a third of the draws must not look like one that did not.
 
 Read the coverage column before the RMSE column. In a published run of exactly this design, the
 naive estimator produced respectable-looking intervals — SD 0.054, length 0.165 — with **95%
-coverage of 0.240**. A tight interval around a biased centre is the failure mode, and only the
+coverage of 0.240**. A tight interval around a biased center is the failure mode, and only the
 coverage column shows it. Over-coverage is a failure too, just a less punished one: a method
 reporting 1.000 coverage with 2.5× the length is not conservative, it is uninformative.
 

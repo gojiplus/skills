@@ -122,11 +122,11 @@ path)? Covariates must be pre-randomisation measurements.
 
 **How:** Check they are pre-treatment. Check the selection rule was stated in
 advance. Green's lab caps covariate count by sample size (no more than M/20 with
-interactions) — an explicit rule beats a judgement call.
+interactions) — an explicit rule beats a judgment call.
 
 ### Report adjusted and unadjusted; disclose deviations
 
-**Check:** Both estimates present, the pre-specified one labelled as such, and
+**Check:** Both estimates present, the pre-specified one labeled as such, and
 every departure from the plan named.
 
 ### Permutation as the default

@@ -56,7 +56,7 @@ parse_args <- function(argv) {
         a <- argv[i]
         if (startsWith(a, "--")) {
             cur <- sub("^--", "", a)
-            # An unrecognised flag used to be absorbed into the list and never
+            # An unrecognized flag used to be absorbed into the list and never
             # reported, so `--min_match 0.95` (underscore) left min-match at its
             # default 0 and the documented match-rate gate could never fail.
             if (!cur %in% known) {

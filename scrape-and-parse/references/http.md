@@ -8,7 +8,7 @@ a two-hour outage in fifteen seconds or hammers a 404 for an hour.
 | kind | examples | what it means | response |
 |---|---|---|---|
 | **connection** | name resolution, connect refused, read timeout, reset, `RemoteDisconnected`, `IncompleteRead`, SSL | the server was never asked, or never answered | wait it out: back off from ~5 s doubling to a 10-minute cap, for hours; never let a worker die on it |
-| **throttle** | 429; sometimes 503 with `Retry-After` | the server asked you to slow down | honour `Retry-After`; else long fixed waits (60, 180, 420 s); reduce concurrency for the rest of the run |
+| **throttle** | 429; sometimes 503 with `Retry-After` | the server asked you to slow down | honor `Retry-After`; else long fixed waits (60, 180, 420 s); reduce concurrency for the rest of the run |
 | **other HTTP errors** | 400, 403, 404, 410, 451, 5xx | meaning depends on source, authentication, and response body | distinguish invalid requests, access limits, permanent absence, and transient failures; retain recoverable failures for resume |
 
 HTTP success is not proof of a record or a permanent miss. Treat an empty 200 or
@@ -68,7 +68,7 @@ count, the field you came for), not the size.
   (Rajasthan).
 - **Measure whether concurrency helps before adding workers.** Six threads on one session,
   six threads on six sessions, one thread: if aggregate throughput barely moves, the portal
-  serialises per client or globally and the lever is latency (a VM near the server) or more
+  serializes per client or globally and the lever is latency (a VM near the server) or more
   IPs, not threads. Rajasthan: 0.6 → 1.3 → 1.0 requests a second for those three.
 - **Rate-limit per worker with a minimum gap**, not a global token bucket; it is simpler and
   the portal, not you, sets the ceiling.

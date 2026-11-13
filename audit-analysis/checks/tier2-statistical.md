@@ -67,11 +67,11 @@ believed.
   - `pd.NA` (as opposed to `np.nan`) promotes a numeric column to object, and
     `.describe()` on object dtype returns `count/unique/top/freq` rather than
     the moment summary. A table built from that reported the *number of distinct
-    values* in a column labelled "mean" — 1,120 where the true mean was 11.70.
+    values* in a column labeled "mean" — 1,120 where the true mean was 11.70.
 
 ---
 
-## C. Construction and normalisation
+## C. Construction and normalization
 
 **Check:** That every constructed variable means what its name says.
 
@@ -165,7 +165,7 @@ than inherited from whatever the code happened to do.
   for Poisson/with-replacement-style reasoning but *not* for successive sampling
   (`numpy.choice(replace=False, p=...)`), where inclusion probabilities have no
   closed form. Simulate π under the design that actually ran.
-- **Numerical.** Check the optimiser reached the optimum, especially for
+- **Numerical.** Check the optimizer reached the optimum, especially for
   quantile regression, GMM, and anything iteratively reweighted. Re-solve by a
   second method and compare *objectives* rather than coefficients — with
   collinear regressors the argmin need not be unique, but its value is.

@@ -1,7 +1,7 @@
 """audit_data.py
 Mechanical integrity and EDA sweep over an analysis dataset.
 
-Runs the Tier-1 and Tier-2A checks that need no judgement, which is where most
+Runs the Tier-1 and Tier-2A checks that need no judgment, which is where most
 number-changing bugs actually live. Everything it reports is a *candidate*: the
 script says "this column is 47% missing and the missing rate differs by group",
 not "this is a bug". Deciding is the analyst's job.

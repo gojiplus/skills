@@ -120,7 +120,7 @@ under **differential** misclassification, where the error rate differs by outcom
 estimate can be biased in either direction and can exceed the truth. This is the case that
 LLM-coded treatment variables fall into.
 
-The fix, when you have a validation subsample, is not to apologise in a footnote. It is to
+The fix, when you have a validation subsample, is not to apologize in a footnote. It is to
 propagate — see `design-analysis`'s inference reference and the DSL section below.
 
 ## Machine- and LLM-coded variables

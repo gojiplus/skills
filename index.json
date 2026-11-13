@@ -59,7 +59,7 @@
       "files": [
         {
           "path": "SKILL.md",
-          "digest": "sha256:1fd4d62c67b85a5c98285e4dda048e24efc2ebdb38e59ae8871eaed419854b1c",
+          "digest": "sha256:409b55a8f3cfd5716e6d5f53d5d9e87524fed2c6bfae5895dd4ecb448455b420",
           "size": 12994
         },
         {
@@ -74,18 +74,18 @@
         },
         {
           "path": "checks/tier1-high-yield.md",
-          "digest": "sha256:c82e62eef18158e26e1ea2856a0867c6c67747b39e43d35699706e60555c7ce9",
+          "digest": "sha256:221d7f3e8a57fad6bc7e80bce92a7674018d8a6d9da50a2139749de3d9c52859",
           "size": 10714
         },
         {
           "path": "checks/tier2-statistical.md",
-          "digest": "sha256:da6fc967c6c5b9940c9fdbcfe0f4d47d2c4516a5deac7b169f7b2fdc92116a2c",
-          "size": 11181
+          "digest": "sha256:b90d764149cd17140e689044141a80f956184be459a0f214bc0466836f38bcb9",
+          "size": 11180
         },
         {
           "path": "checks/tier3-design.md",
-          "digest": "sha256:52627f413c9f55d8677f2eddb8b61c2fda68fcfe454bb75665f96b70ca8fb871",
-          "size": 7586
+          "digest": "sha256:fa5870e409c900c387078ef79afb15932a4e19fc944c1ae5538c100946b6543c",
+          "size": 7584
         },
         {
           "path": "checks/tier4-econometric.md",
@@ -94,8 +94,8 @@
         },
         {
           "path": "references/bug-taxonomy.md",
-          "digest": "sha256:bf604f0fd7367aff987256126891f1c3afaa60c28e3ebaa2a083bdc7479c11d9",
-          "size": 8847
+          "digest": "sha256:622cdd663b6250be097c2f22e0a8fdd97a19ac6ea0ea5dd3891c2da02fcd20d4",
+          "size": 8844
         },
         {
           "path": "references/econometric-reading-map.md",
@@ -104,13 +104,13 @@
         },
         {
           "path": "references/sources.md",
-          "digest": "sha256:7ec83bfec0ce1ad4f78473e410d05ad971de1cd6b0f65049dc8388bfd34c2a2c",
+          "digest": "sha256:09f02827b60fd610a42d009b245a501e838f44d5dd11f7508eee377ec0ff0040",
           "size": 6257
         },
         {
           "path": "scripts/audit_data.py",
-          "digest": "sha256:fea1657c4583e96c6797a894634bf5921936921e628fc06d1ae5afc60a3468ff",
-          "size": 17560
+          "digest": "sha256:35c714cf8ff3bf27dad7b87f69814ac39ae5668451bf96d222e5357285fa801a",
+          "size": 17559
         },
         {
           "path": "scripts/audit_provenance.py",
@@ -167,43 +167,43 @@
         },
         {
           "path": "references/dictionary.md",
-          "digest": "sha256:b3842235acffba3634bfc66b99d9229aee217d34f45a7896f192a63a0b51840c",
-          "size": 7354
+          "digest": "sha256:acf06681bccbdea2ece56c67dfadbddd969b261073107c83dc70ec165eea1214",
+          "size": 7349
         },
         {
           "path": "references/linking.md",
-          "digest": "sha256:a5eae9bdbf57f67bb4db257ac701def3a70b2891aeb190e1f74efd3016f687b3",
-          "size": 10281
+          "digest": "sha256:b1dec1002a4c2ed057d1c297a061e00f8bf8cbd095ab71edef81f945e0af6df2",
+          "size": 10280
         },
         {
           "path": "references/measurement.md",
-          "digest": "sha256:76677213c704c5fef93c21709aff799f1053da5d3454eccd43b0fd077df7dea6",
+          "digest": "sha256:caddd9f0f0a2e35422fa99573aaa661afbf34f74e01fbab1db1958524fe6fd20",
           "size": 10279
         },
         {
           "path": "references/recode.md",
-          "digest": "sha256:acb318be8171b1a923519b166ff991a7de820aa3797d02792f47850281cd95e6",
+          "digest": "sha256:46160d3ca2a1194adb6e09bc6816151ede94d37850134edf98e8c0e200ee1f00",
           "size": 6872
         },
         {
           "path": "references/sources.md",
-          "digest": "sha256:4a87c4c486f9184d2c6a3629d22d6c68b359dfbdb49b8af2110a7bbccb5528fb",
-          "size": 4819
+          "digest": "sha256:a995423a5246746964c7ba433ce05996d094c688c288049a23c517d6a2193b5f",
+          "size": 4817
         },
         {
           "path": "references/storage.md",
-          "digest": "sha256:71b00f3f58125cea4eed7e2c316b32b48d2dbf78423f0b926a89f4b4af648fb5",
+          "digest": "sha256:f3ed36ec2e3a064fe78ef852380f8eded04bb82673d7a324e20f42247e8e83a9",
           "size": 6436
         },
         {
           "path": "scripts/check_join.R",
-          "digest": "sha256:c47be3e86814bcfd8b72967476d06b25d9a0b5635044d9f98e6965aaea284667",
+          "digest": "sha256:a859073e2991003f252457c5fa040e851e44e2da035a895d2c2a594b5615fe4c",
           "size": 15248
         },
         {
           "path": "scripts/profile_columns.R",
-          "digest": "sha256:a83a32fe37cd3da3064bf30aab37d0482e7c59c6a6c3c98f44b4c6c24d0cb38a",
-          "size": 35897
+          "digest": "sha256:4cc79bd936992d5b3dbe53595980130d789a094ff825518c7fd2581d1d59d34d",
+          "size": 35893
         }
       ],
       "frontmatter": {
@@ -231,13 +231,13 @@
         },
         {
           "path": "references/inference.md",
-          "digest": "sha256:93c93b2acf5a7efc8febf52ebcdb2b35a13ea20f4e01edc71fa26669e5aa62c1",
-          "size": 17955
+          "digest": "sha256:e4b2b2e20e531125c2fe1f64ba390c21878a3424b8ebab4be01b511e670aa635",
+          "size": 17954
         },
         {
           "path": "references/interpretation.md",
-          "digest": "sha256:a1f603590817dbe2c762f30da07c533827f8a91349cc4c2e9a2b5deb1810e1ff",
-          "size": 6231
+          "digest": "sha256:0870674fc1d20677db85499bafe246322cb96adffc41149ae9244fb392b516c9",
+          "size": 6226
         },
         {
           "path": "references/pre-analysis-plan.md",
@@ -246,12 +246,12 @@
         },
         {
           "path": "references/sources.md",
-          "digest": "sha256:1a2ad8a4680bd9300fd6e902d46ff0d1fe97ea8d020e5c5003d301171bd2706b",
-          "size": 9000
+          "digest": "sha256:dfba2a479bf17a22c4dfd621fe2a513035f2872bbcfbdd2b276d43c5608888b8",
+          "size": 8999
         },
         {
           "path": "scripts/se_ladder.R",
-          "digest": "sha256:4390dc05336b0fde72d502a35293957f11906b1d7c0a1d765264ab00f357047e",
+          "digest": "sha256:bbded8a03cd63fe012f7f15a37eb314a8c5ea0448fd2db7b4b61aa1b2d67866f",
           "size": 33946
         }
       ],
@@ -279,33 +279,33 @@
       "files": [
         {
           "path": "SKILL.md",
-          "digest": "sha256:129ba5c0a6c43d2144a975c47f8d9b1d529bf6e52b39b804030f01733e003d94",
-          "size": 15943
+          "digest": "sha256:0da60e9afb7e78e48555f6d426e2c0f609db0a6691e35e1aeb863685f524206e",
+          "size": 15942
         },
         {
           "path": "references/diff-from-paper.md",
-          "digest": "sha256:61fbc903a8f9a221f4f5363c4d193c41ab2946b1f4b0a8b2259810f3881761e6",
-          "size": 14679
+          "digest": "sha256:7b0c44162df913c404e181e4f400f702cca1dcf4240bfc05c3f3e36d6d9a5111",
+          "size": 14676
         },
         {
           "path": "references/hypothesis-libraries.md",
-          "digest": "sha256:750f8c0fd310b6c1a7f4c96b53e0a16892450e95051526847e654f5207051ba3",
-          "size": 8857
+          "digest": "sha256:585673702271b0d8d1fb346f93d9e0b3eb8a7d0603baf6138382b3e6bac30672",
+          "size": 8853
         },
         {
           "path": "references/isolation-and-evidence.md",
-          "digest": "sha256:ef762809f065c0d96668f8cf140fcdc3e009c0ba39e17f7beb9fda8f35558d80",
-          "size": 12694
+          "digest": "sha256:051c4bf0b9d4a68e0dca7fe45991014910594eae6954db01bef0b57aab0406ba",
+          "size": 12690
         },
         {
           "path": "references/prioritizing-and-stopping.md",
-          "digest": "sha256:78ed691f59ec811f47938aae01b951697bfad6157f09edef89405a557c71c817",
-          "size": 8232
+          "digest": "sha256:0cacc26fa8e7c4fceb8372b914e9a5b56ab03097b13e8f1a2ac9386a9150d48f",
+          "size": 8228
         },
         {
           "path": "references/sources.md",
-          "digest": "sha256:79629164e9f31153b6c1c7d7bd584e44a087c9a42a9d7d92c3e5b3edefeea73e",
-          "size": 16468
+          "digest": "sha256:5a860301faa935ecc31d7c9fc95b168dcc140af0772321e69b31982252253fca",
+          "size": 16465
         },
         {
           "path": "scripts/test_slice_discipline.py",
@@ -353,13 +353,13 @@
       "files": [
         {
           "path": "SKILL.md",
-          "digest": "sha256:ecf294352b1f4cb565f43dc17d08715734e0936d49beedd4af44abe05459cf54",
-          "size": 12069
+          "digest": "sha256:23282f5929efc7103138efb2269cdd18bf71a1a27bd59e437c6f1b7af549e576",
+          "size": 12066
         },
         {
           "path": "references/validation-failures.md",
-          "digest": "sha256:bf56409ca6f0cf82f264805e6dcc592d4a9ef4f4c65fc2464e2f4b105c3f58e6",
-          "size": 4574
+          "digest": "sha256:d59de10986a1e16b1a1354f168405e6d287f7d208b1f7b5cb957c97cc044afad",
+          "size": 4573
         }
       ],
       "frontmatter": {
@@ -372,8 +372,8 @@
       "files": [
         {
           "path": "SKILL.md",
-          "digest": "sha256:ef1905bfe64b18bdfa50311024353ba372c395bfa16c2ae14f49135ab9815144",
-          "size": 19407
+          "digest": "sha256:fcb0c11fffaf2f779f18c2c00273ee43cd626ba18bb950d849fde6f30690485c",
+          "size": 19406
         },
         {
           "path": "references/ai-patterns.md",
@@ -382,8 +382,8 @@
         },
         {
           "path": "references/argument-craft.md",
-          "digest": "sha256:84617caabf43365b6aaf58c73270df8151249c900632f952ff8f3a68604ebb3d",
-          "size": 14940
+          "digest": "sha256:8cd57f786d33a33f656ef51113e21d26aba9ed5415e551f501f645795e793aa1",
+          "size": 14937
         },
         {
           "path": "references/exemplars.md",
@@ -419,7 +419,7 @@
         },
         {
           "path": "prune_repo.py",
-          "digest": "sha256:a25423c3a8c65d699597f49edff6c75a353cd6e340c5b4e5f8db93ebf57e72da",
+          "digest": "sha256:0f50d1cf8ed5ef878374c5d85a1e7382cded6072f8d715e0a329bdf6bfc44f3a",
           "size": 18807
         },
         {
@@ -457,8 +457,8 @@
       "files": [
         {
           "path": "SKILL.md",
-          "digest": "sha256:d96ccccaabbeccc31cb036ed48a21bc43705aa91dbfe3be1c35520b10fe66524",
-          "size": 7477
+          "digest": "sha256:eeafedf09b01f1d7d4e53c60da424de4b4dcb9e1df99eeabb3f57e068742d554",
+          "size": 7476
         },
         {
           "path": "references/checkpoints.md",
@@ -467,8 +467,8 @@
         },
         {
           "path": "references/http.md",
-          "digest": "sha256:edacc568b7773e5e4f140d81fe4a12f46ecaacc90d58143f20df6f75658776f4",
-          "size": 6566
+          "digest": "sha256:4d7d146a1113a008f54706b6bf6d46c5697343ad6a72b42e60413c6c0a0912bd",
+          "size": 6565
         },
         {
           "path": "references/monitoring.md",
@@ -477,7 +477,7 @@
         },
         {
           "path": "references/parsing.md",
-          "digest": "sha256:0617076e8de66dbfd35494adaf8e7994032ce9e3cbc2380c6c4c84711b9ac656",
+          "digest": "sha256:8f3c5c0af2e2a008ca27c6a6dca62f3812fb5f4e2aad24618e4ba1d5dfb629ad",
           "size": 4067
         },
         {
@@ -563,7 +563,7 @@
         },
         {
           "path": "references/repo-layout.md",
-          "digest": "sha256:9c972b46ccd014fe972fe551a0fd97df83dbe688717f17c531fb0fbcf90f79a0",
+          "digest": "sha256:4ad6f280085197199d6814a2ffa90b3336503a3d64f44688bb4a919a9b9e0379",
           "size": 14242
         }
       ],

@@ -95,7 +95,7 @@ def norm(data: bytes) -> bytes:
     A source archive built on Windows stores CRLF while git stores LF, which
     makes every text file compare unequal for a reason that has nothing to do
     with which commit it came from. guess 0.1 matched 6/57 files raw and 57/57
-    normalised.
+    normalized.
     """
     return data.replace(CRLF, LF)
 
@@ -164,9 +164,9 @@ def sdist_files(package: str, version: str) -> dict[str, bytes] | None:
             if rel == "setup.cfg" and b"[egg_info]" in data and b"install_requires" not in data:
                 continue
             out[rel] = data
-    # uv_build normalises pyproject.toml in the sdist and preserves the exact
+    # uv_build normalizes pyproject.toml in the sdist and preserves the exact
     # source file as pyproject.toml.orig. Compare that original under its git
-    # path; both the normalised file and the .orig name are build artefacts.
+    # path; both the normalized file and the .orig name are build artifacts.
     if "pyproject.toml.orig" in out:
         out["pyproject.toml"] = out.pop("pyproject.toml.orig")
     return out

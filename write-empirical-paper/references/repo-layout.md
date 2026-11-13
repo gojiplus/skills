@@ -302,7 +302,7 @@ Files: <manifest>
 ```text
 scripts/
 ├── 00_*.R   # config and utilities
-├── 01_*.R   # extraction, standardisation, crosswalks
+├── 01_*.R   # extraction, standardization, crosswalks
 ...
 └── 99_run_all.R
 ```

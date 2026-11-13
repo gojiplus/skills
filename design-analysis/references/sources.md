@@ -89,7 +89,7 @@ diagnostic looks fine.
 **Anderson, "Multiple Inference and Gender Differences in the Effects of Early Intervention"
 (*JASA* 103(484), 2008).** Inverse-covariance-weighted summary indices and sharpened FDR q-values.
 Sharpened q-values can fall below the unadjusted p-values when many hypotheses are rejected; that
-is correct behaviour, not a bug.
+is correct behavior, not a bug.
 
 **Romano and Wolf (2005).** Free step-down resampling for family-wise error, which computes an
 exact probability rather than a bound and exploits dependence between test statistics — so it

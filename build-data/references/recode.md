@@ -50,7 +50,7 @@ If that fails, the difference is exactly the set of unmatched raw levels — pri
 | `as.numeric(factor)` | returns the level *index*, not the label | never do this; use `as.numeric(as.character(f))` or, better, don't store numbers as factors |
 | `ifelse` on a `Date` | strips the class and returns a numeric | `dplyr::if_else`, which is type-strict |
 | `log(x + 1)` | changes the estimand and is not scale-free; the "+1" is arbitrary in a variable measured in rupees | state it, or use asinh, or model the count |
-| standardising with the pooled SD | the coefficient now depends on the sample composition | say which sample's SD, and use the control group's if the comparison is to a treatment effect |
+| standardizing with the pooled SD | the coefficient now depends on the sample composition | say which sample's SD, and use the control group's if the comparison is to a treatment effect |
 | winsorising without saying so | moves the mean and shrinks the SE | state the percentile; report the count moved |
 | top-coding inherited from the source | already applied before you got the data | it is a dictionary fact, not a recode; record it |
 | collapsing categories to get cell sizes | changes what the coefficient means | do it once, in the function, and name the collapsed level for what it now contains |
@@ -88,12 +88,12 @@ What is never acceptable: a different policy per column, chosen by whichever kep
 
 - `raw_age` — as it arrived, sentinels intact, nothing touched.
 - `clean_age` — sentinels converted to `NA`, types fixed, still on the source's own scale.
-- `an_age` — the analysis version: top-coded, binned, or standardised as the plan specifies.
+- `an_age` — the analysis version: top-coded, binned, or standardized as the plan specifies.
 
 Keep `raw_` in the file. Deleting it means the next person cannot check the recode, and it is the
 only thing that makes the crosstab reproducible.
 
-Existing suffixes worth keeping: `_std` for standardised names or values, `_strict` for the
+Existing suffixes worth keeping: `_std` for standardized names or values, `_strict` for the
 tighter-match variant of a panel, `_block` for the aggregate level. Each defined in the
 dictionary — a suffix whose meaning lives only in the author's head is a filename comment.
 

@@ -29,7 +29,7 @@ Package reproduction is necessary but insufficient. Audit whether each artifact 
 
 3. **Run the mechanical sweep.** Run `scripts/audit_data.py` on each analytical dataset and `scripts/audit_provenance.py` on a LaTeX manuscript. The scoped provenance resolver does not support Markdown citations. These tools report candidates, not verdicts.
 
-   Know what these tools do and do not do. `audit_data.py` reports *candidates*, never verdicts — "this column is 47% missing and the rate differs by group" is a place to look, not a finding. `audit_provenance.py` localises a **paragraph** whose numbers disagree with the table it cites; it will not always flag every wrong number inside that paragraph, because a number far enough from any current value reads as an orphan rather than a near-miss. Both were validated against a manuscript before and after a known set of nineteen errors: the scoped provenance check re-found the stale paragraph unprompted and returns clean on the corrected version.
+   Know what these tools do and do not do. `audit_data.py` reports *candidates*, never verdicts — "this column is 47% missing and the rate differs by group" is a place to look, not a finding. `audit_provenance.py` localizes a **paragraph** whose numbers disagree with the table it cites; it will not always flag every wrong number inside that paragraph, because a number far enough from any current value reads as an orphan rather than a near-miss. Both were validated against a manuscript before and after a known set of nineteen errors: the scoped provenance check re-found the stale paragraph unprompted and returns clean on the corrected version.
 
 4. **Work Tier 1** ([tier1-high-yield.md](checks/tier1-high-yield.md)). Always run all five checks.
 

@@ -1,4 +1,4 @@
-# Prioritising what to investigate, and when to stop
+# Prioritizing what to investigate, and when to stop
 
 The paper offers a seven-column matrix — plausibility, impact, cost-effectiveness, speed of
 investigation, speed of solution, span of control, ease of implementation — and no rule for
@@ -55,7 +55,7 @@ the diagnosis. Buying the answer is often more expensive than buying immunity to
 Two columns the paper's matrix is missing:
 
 - **Detectability.** How would you even know if this were the cause? A hypothesis with no
-  available observation is not a research programme, it is a mood. Either find the observation,
+  available observation is not a research program, it is a mood. Either find the observation,
   instrument for it, or drop the hypothesis to the bottom.
 - **Falsifiability.** What observation would refute it? Add this as a literal column. A hypothesis
   that no result could refute cannot be tested, only believed, and it will survive the entire
@@ -102,7 +102,7 @@ Do not simply cross the hypothesis off and move to the next row.
   hypothesis "ruled out" by a test that would have missed it half the time is not ruled out.
 - Re-examine the evidence that produced your prior. An absent signal is frequently evidence about
   your instrument rather than about the world — the Air France 447 search was anchored for two
-  years on beacons that never pinged; modelling that the beacons themselves may have failed
+  years on beacons that never pinged; modeling that the beacons themselves may have failed
   produced the posterior that located the wreck within a week.
 - Re-rank. The costs have changed: you now know more about what is cheap to test.
 
@@ -144,9 +144,9 @@ system is *complicated*, not *complex*. That assumption holds for most pipelines
 models, and it is why the method works.
 
 It fails for recommender ecosystems, multi-team production systems, market dynamics, agent
-behaviour, and anything with a strong feedback loop — systems where cause and effect are coherent
-only in retrospect. There, the correct move is not a prioritisation matrix over hypotheses but
-several small safe-to-fail probes run in parallel, amplifying whatever moves the metric. Minimise
+behavior, and anything with a strong feedback loop — systems where cause and effect are coherent
+only in retrospect. There, the correct move is not a prioritization matrix over hypotheses but
+several small safe-to-fail probes run in parallel, amplifying whatever moves the metric. Minimize
 the blast radius and treat the probes as the instrument.
 
 Two specific structures that break the analysis:
