@@ -17,7 +17,7 @@ three time windows has run about 180 comparisons and will surface a striking sli
 essentially always. The story will be coherent and the fix will not hold out of sample. Most of the
 machinery here exists to make that outcome detectable.
 
-Division of labour: use this skill when you have a **symptom and no cause** — the deliverable is a
+Division of labor: use this skill when you have a **symptom and no cause** — the deliverable is a
 named cause, the evidence that survived, and a gated fix. Use `audit-analysis` when the question is
 whether a number means what the prose claims, `audit-package` when it is whether code does what its
 documentation says, and `ocr-error-triage` when you already have a measured pipeline and a candidate
@@ -44,8 +44,8 @@ one. Provenance and citations: [diff-from-paper.md](references/diff-from-paper.m
 
 2. **Check the metric is telling the truth** before diagnosing why it moved. Section below.
 
-3. **Reproduce, then shrink.** Do not hypothesise about a failure you cannot produce on demand, then
-   minimise it — [isolation-and-evidence.md](references/isolation-and-evidence.md).
+3. **Reproduce, then shrink.** Do not hypothesize about a failure you cannot produce on demand, then
+   minimize it — [isolation-and-evidence.md](references/isolation-and-evidence.md).
 
 4. **Specify IS and IS-NOT.** Where, when, for whom and how much it fails, each paired with where it
    plausibly could have failed and did not. The cheapest high-information step you have.
@@ -97,7 +97,7 @@ that it is an artifact.
 **You can only correlate over dimensions you kept.** If telemetry is pre-aggregated over whatever
 dimensions someone thought of in advance, the true cause is unrepresentable and everything below
 converges confidently on the best available wrong answer. Then the first move is to instrument, not
-to hypothesise — and note that this is a one-way door, because you cannot retroactively log.
+to hypothesize — and note that this is a one-way door, because you cannot retroactively log.
 
 ## A true metric can still be blind
 

@@ -126,7 +126,7 @@ without error in more ways than they appear.
   losing them at a rate that differs by wave or arm is bias, and it is the same
   disease as check 2.
 - Confirm the join key is unique on the side that must be unique, and that the
-  key *transform* is injective — string normalisation, case folding, `.`→`_`
+  key *transform* is injective — string normalization, case folding, `.`→`_`
   substitutions, and truncation all create collisions.
 
 **Example — the differential deletion.** A measures table was built by grouping

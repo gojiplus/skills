@@ -33,15 +33,15 @@
   Resolution is not a fixed property of the machine either; it tracks whatever else is running,
   which swung by 10× in one evening.
 - **Below the resolution, isolate the stage that differs — don't just average harder.** More
-  rounds buy precision slowly. Rendering grayscale instead of colour reported "13% faster with
+  rounds buy precision slowly. Rendering grayscale instead of color reported "13% faster with
   byte-identical output"; timing only the render and load steps settled it immediately, because
-  the output file was *the same size either way* — the source was already grey and the flag did
+  the output file was *the same size either way* — the source was already gray and the flag did
   nothing. Effects well above the resolution (a 2× crop change) are readable directly and need
   none of this.
 - **Prefer a count to a duration when you can get one.** Timings are noisy on a shared box;
   "how many values did this recover" is not. Where a change improves both, rest the case on the
   count and treat the speedup as a bonus.
-- **Write the failures down.** An optimisation that fails silently gets attempted again by the
+- **Write the failures down.** An optimization that fails silently gets attempted again by the
   next person, or by you in three weeks. Record what was tried, what it measured, and why it
   was rejected, next to the ones that worked.
 - **Proxy metrics that measure the wrong thing.** "Does the label still appear" said native

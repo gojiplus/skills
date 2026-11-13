@@ -28,7 +28,7 @@ would have meant. The comparator has to be a real number from a primary source y
 
 - the smallest effect reported in the literature you are speaking to;
 - the effect of a comparable policy on the same outcome;
-- the cost-effectiveness threshold the programme would need to clear;
+- the cost-effectiveness threshold the program would need to clear;
 - a benchmark from the same data — one standard deviation, the gap between two known groups, the
   effect of a demographic covariate in your own regression.
 
@@ -66,17 +66,17 @@ the appendix to it, not the other way around:
 
 ```r
 p <- ggplot(tidy(m, conf.int = TRUE) |> filter(term %in% keep), aes(x = estimate, y = term)) +
-    geom_vline(xintercept = 0, linetype = "dashed", colour = "gray50") +
+    geom_vline(xintercept = 0, linetype = "dashed", color = "gray50") +
     geom_errorbarh(aes(xmin = conf.low, xmax = conf.high), height = 0,
-                   colour = COLORS_PUB["secondary"], linewidth = 0.6) +
-    geom_point(size = 2.5, colour = COLORS_PUB["primary"]) +
+                   color = COLORS_PUB["secondary"], linewidth = 0.6) +
+    geom_point(size = 2.5, color = COLORS_PUB["primary"]) +
     labs(x = "Effect on Pr(woman elected), percentage points", y = NULL) +
     theme_pub() + theme(axis.text.y = element_text(hjust = 0))
 ggsave(here("figs", "main_coefplot.pdf"), p,
        width = FIG_WIDTH_FULL, height = 3.5, device = cairo_pdf)
 ```
 
-Three things make it work: the zero line is drawn but not emphasised, the x-axis is in substantive
+Three things make it work: the zero line is drawn but not emphasized, the x-axis is in substantive
 units with the units named, and one row per specification so the reader sees the spread rather
 than being told about it. Where the ladder from `se_ladder.R` matters, plot the rungs as rows —
 the reader can then see for themselves whether the conclusion depends on the variance estimator.

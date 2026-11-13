@@ -74,7 +74,7 @@ differential attrition.
 
 ---
 
-## Reproducibility, code, and data organisation
+## Reproducibility, code, and data organization
 
 **Gentzkow & Shapiro (2014), *Code and Data for the Social Sciences: A
 Practitioner's Guide*.** Directory structure, abstraction, automation, version

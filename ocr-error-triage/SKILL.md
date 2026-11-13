@@ -9,7 +9,7 @@ Extraction pipelines fail in ways that look like success. A field is populated, 
 plausible, nothing throws — and it is wrong. This is the loop for finding that out and fixing
 it without fooling yourself.
 
-**Measure → localise → propose → validate.** Skipping any step produces a fix that works on
+**Measure → localize → propose → validate.** Skipping any step produces a fix that works on
 the page you were looking at.
 
 ## 1. Measure: a fill rate is not accuracy
@@ -51,7 +51,7 @@ shares (sex ratio, relation-type mix) expose bias that fill rate shows as health
 > A field that fails more often for one category than another does not read as missing data
 > downstream. It reads as a finding. Always check error rates *by category*, not just overall.
 
-## 2. Localise: compute the co-occurrence, do not eyeball it
+## 2. Localize: compute the co-occurrence, do not eyeball it
 
 Root causes are co-occurrences — a failure class lining up with an observable feature. Found
 by eye they do not repeat and do not scale.
@@ -88,8 +88,8 @@ entry should name a change with an obvious implementation.
 | failures concentrate in one row | the row band is offset — an internal rule or header is shifting it |
 | raw reads are **empty** on a wide sparse crop | crop to the field's own zone; segmentation gives up on whitespace |
 | raw reads are **garbled** | vary scale before anything else |
-| near-miss values rejected | loosen normalisation before matching (strip punctuation, case, spacing) |
-| a label is unreadable but its neighbour is not | anchor on the durable neighbour instead |
+| near-miss values rejected | loosen normalization before matching (strip punctuation, case, spacing) |
+| a label is unreadable but its neighbor is not | anchor on the durable neighbor instead |
 | one category fails far more | the shared code path, not the category-specific matcher |
 | supplement/appendix pages fail | they usually have a *different* layout; check the geometry assumption |
 
@@ -198,4 +198,4 @@ on a signal that does not support it.
 The escalation pass goes through the same four gates. And check what the expensive model was
 actually trained on before assuming it transfers: a roll-specific model with 96–98% reported
 field fidelity turned out to be trained entirely on English-script rolls, which said nothing
-about its behaviour on Bengali-Assamese.
+about its behavior on Bengali-Assamese.

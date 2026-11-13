@@ -26,7 +26,7 @@ to contain when someone did it properly: universe, question text, value labels, 
 most often absent from home-made dictionaries — the *reason* for each missing code. The universe
 field is lifted straight from DDI.
 
-Survey codebooks are the empirical source of the `77/88/98/99` catalogue. The NHANES, GSS, DHS,
+Survey codebooks are the empirical source of the `77/88/98/99` catalog. The NHANES, GSS, DHS,
 and NFHS codebooks each use the pattern with slightly different meanings, which is itself the
 lesson: a code's meaning is instrument-specific and cannot be inferred from its value.
 

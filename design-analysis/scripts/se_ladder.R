@@ -474,7 +474,7 @@ parse_args <- function(argv) {
         a <- argv[i]
         if (startsWith(a, "--")) {
             k <- sub("^--", "", a)
-            # An unrecognised flag was absorbed silently, so `--cluster district`
+            # An unrecognized flag was absorbed silently, so `--cluster district`
             # (singular) produced the no-cluster ladder with no warning.
             if (!k %in% known) {
                 cat(sprintf("se_ladder.R: unknown flag '--%s'. Known: %s\n", k,

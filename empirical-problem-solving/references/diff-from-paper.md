@@ -39,8 +39,8 @@ worst errors are often the site of the most obvious problems."
 **Skill:** keep, but always compute the suspected feature's prevalence among *successes* too, and
 measure any fix on a fresh draw of the slice.
 
-**Why:** two distinct errors. First, analysing only the failure population is the base-rate
-fallacy — Errudite (ACL 2019) made "analyse the full population, not a hand-picked sample of
+**Why:** two distinct errors. First, analyzing only the failure population is the base-rate
+fallacy — Errudite (ACL 2019) made "analyze the full population, not a hand-picked sample of
 failures" a founding principle after showing that a widely-repeated manual diagnosis of a QA model
 was simply wrong once tested that way. Second, a slice selected for being *worst* regresses toward
 the mean with no intervention at all (regressional Goodhart), so scoring the fix on the selecting
@@ -73,7 +73,7 @@ surviving set and name the test that would split it.
 **Why:** three independent problems. Duhem–Quine — no hypothesis is testable in isolation, so
 auxiliaries can be adjusted to accommodate recalcitrant evidence. Underspecification (D'Amour
 et al. 2020) — many predictors achieve equivalent held-out performance and behave differently
-under shift, so that changing *only the random seed* changes stress-test behaviour; "fits all the
+under shift, so that changing *only the random seed* changes stress-test behavior; "fits all the
 data" is satisfied by an equivalence class. And Halpern's *Actual Causality* — which of several
 jointly-sufficient conditions gets called "the" cause is fixed by a normality baseline the analyst
 brings in, not read off the data.
@@ -94,7 +94,7 @@ twelve neural recommenders lost to properly tuned baselines). And CACE — *chan
 changes everything* (Sculley et al. 2015) — means that in a jointly-optimised system, ablating a
 component measures its contribution plus the reoptimisation of everything else.
 
-### A6 · §1.2 the seven-column prioritisation matrix
+### A6 · §1.2 the seven-column prioritization matrix
 
 **Paper:** "plausibility, impact, cost-effectiveness, speed of investigation (but plausibly also
 the speed with which we can implement a solution), whether or not the cause is within the span of
@@ -121,12 +121,12 @@ where it is a scored axis alongside severity and occurrence.
 | **B1** | **Validity gate before diagnosis** — instrumentation change, deploy, sample ratio mismatch, mix shift, label audit, construct validity | SRM appears in ~6% of online experiments and its violation is almost never benign; label error runs ≥3.3% across ten canonical benchmarks, ≥6% in ImageNet val. Twyman's law becomes a procedure with a default ordering instead of a maxim |
 | **B2** | **Reproduce, then shrink** | Delta debugging terminates at a 1-minimal failing input — 896 lines of HTML to 1. Bisection is the same algorithm over time. Collapses the hypothesis space mechanically; the paper never mentions minimal reproducers |
 | **B3** | **IS / IS-NOT specification** (Kepner-Tregoe) | The negative space is the highest-information data in a diagnosis and the cheapest to collect. Entirely absent from the paper |
-| **B4** | **Stopping rule** — diagnose in proportion to irreversibility × cost of a wrong fix; dominant-action check | The paper can diagnose forever. This also generalises the paper's own opening exception: the antihistamine test stops being a carve-out and becomes the rule for two-way doors |
-| **B5** | **What a negative result buys** — redistribute toward weakly-tested hypotheses; re-examine the evidence behind the prior | AF447 was unfound for two years because the search trusted beacons that never pinged; modelling that the beacons may have failed produced the posterior that found it in a week. The paper is silent on the empty investigation, which is where most diagnostic time goes |
+| **B4** | **Stopping rule** — diagnose in proportion to irreversibility × cost of a wrong fix; dominant-action check | The paper can diagnose forever. This also generalizes the paper's own opening exception: the antihistamine test stops being a carve-out and becomes the rule for two-way doors |
+| **B5** | **What a negative result buys** — redistribute toward weakly-tested hypotheses; re-examine the evidence behind the prior | AF447 was unfound for two years because the search trusted beacons that never pinged; modeling that the beacons may have failed produced the posterior that found it in a week. The paper is silent on the empty investigation, which is where most diagnostic time goes |
 | **B6** | **Retrieve before you invent** — pipeline-stage, distribution-shift taxonomy, 6M, premortem | Elstein et al. (1978): clinicians generate 4–5 hypotheses in seconds and expertise proved to be case-specific knowledge, not general method. Klein's premortem raises correctly-identified causes ~30%. "The data changed" is not a diagnosis — five branches, five detectors, five fixes |
 | **B7** | **Run the null on your instrument** | Guided Backprop yields near-identical saliency from a trained and a randomly-initialised model (Adebayo et al. 2018) — an edge detector read as an explanation for years. A diagnostic that always returns an answer is returning noise |
 | **B8** | **Observability as a precondition** | You can only correlate over dimensions you retained. Pre-aggregated telemetry makes the true cause unrepresentable and the method converges on the best available wrong answer. A one-way door: you cannot retroactively log |
-| **B9** | **Domain gate** (Cynefin) | Diagnose-before-solve is a *complicated*-domain method. In complex domains — feedback loops, multi-team systems, agent behaviour — cause is coherent only in retrospect and the move is parallel safe-to-fail probes. The paper assumes analysis recovers the structure |
+| **B9** | **Domain gate** (Cynefin) | Diagnose-before-solve is a *complicated*-domain method. In complex domains — feedback loops, multi-team systems, agent behavior — cause is coherent only in retrospect and the move is parallel safe-to-fail probes. The paper assumes analysis recovers the structure |
 | **B10** | **Four verification checks + flip matrix** | Aggregate improvement is not verification: negative flips are routine at improved overall accuracy (Yan et al., CVPR 2021), and an aggregate delta hides them by construction. The near-misses, not a random sample, are where a narrow fix does its damage |
 | **B11** | **Scope the cause narrowly enough that Pareto is attainable** | A second and stronger reason for granular hypotheses than §1.1's actionability argument: a vague cause forces a broad fix, and a broad fix guarantees collateral damage |
 | **B12** | **A third explanation for a failed fix** | §2 offers two — wrong diagnosis, bad solution. Add: the metric was never a valid measure of the outcome, or the effect was novelty and decayed (construct validity; novelty/primacy). Resolves the ambiguity the paper closes on |

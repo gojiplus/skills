@@ -40,7 +40,7 @@ at **Diagnose** and run `scripts/crawl_health.py` before touching code.
   captcha ever reaches the server (Rajasthan's did not).
 - **Measure the portal, not your guess.** One request's latency; then one thread, N threads on
   one session, N threads on N sessions, a minute each. If aggregate throughput barely moves,
-  the portal serialises and the lever is latency or IPs, not workers.
+  the portal serializes and the lever is latency or IPs, not workers.
 - **Size the job in writing**: units × requests per unit × seconds per request, and bytes per
   record × records. A month is a design question (a VM near the server, several IPs) and it
   belongs here, not in week three. See `references/storage.md`.
@@ -61,7 +61,7 @@ published total and record the difference in the README.
 `references/http.md` and `references/checkpoints.md` carry the detail. The rules:
 
 - **Three failure kinds, three responses.** Connection-level (DNS, connect, timeout): wait it
-  out for hours with doubling back-off, never let a worker die. Throttle (429): honour
+  out for hours with doubling back-off, never let a worker die. Throttle (429): honor
   `Retry-After`, then long waits, then fewer workers. Other HTTP errors: classify using the source contract and response body;
   authentication, request-shape, and temporary server failures need distinct handling. Use `stamina` or `tenacity` for the policy; do not write the loop.
 - **A miss needs evidence.** Record `miss` only when the source explicitly signals no

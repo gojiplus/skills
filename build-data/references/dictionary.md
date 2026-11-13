@@ -2,7 +2,7 @@
 
 The dictionary is not documentation written after the fact. It is the object that decides
 whether any later number means anything. This file holds the full battery, the sentinel
-catalogue, and the reconciliation moves that turn a guess into a citation.
+catalog, and the reconciliation moves that turn a guess into a citation.
 
 ## The per-column battery
 
@@ -22,7 +22,7 @@ report.
 | `n_distinct` after `trimws()` and `tolower()` vs before | the gap is the number of spurious categories |
 | type of the column vs the type it should be | a numeric ID read as double loses leading zeros and precision above 2^53 |
 
-## Sentinel catalogue
+## Sentinel catalog
 
 A reserved code survives `is.na()`, survives a type check, and enters a mean. These are the ones
 that recur.
@@ -66,7 +66,7 @@ tell apart.
 ### How to find them without knowing them
 
 1. **Spike detection.** Tabulate the top 20 values. A code will hold a share far above its
-   neighbours, and the share will be suspiciously round.
+   neighbors, and the share will be suspiciously round.
 2. **Roundness.** Flag values that are all-9s, all-0s, or the negative of a power of ten.
 3. **Stability across strata.** A real value's share moves across waves and regions. A
    collection code's share moves with the *instrument*, not with the world.
